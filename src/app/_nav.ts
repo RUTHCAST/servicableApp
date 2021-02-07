@@ -16,17 +16,17 @@ export const navItems: INavData[] = [
   },
   {
     name: "Categorias",
-    url: "/theme/typography",
+    url: "/productos",
     icon: "icon-handbag",
   },
   {
     name: "Tipos",
-    url: "/theme/typography",
+    url: "/productos/tipos",
     icon: "cil-stream",
   },
   {
     name: "Planes",
-    url: "/theme/typography",
+    url: "/productos/planes",
     icon: "icon-speedometer",
   },
   {
