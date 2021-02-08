@@ -12,6 +12,10 @@ export const routes: Routes = [
     data: {
       title: "Pagina de categorias",
     },
+    loadChildren: () =>
+      import("./components/categories/categories.module").then(
+        (m) => m.CategoriesModule
+      ),
   },
   {
     path: "tipos",
