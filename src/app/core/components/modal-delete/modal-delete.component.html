@@ -1,0 +1,20 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Editar categoria</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body py-4">
+    Esta acción eliminara permanentemente la categoría y productos relacionados.
+    Esta seguro de continuar?
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-secondary mr-2" (click)="closeModal()">
+       Cancelar
+    </button>
+    
+    <button class="btn btn-danger">
+        Eliminar
+    </button>
+</div>
