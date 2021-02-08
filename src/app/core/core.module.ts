@@ -1,13 +1,11 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ModalDeleteComponent } from './components/modal-delete/modal-delete.component';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
 
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 
-
+import { ModalDeleteComponent } from "./components/modal-delete/modal-delete.component";
 @NgModule({
   declarations: [ModalDeleteComponent],
-  imports: [
-    CommonModule
-  ]
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
 })
-export class CoreModule { }
+export class CoreModule {}
