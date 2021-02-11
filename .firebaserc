@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "servicableapp-74e44": {
+      "hosting": {
+        "ng": [
+          "servicableapp-74e44"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "servicableapp-74e44"
+  }
+}

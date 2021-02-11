@@ -1,12 +1,18 @@
 import { Route } from "@angular/compiler/src/core";
 import { Component, OnInit, TemplateRef } from "@angular/core";
 import { NavigationExtras, Router } from "@angular/router";
+
 import { NgbModalRef, NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { map } from "rxjs/operators";
 
 import { EditComponent } from "../edit/edit.component";
 import { DetailsComponent } from "../details/details.component";
 import { ModalDeleteComponent } from "../../../../../core/components/modal-delete/modal-delete.component";
 import { NewComponent } from "../new/new.component";
+
+import { ProductsService } from "../../../services/products.service";
+import { Category } from "../../../models/categoy.model";
+import { Observable } from "rxjs";
 @Component({
   selector: "app-list",
   templateUrl: "./list.component.html",
@@ -18,9 +24,17 @@ export class ListComponent implements OnInit {
       value: null,
     },
   };
-  constructor(private routes: Router, private modalService: NgbModal) {}
+  categories: Category[] = [];
 
-  ngOnInit(): void {}
+  constructor(
+    private routes: Router,
+    private modalService: NgbModal,
+    private productSrv: ProductsService
+  ) {}
+
+  ngOnInit(): void {
+    this.getCategorys();
+  }
 
   onDetail(product: any): void {
     // this.navigationExtras.state.value = product;
@@ -69,5 +83,25 @@ export class ListComponent implements OnInit {
     const modalRef: NgbModalRef = this.modalService.open(NewComponent, {
       size: "lg",
     });
+  }
+
+  getCategorys(): void {
+    this.productSrv
+      .getAll()
+      .snapshotChanges()
+      .subscribe((res) => {
+        res.forEach((t) => {
+          const category = t.payload.toJSON();
+          category["key"] = t.key;
+          this.categories.push(category as Category);
+        });
+
+        // this.categories = data;
+        console.log(this.categories);
+      });
+  }
+
+  getCategory(id) {
+    console.log(id);
   }
 }

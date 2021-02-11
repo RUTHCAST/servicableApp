@@ -39,8 +39,12 @@ import { AppRoutingModule } from "./app.routing";
 import { BsDropdownModule } from "ngx-bootstrap/dropdown";
 import { TabsModule } from "ngx-bootstrap/tabs";
 import { ChartsModule } from "ng2-charts";
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
+// Firebase
+import { AngularFireModule } from "@angular/fire";
+import { AngularFireDatabaseModule } from "@angular/fire/database";
+import { environment } from "../environments/environment";
 @NgModule({
   imports: [
     BrowserModule,
@@ -58,6 +62,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     IconModule,
     IconSetModule.forRoot(),
     NgbModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireDatabaseModule,
   ],
   declarations: [AppComponent, ...APP_CONTAINERS],
   providers: [
