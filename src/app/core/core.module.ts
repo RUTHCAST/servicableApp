@@ -7,5 +7,6 @@ import { ModalDeleteComponent } from "./components/modal-delete/modal-delete.com
 @NgModule({
   declarations: [ModalDeleteComponent],
   imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  exports: [ReactiveFormsModule, FormsModule],
 })
 export class CoreModule {}

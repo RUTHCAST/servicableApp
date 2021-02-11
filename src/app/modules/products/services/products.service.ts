@@ -4,21 +4,43 @@ import {
   AngularFireList,
   AngularFireObject,
 } from "@angular/fire/database";
-import { Observable } from "rxjs";
 import { Category } from "../models/categoy.model";
+import { TypeProduct } from "../models/types.model";
 
 @Injectable({
   providedIn: "root",
 })
 export class ProductsService {
-  private dbPath = "/categoria_productos";
+  private categoryRef = "/categoria_productos";
+  private typeRef = "/tipos_producto";
+
   categories: AngularFireList<Category>;
-  // categories: Observable<Category[]>;
+  category: AngularFireList<Category>;
+
+  typesProducts: AngularFireList<TypeProduct>;
 
   constructor(private db: AngularFireDatabase) {}
 
-  getAll(): AngularFireList<Category> {
-    this.categories = this.db.list(this.dbPath) as AngularFireList<Category>;
+  // Categorias
+  getAllCategories(): AngularFireList<Category> {
+    this.categories = this.db.list(
+      this.categoryRef
+    ) as AngularFireList<Category>;
     return this.categories;
+  }
+
+  getCategoryById(key: string): AngularFireList<Category> {
+    this.category = this.db.list(
+      this.categoryRef + key
+    ) as AngularFireList<Category>;
+    return this.category;
+  }
+
+  // Tipos
+  getAllTypes(): AngularFireList<TypeProduct> {
+    this.typesProducts = this.db.list(
+      this.typeRef
+    ) as AngularFireList<TypeProduct>;
+    return this.typesProducts;
   }
 }

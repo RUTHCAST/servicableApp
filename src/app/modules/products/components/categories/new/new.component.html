@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Editar categoria</h4>
+    <h4 class="modal-title" id="modal-basic-title">Nueva categoria</h4>
     <button type="button" class="close" aria-label="Close" (click)="closeModal()">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -13,7 +13,7 @@
                 <strong>Basic Form</strong> Elements
             </div> -->
                 <div class="card-body">
-                    <form action="" enctype="multipart/form-data" class="form-horizontal">
+                    <form [formGroup]="form">
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <img src="assets/img/no-image.png" class="card-img-top" alt="..." height="350px">

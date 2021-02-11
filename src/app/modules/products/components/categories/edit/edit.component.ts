@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { ProductsService } from "../../../services/products.service";
 import {
   NgbActiveModal,
   NgbModal,
@@ -13,13 +15,46 @@ import {
 })
 export class EditComponent implements OnInit {
   value = null;
+  form: FormGroup;
+  isSubmit = false;
+  isLoading = false;
+
   @Input() props: any;
-  constructor(private router: Router, public modal: NgbActiveModal) {
+  constructor(
+    private router: Router,
+    public modal: NgbActiveModal,
+    private productSrv: ProductsService
+  ) {
     const navigation = this.router.getCurrentNavigation();
     this.value = navigation?.extras?.state;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.createForm();
+  }
+
+  createForm() {
+    this.form = new FormGroup({
+      url_image: new FormControl("", Validators.required),
+      nombre: new FormControl(this.props.product.nombre, Validators.required),
+    });
+  }
+
+  onInvalidField(fieldTag) {
+    return (
+      this.form.get(fieldTag).invalid &&
+      (this.isSubmit || this.form.get(fieldTag).touched)
+    );
+  }
+
+  onValidator(fieldTag: string, validatorTag: string) {
+    const field = this.form.controls[fieldTag];
+    return (
+      field.errors &&
+      field.errors[validatorTag] &&
+      (this.isSubmit || field.touched)
+    );
+  }
 
   closeModal() {
     this.modal.close(false);
