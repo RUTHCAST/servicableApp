@@ -8,7 +8,7 @@
                 </div>
 
                 <div class="card-body table-responsive">
-                    <button class="btn btn-primary float-right my-3" (click)="onNew()">
+                    <button class="btn btn-primary float-right my-3">
                         <i class="fa fa-plus" aria-hidden="true m-1"></i>
                         Nuevo
                     </button>
@@ -20,16 +20,18 @@
                                 <th class="text-center">Descripcion</th>
                                 <th class="text-center">Precio</th>
                                 <th class="text-center">Imagen</th>
+                                <th class="text-center">Imagen de Fondo</th>
                                 <th class="text-center">Configuracion</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let product of typesProduct">
                                 <td class="text-center py-2" width="10%">{{product.id}}</td>
-                                <td class="text-center py-2" width="40%">{{product.nombre}}</td>
-                                <td class="text-center py-2" width="40%">{{product.descripcion}}</td>
-                                <td class="text-center py-2" width="40%">{{product.precio}}</td>
-                                <td class="text-center" width="30%">
+                                <td class="text-left py-2" width="20%">{{product.nombre}}</td>
+                                <td class="text-left py-2" width="35%">{{product.descripcion}}</td>
+                                <td class="text-center py-2" width="5%">{{product.precio}}</td>
+                                <td class="text-center py-2" width="10%">ver</td>
+                                <td class="text-center" width="10%">
                                     <img [src]="product.url_image" alt="" class="img-avatar-product" height="40"
                                         width="40">
                                 </td>
