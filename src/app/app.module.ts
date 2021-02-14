@@ -44,6 +44,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 // Firebase
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireDatabaseModule } from "@angular/fire/database";
+import { AngularFireStorageModule, BUCKET } from "@angular/fire/storage";
 import { environment } from "../environments/environment";
 @NgModule({
   imports: [
@@ -64,6 +65,7 @@ import { environment } from "../environments/environment";
     NgbModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
+    AngularFireStorageModule,
   ],
   declarations: [AppComponent, ...APP_CONTAINERS],
   providers: [
@@ -71,6 +73,11 @@ import { environment } from "../environments/environment";
       provide: LocationStrategy,
       useClass: HashLocationStrategy,
     },
+    // {
+    //   provide: BUCKET,
+    //   useValue:
+    //     "{ provide: BUCKET, useValue: 'gs://servicableapp-74e44.appspot.com/' },",
+    // },
     IconSetService,
   ],
   bootstrap: [AppComponent],

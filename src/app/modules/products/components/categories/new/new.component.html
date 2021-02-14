@@ -16,9 +16,14 @@
                     <form [formGroup]="form">
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <img src="assets/img/no-image.png" class="card-img-top" alt="..." height="350px">
+                                <img [src]="url ? url : 'assets/img/no-image.png'" 
+                                     class="card-img-top" 
+                                     alt="..." 
+                                     height="350px"
+                                >
                             </div>
                         </div>
+
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label" for="file-input">Imagen</label>
                             <div class="col-md-9">
@@ -28,13 +33,21 @@
                                        name="file-input" 
                                        accept="image/*"
                                        [class.is-invalid]="onInvalidField('url_image')"
+                                       (change)="fileEvent($event)"
                                        required>
                                 <small *ngIf="onValidator('url_image', 'required')" class="text text-danger">
                                     Requerido
                                 </small>
-
                             </div>
                         </div>
+                        
+                        <div *ngIf="currentFileUpload" class="progress mt-2">
+                            <div class="progress-bar progress-bar-info" role="progressbar" attr.aria-valuenow="{{ percentage }}"
+                                aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ width: percentage + '%' }">
+                                {{ percentage }}%
+                            </div>
+                        </div>
+
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label" for="text-input">Nombre</label>
                             <div class="col-md-9">
@@ -66,7 +79,7 @@
                         <i class="fa fa-circle-o-notch fa-spin"></i> Espere...                    
                     </button>
 
-                    <button type="reset" class="btn btn-sm btn-danger" (click)="closeModal()">
+                    <button type="reset" class="btn btn-sm btn-danger" (click)="cancel()">
                         <i class="fa fa-ban"></i>
                         Cancelar
                     </button>

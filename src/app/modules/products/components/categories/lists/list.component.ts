@@ -81,6 +81,13 @@ export class ListComponent implements OnInit {
     const modalRef: NgbModalRef = this.modalService.open(NewComponent, {
       size: "lg",
     });
+    const props = {
+      id: this.categories.length,
+    };
+    modalRef.componentInstance.props = props;
+    modalRef.result.then((result) => {
+      console.log(result);
+    });
   }
 
   getCategorys(): void {
@@ -88,6 +95,10 @@ export class ListComponent implements OnInit {
       .getAllCategories()
       .snapshotChanges()
       .subscribe((res) => {
+        const size = this.categories.length;
+        console.log(size);
+        this.categories.splice(1, size);
+
         res.forEach((t) => {
           const category = t.payload.toJSON();
           category["key"] = t.key;
@@ -95,7 +106,7 @@ export class ListComponent implements OnInit {
         });
 
         // this.categories = data;
-        console.log(this.categories);
+        console.log(this.categories.length);
       });
   }
 
