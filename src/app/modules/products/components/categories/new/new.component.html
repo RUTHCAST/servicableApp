@@ -1,5 +1,6 @@
 <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Nueva categoria</h4>
+    <h4 class="modal-title" id="modal-basic-title" *ngIf="!success">Nueva categoria</h4>
+        <h4 class="modal-title" id="modal-basic-title" *ngIf="!success">Felicidades</h4>
     <button type="button" class="close" aria-label="Close" (click)="closeModal()">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -13,7 +14,7 @@
                 <strong>Basic Form</strong> Elements
             </div> -->
                 <div class="card-body">
-                    <form [formGroup]="form">
+                    <form [formGroup]="form" *ngIf="!success">
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <img [src]="url ? url : 'assets/img/no-image.png'" 
@@ -46,6 +47,7 @@
                                 aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ width: percentage + '%' }">
                                 {{ percentage }}%
                             </div>
+
                         </div>
 
                         <div class="form-group row">
@@ -65,23 +67,41 @@
                             </div>
                         </div>
                     </form>
+                    <div class="py-1 my-3 d-flex flex-column justify-content-center" *ngIf="success">
+                        <img src="assets/img/check.png" style="margin:0px auto!important;">
+                        <h5 class="text-center">Categoria agregada exitosamente.</h5>
+                    </div>
                 </div>
                 <div class="card-footer">
                     <button type="submit"
                             class="btn btn-sm btn-primary" 
                             [disabled]="!form.valid" 
-                            *ngIf="!isLoading"
-                            (click)="save()">
+                            *ngIf="!isLoading && !success"
+                            (click)="save()"
+                    >
                         <i class="fa fa-dot-circle-o"></i>
                         Agregar
                     </button>
-                    <button class="btn btn-sm btn-primary" *ngIf="isLoading" [disabled]="true">
+                    <button class="btn btn-sm btn-primary" 
+                            *ngIf="isLoading  && !success" 
+                            [disabled]="true">
                         <i class="fa fa-circle-o-notch fa-spin"></i> Espere...                    
                     </button>
 
-                    <button type="reset" class="btn btn-sm btn-danger" (click)="cancel()">
-                        <i class="fa fa-ban"></i>
-                        Cancelar
+                    <button type="reset" 
+                            class="btn btn-sm"
+                            [ngClass]="{'btn-danger': !success,
+                                        'btn-secondary': success}" 
+                            (click)="cancel()">
+                            
+                        <span *ngIf="!success">
+                            <i class="fa fa-ban"></i>
+                            Cancelar
+                        </span>
+                        <span *ngIf="success">
+                            <i class="fa fa-times"></i>
+                            Cerrar
+                        </span>
                     </button>
                 </div>
             </div>
@@ -91,4 +111,5 @@
     <!--/.row-->
     <!-- <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
-</div> -->
+</div> --><ngx-spinner>
+        </ngx-spinner>

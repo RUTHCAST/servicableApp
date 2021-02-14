@@ -2,10 +2,16 @@ import { Component, Input, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 import { NgxSpinnerService } from "ngx-spinner";
-import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
+import {
+  NgbActiveModal,
+  NgbModalRef,
+  NgbModal,
+} from "@ng-bootstrap/ng-bootstrap";
 
 import { FileUpload } from "../../../../../core/models/fileUpload";
 import { ProductsService } from "../../../services/products.service";
+import { Category } from "../../../models/categoy.model";
+import { ModalConfirmationComponent } from "../../../../../core/components/modal-confirmation/modal-confirmation.component";
 
 @Component({
   selector: "app-new",
@@ -22,10 +28,12 @@ export class NewComponent implements OnInit {
   currentFileUpload: FileUpload;
   filedata: File;
   percentage: number;
+  success = false;
 
   @Input() props: any;
   constructor(
     public modal: NgbActiveModal,
+    private modalService: NgbModal,
     private productSrv: ProductsService,
     private spinner: NgxSpinnerService
   ) {}
@@ -84,24 +92,50 @@ export class NewComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
-    const categoryName = this.form.get("nombre").value;
-    const id = this.props.id;
+    const action = "new";
+    const data: Category = {
+      id: this.props.id,
+      nombre: this.form.get("nombre").value,
+    };
+
     this.currentFileUpload = new FileUpload(this.filedata);
     this.productSrv
-      .pushCategoryStorage(this.currentFileUpload, categoryName, id)
+      .pushCategoryStorage(this.currentFileUpload, data, action)
       .subscribe(
         (percentage) => {
           this.percentage = Math.round(percentage);
-          this.isLoading = false;
-          this.currentFileUpload = null;
-          this.spinner.hide();
+          if (this.percentage === 100) {
+            this.isLoading = false;
+            this.currentFileUpload = null;
+            // this.modal.close();
+            this.success = true;
+            // this.openModalConfirmation();
+            this.spinner.hide();
+          }
         },
         (error) => {
           console.log(error);
           this.isLoading = false;
           this.currentFileUpload = null;
           this.spinner.hide();
+          this.success = true;
         }
       );
+  }
+
+  openModalConfirmation(): void {
+    const modalRef: NgbModalRef = this.modalService.open(
+      ModalConfirmationComponent,
+      {
+        size: "lg",
+      }
+    );
+    const props = {
+      mensaje: "Categoria agregada con exito",
+    };
+    modalRef.componentInstance.props = props;
+    modalRef.result.then((result) => {
+      console.log(result);
+    });
   }
 }

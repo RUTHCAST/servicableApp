@@ -55,15 +55,42 @@ export class ProductsService {
     this.categories.push(categoryObj);
   }
 
+  updateCategory(category: Category) {
+    return this.categories.update(category.id, category);
+  }
+
+  deleteCategory(category: Category) {
+    return this.deleteCategoryDatabase(category.key)
+      .then(() => {
+        this.deleteFileStorage(category.url_image);
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+  }
+
+  deleteCategoryDatabase(key: any) {
+    return this.categories.remove(key);
+  }
+
+  // executeActioncategory(action: string, category) {
+  //   if (action === "new") {
+  //     this.newCategory(category);
+  //   } else if (action === "update") {
+  //     this.updateCategory(category);
+  //   }
+  // }
+
+  // Storage
+
   pushCategoryStorage(
     fileUpload: FileUpload,
-    categoryName,
-    id
+    category: Category,
+    typeAccion: string
   ): Observable<number> {
     const filePath = `${this.basePath}${Date.now()}_${fileUpload.file.name}`;
     const storageRef = this.storage.ref(filePath);
     const uploadTask = this.storage.upload(filePath, fileUpload.file);
-    // let uploadTask = storageRef.child(filePath).put(fileUpload.file);
 
     uploadTask
       .snapshotChanges()
@@ -72,18 +99,24 @@ export class ProductsService {
           storageRef.getDownloadURL().subscribe((downloadURL) => {
             fileUpload.url = downloadURL;
             fileUpload.name = fileUpload.file.name;
-            const category: Category = {
-              id,
-              nombre: categoryName,
+            const data: Category = {
+              id: category.id,
+              nombre: category.nombre,
               url_image: fileUpload.url,
             };
-            this.newCategory(category);
+            this.newCategory(data);
           });
         })
       )
       .subscribe();
 
     return uploadTask.percentageChanges();
+    // }
+  }
+
+  deleteFileStorage(downloadUrl) {
+    console.log("entro a borrar la imagen con esta url", downloadUrl);
+    return this.storage.storage.refFromURL(downloadUrl).delete();
   }
 
   // Tipos

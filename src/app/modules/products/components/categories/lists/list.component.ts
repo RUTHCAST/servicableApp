@@ -1,5 +1,5 @@
 import { Route } from "@angular/compiler/src/core";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { NavigationExtras, Router } from "@angular/router";
 
 import { NgbModalRef, NgbModal } from "@ng-bootstrap/ng-bootstrap";
@@ -11,18 +11,21 @@ import { NewComponent } from "../new/new.component";
 
 import { ProductsService } from "../../../services/products.service";
 import { Category } from "../../../models/categoy.model";
+import { Subject } from "rxjs";
 @Component({
   selector: "app-list",
   templateUrl: "./list.component.html",
   styleUrls: ["./list.component.scss"],
 })
-export class ListComponent implements OnInit {
+export class ListComponent implements OnInit, OnDestroy {
   navigationExtras: NavigationExtras = {
     state: {
       value: null,
     },
   };
   categories: Category[] = [];
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(
     private routes: Router,
@@ -31,12 +34,37 @@ export class ListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.dtOptions = {
+      pagingType: "full_numbers",
+      pageLength: 7,
+      retrieve: true,
+      language: {
+        processing: "Procesando datos...",
+        search: "Buscar",
+        lengthMenu: "Mostrar _MENU_ Registros",
+        info: "Mostrando _START_ de _END_ de un total de _TOTAL_ registros",
+        infoEmpty: "Mostrar 0 &agrave; 0 sur 0 &eacute;registros",
+        infoFiltered: "(Mostrar _MAX_ registros)",
+        infoPostFix: "",
+        loadingRecords: "Cargando datos...",
+        zeroRecords: "No hay data para mostrar",
+        emptyTable: "Sin registros para mostrar",
+        paginate: {
+          first: "<<",
+          previous: "Anterior",
+          next: "Siguiente",
+          last: ">>",
+        },
+      },
+    };
     this.getCategorys();
   }
 
+  ngOnDestroy(): void {
+    this.dtTrigger.unsubscribe();
+  }
+
   onDetail(product: any): void {
-    // this.navigationExtras.state.value = product;
-    // this.routes.navigate(["/productos/nueva"], this.navigationExtras);
     const modalRef: NgbModalRef = this.modalService.open(DetailsComponent, {
       size: "lg",
     });
@@ -50,8 +78,6 @@ export class ListComponent implements OnInit {
   }
 
   onEdit(product: any): void {
-    // this.navigationExtras.state.value = product;
-    // this.routes.navigate(["/productos/editar"], this.navigationExtras);
     const modalRef: NgbModalRef = this.modalService.open(EditComponent, {
       size: "lg",
     });
@@ -97,16 +123,15 @@ export class ListComponent implements OnInit {
       .subscribe((res) => {
         const size = this.categories.length;
         console.log(size);
-        this.categories.splice(1, size);
+        this.categories.splice(0, size);
 
         res.forEach((t) => {
           const category = t.payload.toJSON();
           category["key"] = t.key;
           this.categories.push(category as Category);
         });
-
-        // this.categories = data;
-        console.log(this.categories.length);
+        console.log(this.categories);
+        this.dtTrigger.next();
       });
   }
 
