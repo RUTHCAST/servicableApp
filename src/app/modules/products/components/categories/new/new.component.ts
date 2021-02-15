@@ -107,9 +107,7 @@ export class NewComponent implements OnInit {
           if (this.percentage === 100) {
             this.isLoading = false;
             this.currentFileUpload = null;
-            // this.modal.close();
             this.success = true;
-            // this.openModalConfirmation();
             this.spinner.hide();
           }
         },

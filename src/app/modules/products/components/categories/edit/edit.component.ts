@@ -26,6 +26,8 @@ export class EditComponent implements OnInit {
   url: any = "";
   id: any;
   showButton = false;
+  success = false;
+  imageChanged = false;
 
   currentFileUpload: FileUpload;
   filedata: File;
@@ -45,6 +47,7 @@ export class EditComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.props.product.id;
+    console.log(this.props.product.key);
     this.createForm();
   }
 
@@ -94,47 +97,70 @@ export class EditComponent implements OnInit {
 
   changeImage() {
     this.showButton = false;
-  }
-
-  update() {
-    this.isSubmit = true;
     this.isLoading = true;
     this.spinner.show();
-    if (!this.form.valid) {
-      return;
-    }
     const action = "update";
     const data: Category = {
       id: this.id,
+      key: this.props.product.key,
       nombre: this.form.get("nombre").value,
     };
 
     this.currentFileUpload = new FileUpload(this.filedata);
-    // if (typeof this.currentFileUpload.file === "undefined") {
-    //   data.url_image = this.props.product.url_image;
-    // }
     this.productSrv
-      .pushCategoryStorage(this.currentFileUpload, data, action)
-      .subscribe(
-        (percentage) => {
-          this.percentage = Math.round(percentage);
-          if (this.percentage === 100) {
-            this.showButton = false;
-            this.isLoading = false;
-            this.currentFileUpload = null;
-            this.modal.close();
-            this.openModalConfirmation();
-            this.spinner.hide();
-          }
-        },
-        (error) => {
-          console.log(error);
-          this.showButton = false;
-          this.isLoading = false;
-          this.currentFileUpload = null;
-          this.spinner.hide();
-        }
-      );
+      .deleteFileStorage(this.props.product.url_image)
+      .then(() => {
+        this.productSrv
+          .pushCategoryStorage(this.currentFileUpload, data, action)
+          .subscribe(
+            (percentage) => {
+              this.percentage = Math.round(percentage);
+              if (this.percentage === 100) {
+                this.isLoading = false;
+                this.currentFileUpload = null;
+                this.imageChanged = true;
+                this.spinner.hide();
+              }
+            },
+            (error) => {
+              console.log(error);
+              this.isLoading = false;
+              this.currentFileUpload = null;
+              this.spinner.hide();
+            }
+          );
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+  }
+
+  update() {
+    this.showButton = false;
+    this.isLoading = true;
+    this.spinner.show();
+    const data: Category = {
+      id: this.id,
+      key: this.props.product.key,
+      nombre: this.form.get("nombre").value,
+    };
+    this.productSrv
+      .updateCategory(data)
+      .then(() => {
+        console.log("Modificada exitosamente");
+        this.success = true;
+        this.isLoading = false;
+      })
+      .catch((err: any) => {
+        console.log(err);
+        this.success = true;
+        this.isLoading = false;
+      });
+  }
+
+  buttonChange() {
+    this.showButton = true;
+    this.imageChanged = false;
   }
 
   openModalConfirmation(): void {

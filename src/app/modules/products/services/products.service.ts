@@ -38,14 +38,6 @@ export class ProductsService {
     ) as AngularFireList<Category>;
     return this.categories;
   }
-
-  getCategoryById(key: string): AngularFireList<Category> {
-    this.category = this.db.list(
-      this.categoryRef + key
-    ) as AngularFireList<Category>;
-    return this.category;
-  }
-
   newCategory(category: Category) {
     const categoryObj: Category = {
       id: category.id,
@@ -56,7 +48,7 @@ export class ProductsService {
   }
 
   updateCategory(category: Category) {
-    return this.categories.update(category.id, category);
+    return this.categories.update(category.key, category);
   }
 
   deleteCategory(category: Category) {
@@ -73,13 +65,13 @@ export class ProductsService {
     return this.categories.remove(key);
   }
 
-  // executeActioncategory(action: string, category) {
-  //   if (action === "new") {
-  //     this.newCategory(category);
-  //   } else if (action === "update") {
-  //     this.updateCategory(category);
-  //   }
-  // }
+  executeActioncategory(action: string, category) {
+    if (action === "new") {
+      this.newCategory(category);
+    } else if (action === "update") {
+      this.updateCategory(category);
+    }
+  }
 
   // Storage
 
@@ -101,10 +93,11 @@ export class ProductsService {
             fileUpload.name = fileUpload.file.name;
             const data: Category = {
               id: category.id,
+              key: category.key,
               nombre: category.nombre,
               url_image: fileUpload.url,
             };
-            this.newCategory(data);
+            this.executeActioncategory(typeAccion, data);
           });
         })
       )

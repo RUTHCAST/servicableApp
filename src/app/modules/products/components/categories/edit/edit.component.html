@@ -13,7 +13,7 @@
                 <strong>Basic Form</strong> Elements
             </div> -->
             <div class="card-body">
-                <form [formGroup]="form" class="form-horizontal">
+                <form [formGroup]="form" class="form-horizontal" *ngIf="!success">
                     <div class="form-group row">
                         <div class="col-md-12 text-center">
                             <img [src]="url ? url : props.product.url_image" 
@@ -21,13 +21,17 @@
                                 width="85%" 
                                 height="350px" 
                                 style="margin:0px auto!important">
+
+                            <p class="alert alert-success m-3" *ngIf="imageChanged">
+                                Imagen de categoria cambiada exitosamente
+                            </p>
                         </div>
                         <div class="col-md-12 text-center my-2">
                             <button 
                                 class="btn btn-sm btn-success" 
                                 style="float:right;"
                                 *ngIf="!showButton" 
-                                (click)="showButton=true">
+                                (click)="buttonChange()">
                                 <i class="fa fa-undo"></i>
                                 Cambiar
                             </button>
@@ -35,7 +39,7 @@
                                 class="btn btn-sm btn-primary m-1" 
                                 style="float:right;" 
                                 *ngIf="showButton"
-                                [disable]="!currentFileUpload.file" 
+                                [disable]="!currentFileUpload" 
                                 (click)="changeImage()">
                                 <i class="fa fa-floppy-o"></i>
                                 Guardar
@@ -69,6 +73,18 @@
                             </small>
                         </div>
                     </div>
+
+                    <div *ngIf="currentFileUpload" class="progress my-4">
+                        <div class="progress-bar progress-bar-info" 
+                            role="progressbar"
+                            attr.aria-valuenow="{{ percentage }}"
+                            aria-valuemin="0" 
+                            aria-valuemax="100" 
+                            [ngStyle]="{ width: percentage + '%' }">
+                            {{ percentage }}%
+                        </div>
+                    </div>
+
                     <div class="form-group row" *ngIf="!showButton">
                         <label class="col-md-3 col-form-label" for="text-input">Nombre</label>
                         <div class="col-md-9">
@@ -88,19 +104,34 @@
                     </div>
 
                 </form>
+                <div class="py-1 my-3 d-flex flex-column justify-content-center" *ngIf="success">
+                    <img src="assets/img/check.png" style="margin:0px auto!important;">
+                    <h5 class="text-center">Categoria modificada exitosamente.</h5>
+                </div>
+
             </div>
             <div class="card-footer" *ngIf="!showButton">
                 <button type="submit" 
                         class="btn btn-sm btn-primary"
+                        *ngIf="!success"
                         (click)="update()">
                         <i class="fa fa-dot-circle-o"></i> 
                         Actualizar
                 </button>
                 <button type="reset" 
-                        class="btn btn-sm btn-danger"
+                        class="btn btn-sm"
+                        [ngClass]="{'btn-danger': !success,
+                                    'btn-secondary': success}"                         
                         (click)="closeModal()">
-                <i class="fa fa-ban"></i>
-                    Cancelar
+                        <span *ngIf="!success">
+                            <i class="fa fa-ban"></i>
+                            Cancelar
+                        </span>
+                        <span *ngIf="success">
+                            <i class="fa fa-times"></i>
+                            Cerrar
+                        </span>
+
                 </button>
             </div>
         </div>
