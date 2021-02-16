@@ -10,21 +10,27 @@ export const routes: Routes = [
     path: "",
     component: CategoriesComponent,
     data: {
-      title: "Pagina de categorias",
+      title: "Categorias",
     },
+    loadChildren: () =>
+      import("./components/categories/categories.module").then(
+        (m) => m.CategoriesModule
+      ),
   },
   {
     path: "tipos",
     component: TypesComponent,
     data: {
-      title: "Pagina de tipos",
+      title: "Tipos",
     },
+    loadChildren: () =>
+      import("./components/types/types.module").then((m) => m.TypesModule),
   },
   {
     path: "planes",
     component: PlansComponent,
     data: {
-      title: "Pagina de planes",
+      title: "Planes",
     },
   },
 ];

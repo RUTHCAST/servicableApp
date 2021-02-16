@@ -1,0 +1,92 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title" *ngIf="!success">Nueva categoria</h4>
+        <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <strong>Basic Form</strong> Elements
+            </div>
+            <div class="card-body">
+                <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="select1">Seleccione categoria</label>
+                        <div class="col-md-9">
+                            <select id="select1" name="select1" class="form-control">
+                                <option value="0">Please select</option>
+                                <option value="1">Option #1</option>
+                                <option value="2">Option #2</option>
+                                <option value="3">Option #3</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="email-input">Nombre</label>
+                        <div class="col-md-9">
+                            <input type="text" id="email-input" name="email-input" class="form-control"
+                                placeholder="Enter Email" autocomplete="email">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="textarea-input">Descripcion</label>
+                        <div class="col-md-9">
+                            <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control"
+                                placeholder="Content.."></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="email-input">Precio</label>
+                        <div class="col-md-9">
+                            <input type="number" id="email-input" name="email-input" class="form-control" placeholder="Enter Email"
+                                autocomplete="email">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <img [src]="url ? url : 'assets/img/no-image.png'" class="card-img-top" alt="..." height="350px">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="file-input">File input</label>
+                        <div class="col-md-9">
+                            <input type="file" id="file-input" name="file-input">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <img [src]="url ? url : 'assets/img/no-image.png'" class="card-img-top" alt="..." height="350px">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="file-input">File input</label>
+                        <div class="col-md-9">
+                            <input type="file" id="file-input" name="file-input">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
+                <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+            </div>
+        </div>
+    </div>
+    <!--/.col-->
+</div>
+<!--/.row-->
+            </div>
+        </div>
+    </div>
+</div>
+<ngx-spinner>
+</ngx-spinner>
