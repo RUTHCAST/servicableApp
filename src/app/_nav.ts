@@ -29,10 +29,26 @@ export const navItems: INavData[] = [
     url: "/productos/planes",
     icon: "icon-speedometer",
   },
+ 
+
+  {
+    title: true,
+    name: "Usuarios",
+  },
+  {
+    name: "Lista de Usuarios",
+    url: "/usuarios",
+    icon: "icon-handbag",
+  },
+  
+
   {
     title: true,
     name: "Estadisticas",
   },
+
+
+
   {
     name: "Visitas",
     url: "/base",

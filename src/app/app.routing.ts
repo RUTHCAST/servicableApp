@@ -9,6 +9,8 @@ import { P500Component } from "./views/error/500.component";
 import { LoginComponent } from "./modules/auth/components/login/login.component";
 import { RegisterComponent } from "./modules/auth/components/register/register.component";
 import { DashboardComponent } from "./modules/dashboard/components/dashboard.component";
+import { AuthComponent } from './modules/auth/components/auth.component';
+import { AuthModule } from './modules/auth/auth.module';
 
 export const routes: Routes = [
   {
@@ -38,6 +40,16 @@ export const routes: Routes = [
         (m) => m.ProductsModule
       ),
   },
+
+  {
+    path: "usuarios",
+    component: AuthComponent,
+    loadChildren: () =>
+      import("./modules/auth/auth.module").then(
+        (m) => m.AuthModule
+      ),
+  },
+
 
   {
     path: "",
