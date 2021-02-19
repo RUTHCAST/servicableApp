@@ -18,24 +18,24 @@
                            class="table table-striped">
                         <thead>
                             <tr>
-                                <th class="text-center">ID</th>
                                 <th class="text-center">Nombre</th>
                                 <th class="text-center">Descripcion</th>
                                 <th class="text-center">Precio</th>
                                 <th class="text-center">Imagen</th>
-                                <th class="text-center">Imagen de Fondo</th>
+                                <th class="text-center">Background</th>
                                 <th class="text-center">Configuracion</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let product of typesProduct">
-                                <td class="text-center py-2" width="10%">{{product.id}}</td>
                                 <td class="text-left py-2" width="20%">{{product.nombre}}</td>
-                                <td class="text-left py-2" width="35%">{{product.descripcion}}</td>
-                                <td class="text-center py-2" width="5%">{{product.precio}}</td>
-                                <td class="text-center py-2" width="10%">ver</td>
+                                <td class="text-left py-2" width="35%">{{product.descripcion !== "''" ? product.descripcion : 'Sin descripcion'}}</td>
+                                <td class="text-center py-2" width="5%">{{product.precio !== "''" ? product.precio : ''}}</td>
+                                <td class="text-center py-2" width="10%">
+                                    <img [src]="product.url_image" alt="" class="img-avatar-product" height="40" width="40">
+                                </td>
                                 <td class="text-center" width="10%">
-                                    <img [src]="product.url_image" alt="" class="img-avatar-product" height="40"
+                                    <img [src]="product.url_background" alt="" class="img-avatar-product" height="40"
                                         width="40">
                                 </td>
                                 <td class="text-center btn-group py-2" role="group" aria-label="Acciones" width="100%">
@@ -55,7 +55,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <nav>
+                    <!-- <nav>
                         <ul class="pagination">
                             <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
                             <li class="page-item active">
@@ -66,7 +66,7 @@
                             <li class="page-item"><a class="page-link" href="#">4</a></li>
                             <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
                         </ul>
-                    </nav>
+                    </nav> -->
                 </div>
             </div>
         </div>

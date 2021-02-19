@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
-import { ProductsService } from "../../../modules/products/services/products.service";
+import { CategoriesService } from "../../../modules/products/services/categories.service";
 
 @Component({
   selector: "app-modal-delete",
@@ -13,7 +13,7 @@ export class ModalDeleteComponent implements OnInit {
   @Input() props: any;
   constructor(
     public modal: NgbActiveModal,
-    private productSrv: ProductsService
+    private categoriesSrv: CategoriesService
   ) {}
 
   ngOnInit(): void {}
@@ -24,7 +24,7 @@ export class ModalDeleteComponent implements OnInit {
 
   delete() {
     this.isLoading = true;
-    this.productSrv
+    this.categoriesSrv
       .deleteCategory(this.props.product)
       .then(() => {
         this.success = true;

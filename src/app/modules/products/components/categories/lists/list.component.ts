@@ -9,9 +9,9 @@ import { DetailsComponent } from "../details/details.component";
 import { ModalDeleteComponent } from "../../../../../core/components/modal-delete/modal-delete.component";
 import { NewComponent } from "../new/new.component";
 
-import { ProductsService } from "../../../services/products.service";
 import { Category } from "../../../models/categoy.model";
 import { Subject } from "rxjs";
+import { CategoriesService } from "../../../services/categories.service";
 @Component({
   selector: "app-list",
   templateUrl: "./list.component.html",
@@ -30,7 +30,7 @@ export class ListComponent implements OnInit, OnDestroy {
   constructor(
     private routes: Router,
     private modalService: NgbModal,
-    private productSrv: ProductsService
+    private categoriesSrv: CategoriesService
   ) {}
 
   ngOnInit(): void {
@@ -117,7 +117,7 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   getCategorys(): void {
-    this.productSrv
+    this.categoriesSrv
       .getAllCategories()
       .snapshotChanges()
       .subscribe((res) => {

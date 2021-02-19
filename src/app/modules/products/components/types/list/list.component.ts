@@ -1,15 +1,19 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { NgbModalRef, NgbModal } from "@ng-bootstrap/ng-bootstrap";
-
-import { TypeProduct } from "../../../models/types.model";
-import { TypesProductsService } from "../../../services/types-products.service";
 import { Subject } from "rxjs";
 
+// Components
 import { DetailsComponent } from "../details/details.component";
 import { EditComponent } from "../edit/edit.component";
-import { ModalDeleteComponent } from "../../../../../core/components/modal-delete/modal-delete.component";
 import { NewComponent } from "../new/new.component";
+import { ModalDeleteComponent } from "../../../../../core/components/modal-delete/modal-delete.component";
+
+// Interfaces and services
+import { Category } from "../../../models/categoy.model";
+import { TypeProduct } from "../../../models/types.model";
+import { CategoriesService } from "../../../services/categories.service";
+import { TypesProductsService } from "../../../services/types-products.service";
 
 @Component({
   selector: "app-list",
@@ -19,8 +23,10 @@ import { NewComponent } from "../new/new.component";
 export class ListComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
+    private categoriesSrv: CategoriesService,
     private typeSrv: TypesProductsService
   ) {}
+  categories: Category[] = [];
   typesProduct: TypeProduct[] = [];
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
@@ -50,14 +56,15 @@ export class ListComponent implements OnInit {
       },
     };
     this.getTypes();
+    this.getCategorys();
   }
 
-  onNew(type: any): void {
+  onNew(): void {
     const modalRef: NgbModalRef = this.modalService.open(NewComponent, {
       size: "lg",
     });
     const props = {
-      type: type,
+      categories: this.categories,
     };
     modalRef.componentInstance.props = props;
     modalRef.result.then((result) => {
@@ -83,7 +90,8 @@ export class ListComponent implements OnInit {
       size: "lg",
     });
     const props = {
-      type: type,
+      product: type,
+      categories: this.categories,
     };
     modalRef.componentInstance.props = props;
     modalRef.result.then((result) => {
@@ -120,6 +128,28 @@ export class ListComponent implements OnInit {
 
         // this.categories = data;
         console.log(this.typesProduct);
+        this.dtTrigger.next();
+      });
+  }
+
+  getCategorys(): void {
+    this.categoriesSrv
+      .getAllCategories()
+      .snapshotChanges()
+      .subscribe((res) => {
+        const size = this.categories.length;
+        console.log(size);
+        this.categories.splice(0, size);
+
+        res.forEach((t) => {
+          const category = t.payload.toJSON();
+          category["key"] = t.key;
+          this.categories.push(category as Category);
+        });
+        this.categories.sort((a, b) =>
+          a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0
+        );
+        console.log(this.categories);
         this.dtTrigger.next();
       });
   }

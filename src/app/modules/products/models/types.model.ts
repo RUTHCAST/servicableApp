@@ -1,7 +1,7 @@
 export interface TypeProduct {
   id?: number;
   key?: string;
-  id_categoria?: string;
+  id_categoria?: number;
   nombre?: string;
   descripcion?: string;
   precio?: string;

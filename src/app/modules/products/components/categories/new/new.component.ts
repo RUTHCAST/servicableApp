@@ -9,9 +9,10 @@ import {
 } from "@ng-bootstrap/ng-bootstrap";
 
 import { FileUpload } from "../../../../../core/models/fileUpload";
-import { ProductsService } from "../../../services/products.service";
+// import { ProductsService } from "../../../services/categories.service";
 import { Category } from "../../../models/categoy.model";
 import { ModalConfirmationComponent } from "../../../../../core/components/modal-confirmation/modal-confirmation.component";
+import { CategoriesService } from "../../../services/categories.service";
 
 @Component({
   selector: "app-new",
@@ -34,7 +35,7 @@ export class NewComponent implements OnInit {
   constructor(
     public modal: NgbActiveModal,
     private modalService: NgbModal,
-    private productSrv: ProductsService,
+    private categoriesSrv: CategoriesService,
     private spinner: NgxSpinnerService
   ) {}
 
@@ -99,7 +100,7 @@ export class NewComponent implements OnInit {
     };
 
     this.currentFileUpload = new FileUpload(this.filedata);
-    this.productSrv
+    this.categoriesSrv
       .pushCategoryStorage(this.currentFileUpload, data, action)
       .subscribe(
         (percentage) => {
