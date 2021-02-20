@@ -201,18 +201,18 @@ export const navItems: INavData[] = [
     name: "confguraciones",
   },
   {
-    name: "Pantallas",
-    url: "/pages",
-    icon: "icon-screen-smartphone",
+    name: "Imagenes",
+    url: "configuraciones",
+    icon: "cil-satelite",
     children: [
       {
-        name: "Principal",
-        url: "/theme/typography",
-        icon: "icon-handbag",
+        name: "Fondos de pantalla",
+        url: "/configuraciones/",
+        icon: "cil-paint-bucket",
       },
       {
         name: "Carrusel",
-        url: "/theme/typography",
+        url: "configuraciones/carrusel",
         icon: "cil-stream",
       },
       // {

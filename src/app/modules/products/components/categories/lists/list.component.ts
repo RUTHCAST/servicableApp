@@ -1,4 +1,3 @@
-import { Route } from "@angular/compiler/src/core";
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { NavigationExtras, Router } from "@angular/router";
 
@@ -18,17 +17,11 @@ import { CategoriesService } from "../../../services/categories.service";
   styleUrls: ["./list.component.scss"],
 })
 export class ListComponent implements OnInit, OnDestroy {
-  navigationExtras: NavigationExtras = {
-    state: {
-      value: null,
-    },
-  };
   categories: Category[] = [];
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(
-    private routes: Router,
     private modalService: NgbModal,
     private categoriesSrv: CategoriesService
   ) {}

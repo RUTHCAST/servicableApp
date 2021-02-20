@@ -1,0 +1,155 @@
+<div class="modal-header">
+    <!-- <h4 class="modal-title" id="modal-basic-title" *ngIf="!success">Nueva categoria</h4> -->
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>CREAR</strong> nuevos planes de productos
+                            </div>
+                            <div class="card-body">
+                                <form [formGroup]="form" class="form-horizontal" *ngIf="!success">
+
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label">Seleccione tipo</label>
+                                        <div class="col-md-9">
+                                            <select class="form-control" 
+                                                formControlName="id_tipo"
+                                                [class.is-invalid]="onInvalidField('id_tipo')">
+                                                <option value="">Seleccione un tipo</option>
+                                                <option [value]="type.id" *ngFor="let type of typesProduct">
+                                                    {{type.nombre}}
+                                                </option>
+                                            </select>
+                                            <small *ngIf="onValidator('id_tipo', 'required')"
+                                                class="text text-danger">
+                                                Requerido
+                                            </small>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label">Nombre</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" 
+                                                formControlName="nombre"
+                                                [class.is-invalid]="onInvalidField('nombre')"
+                                                placeholder="Ingrese nombre">
+                                            <small *ngIf="onValidator('nombre', 'required')" class="text text-danger">
+                                                Requerido
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label">Descripcion</label>
+                                        <div class="col-md-9">
+                                            <textarea rows="9" 
+                                                class="form-control" 
+                                                formControlName="descripcion"
+                                                [class.is-invalid]="onInvalidField('descripcion')"
+                                                placeholder="Ingrese descripcion del producto">
+                                            </textarea>
+                                            <small *ngIf="onValidator('descripcion', 'required')"
+                                                class="text text-danger">
+                                                Requerido
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label">Precio</label>
+                                        <div class="col-md-9">
+                                            <input type="number" 
+                                                class="form-control" 
+                                                formControlName="precio" 
+                                                min=0
+                                                [class.is-invalid]="onInvalidField('precio')"
+                                                placeholder="precio del producto">
+                                        </div>
+                                        <small *ngIf="onValidator('precio', 'required')" 
+                                                class="text text-danger">
+                                            Requerido
+                                        </small>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-12">
+                                            <img [src]="url ? url : 'assets/img/no-image.png'"
+                                                class="card-img-top" 
+                                                alt="..." 
+                                                height="350px">
+                                        </div>
+                                    </div>
+                                    <div *ngIf="currentFileUploadBack" 
+                                          class="progress mt-2">
+                                        <div class="progress-bar progress-bar-info" 
+                                            role="progressbar"
+                                            attr.aria-valuenow="{{ percentage }}" 
+                                            aria-valuemin="0" 
+                                            aria-valuemax="100"
+                                            [ngStyle]="{ width: percentage + '%' }">
+                                            {{ percentage }}%
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label">Imagen</label>
+                                        <div class="col-md-9">
+                                            <input type="file" 
+                                                formControlName="url_image" 
+                                                accept="image/*"
+                                                [class.is-invalid]="onInvalidField('url_image')"
+                                                (change)="fileEvent($event)" 
+                                                required>
+                                            <small *ngIf="onValidator('url_image', 'required')"
+                                                class="text text-danger">
+                                                Requerido
+                                            </small>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <div class="py-1 my-3 d-flex flex-column justify-content-center" *ngIf="success">
+                                    <img src="assets/img/check.png" style="margin:0px auto!important;">
+                                    <h5 class="text-center">plan de producto agregado exitosamente.</h5>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button 
+                                    class="btn btn-sm btn-primary" 
+                                    *ngIf="!isLoading && !success" 
+                                    (click)="save()">
+                                    <i class="fa fa-dot-circle-o"></i>
+                                    Guardar
+                                </button>
+                                <button class="btn btn-sm btn-primary" *ngIf="isLoading && !success" [disabled]="true">
+                                    <i class="fa fa-circle-o-notch fa-spin"></i> Espere...
+                                </button>
+                                <button type="reset" class="btn btn-sm" [ngClass]="{'btn-danger': !success,
+                                    'btn-secondary': success}" (click)="cancel()">
+                                    <span *ngIf="!success">
+                                        <i class="fa fa-ban"></i>
+                                        Cancelar
+                                    </span>
+                                    <span *ngIf="success">
+                                        <i class="fa fa-times"></i>
+                                        Cerrar
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/.col-->
+                </div>
+                <!--/.row-->
+            </div>
+        </div>
+    </div>
+</div>
+<ngx-spinner>
+</ngx-spinner>

@@ -1,35 +1,33 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Router } from "@angular/router";
+import { Component, OnInit } from "@angular/core";
 import { NgbModalRef, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Subject } from "rxjs";
 
-// Components
+import { ModalDeleteComponent } from "../../../../../core/components/modal-delete/modal-delete.component";
+import { TypeProduct } from "../../../models/types.model";
+import { TypesProductsService } from "../../../services/types-products.service";
 import { DetailsComponent } from "../details/details.component";
 import { EditComponent } from "../edit/edit.component";
 import { NewComponent } from "../new/new.component";
-import { ModalDeleteComponent } from "../../../../../core/components/modal-delete/modal-delete.component";
-
-// Interfaces and services
-import { Category } from "../../../models/categoy.model";
-import { TypeProduct } from "../../../models/types.model";
-import { CategoriesService } from "../../../services/categories.service";
-import { TypesProductsService } from "../../../services/types-products.service";
+import { PlanProduct } from "../../../models/plans.model";
+import { PlansService } from "../../../services/plans.service";
 
 @Component({
   selector: "app-list",
   templateUrl: "./list.component.html",
   styleUrls: ["./list.component.scss"],
 })
-export class ListComponent implements OnInit, OnDestroy {
-  constructor(
-    private modalService: NgbModal,
-    private categoriesSrv: CategoriesService,
-    private typeSrv: TypesProductsService
-  ) {}
-  categories: Category[] = [];
+export class ListComponent implements OnInit {
   typesProduct: TypeProduct[] = [];
+  plansProduct: PlanProduct[] = [];
+
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
+
+  constructor(
+    private modalService: NgbModal,
+    private typeSrv: TypesProductsService,
+    private planSrv: PlansService
+  ) {}
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -55,12 +53,51 @@ export class ListComponent implements OnInit, OnDestroy {
         },
       },
     };
+
     this.getTypes();
-    this.getCategorys();
+    this.getPlans();
   }
 
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
+  }
+  onDetail(product: any): void {
+    const modalRef: NgbModalRef = this.modalService.open(DetailsComponent, {
+      size: "lg",
+    });
+    const props = {
+      product: product,
+    };
+    modalRef.componentInstance.props = props;
+    modalRef.result.then((result) => {
+      console.log(result);
+    });
+  }
+
+  onEdit(product: any): void {
+    const modalRef: NgbModalRef = this.modalService.open(EditComponent, {
+      size: "lg",
+    });
+    const props = {
+      product: product,
+    };
+    modalRef.componentInstance.props = props;
+    modalRef.result.then((result) => {
+      console.log(result);
+    });
+  }
+
+  onDelete(product: any): void {
+    const modalRef: NgbModalRef = this.modalService.open(ModalDeleteComponent, {
+      size: "lg",
+    });
+    const props = {
+      product: product,
+    };
+    modalRef.componentInstance.props = props;
+    modalRef.result.then((result) => {
+      console.log(result);
+    });
   }
 
   onNew(): void {
@@ -68,47 +105,8 @@ export class ListComponent implements OnInit, OnDestroy {
       size: "lg",
     });
     const props = {
-      categories: this.categories,
-    };
-    modalRef.componentInstance.props = props;
-    modalRef.result.then((result) => {
-      console.log(result);
-    });
-  }
-
-  onDetail(type: any): void {
-    const modalRef: NgbModalRef = this.modalService.open(DetailsComponent, {
-      size: "lg",
-    });
-    const props = {
-      type: type,
-    };
-    modalRef.componentInstance.props = props;
-    modalRef.result.then((result) => {
-      console.log(result);
-    });
-  }
-
-  onEdit(type: any): void {
-    const modalRef: NgbModalRef = this.modalService.open(EditComponent, {
-      size: "lg",
-    });
-    const props = {
-      product: type,
-      categories: this.categories,
-    };
-    modalRef.componentInstance.props = props;
-    modalRef.result.then((result) => {
-      console.log(result);
-    });
-  }
-
-  onDelete(type: any): void {
-    const modalRef: NgbModalRef = this.modalService.open(ModalDeleteComponent, {
-      size: "lg",
-    });
-    const props = {
-      type: type,
+      id: this.plansProduct.length,
+      types: this.typesProduct,
     };
     modalRef.componentInstance.props = props;
     modalRef.result.then((result) => {
@@ -129,31 +127,26 @@ export class ListComponent implements OnInit, OnDestroy {
           typesProduct["key"] = t.key;
           this.typesProduct.push(typesProduct as TypeProduct);
         });
-
-        // this.categories = data;
-        console.log(this.typesProduct);
-        this.dtTrigger.next();
+        // console.log(this.typesProduct);
       });
   }
 
-  getCategorys(): void {
-    this.categoriesSrv
-      .getAllCategories()
+  getPlans(): void {
+    this.planSrv
+      .getAllTypes()
       .snapshotChanges()
       .subscribe((res) => {
-        const size = this.categories.length;
+        const size = this.plansProduct.length;
         console.log(size);
-        this.categories.splice(0, size);
-
+        this.plansProduct.splice(0, size);
         res.forEach((t) => {
-          const category = t.payload.toJSON();
-          category["key"] = t.key;
-          this.categories.push(category as Category);
+          const plansProduct = t.payload.toJSON();
+          plansProduct["key"] = t.key;
+          this.plansProduct.push(plansProduct as PlanProduct);
         });
-        this.categories.sort((a, b) =>
-          a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0
-        );
-        console.log(this.categories);
+
+        // this.categories = data;
+        console.log(this.plansProduct);
         this.dtTrigger.next();
       });
   }

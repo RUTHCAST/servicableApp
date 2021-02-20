@@ -73,11 +73,6 @@ import { environment } from "../environments/environment";
       provide: LocationStrategy,
       useClass: HashLocationStrategy,
     },
-    // {
-    //   provide: BUCKET,
-    //   useValue:
-    //     "{ provide: BUCKET, useValue: 'gs://servicableapp-74e44.appspot.com/' },",
-    // },
     IconSetService,
   ],
   bootstrap: [AppComponent],

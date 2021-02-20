@@ -1,9 +1,5 @@
 import { Injectable } from "@angular/core";
-import {
-  AngularFireDatabase,
-  AngularFireList,
-  AngularFireObject,
-} from "@angular/fire/database";
+import { AngularFireDatabase, AngularFireList } from "@angular/fire/database";
 import { AngularFireStorage } from "@angular/fire/storage";
 
 import { Observable } from "rxjs";
@@ -31,23 +27,6 @@ export class TypesProductsService {
       this.typeRef
     ) as AngularFireList<TypeProduct>;
     return this.typesProducts;
-  }
-
-  newType(type: TypeProduct) {
-    const typeObj: TypeProduct = {
-      id: type.id,
-      id_categoria: type.id_categoria,
-      nombre: type.nombre,
-      descripcion: type.descripcion,
-      precio: type.precio,
-      url_image: type.url_image,
-      url_background: type.url_background,
-    };
-    this.typesProducts.push(typeObj);
-  }
-
-  updateType(type: TypeProduct) {
-    return this.typesProducts.update(type.key, type);
   }
 
   pushBackgroundImage(
@@ -128,6 +107,23 @@ export class TypesProductsService {
       .subscribe();
 
     return uploadTask.percentageChanges();
+  }
+
+  newType(type: TypeProduct) {
+    const typeObj: TypeProduct = {
+      id: type.id,
+      id_categoria: type.id_categoria,
+      nombre: type.nombre,
+      descripcion: type.descripcion,
+      precio: type.precio,
+      url_image: type.url_image,
+      url_background: type.url_background,
+    };
+    this.typesProducts.push(typeObj);
+  }
+
+  updateType(type: TypeProduct) {
+    return this.typesProducts.update(type.key, type);
   }
 
   deleteFileStorage(downloadUrl) {

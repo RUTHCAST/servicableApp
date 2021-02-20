@@ -2,11 +2,12 @@ import { Component, Input, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { NgxSpinnerService } from "ngx-spinner";
-import { FileUpload } from "../../../../../core/models/fileUpload";
-import { Category } from "../../../models/categoy.model";
 
 import { TypesProductsService } from "../../../services/types-products.service";
 import { TypeProduct } from "../../../models/types.model";
+import { FileUpload } from "../../../../../core/models/fileUpload";
+import { PlanProduct } from "../../../models/plans.model";
+import { PlansService } from "../../../services/plans.service";
 
 @Component({
   selector: "app-new",
@@ -14,43 +15,34 @@ import { TypeProduct } from "../../../models/types.model";
   styleUrls: ["./new.component.scss"],
 })
 export class NewComponent implements OnInit {
-  form: FormGroup;
-  isSubmit = false;
-  isLoading = false;
-  success = false;
-
-  categories: Category[] = [];
-
-  currentFileUploadImg: FileUpload;
-  currentFileUploadBack: FileUpload;
-
-  url_image: any = "";
-  filedataImage: File;
-
-  url_background: any = "";
-  filedatabackground: File;
-  percentage: number;
-
+  typesProduct: TypeProduct[] = [];
+  @Input() props: any;
   constructor(
     public modal: NgbActiveModal,
     private spinner: NgxSpinnerService,
-    private typeSrv: TypesProductsService
+    private planSrv: PlansService
   ) {}
+  form: FormGroup;
+  isSubmit = false;
+  isLoading = false;
+  url: any = "";
+  currentFileUpload: FileUpload;
+  filedata: File;
+  percentage: number;
+  success = false;
 
-  @Input() props: any;
   ngOnInit(): void {
-    this.categories = this.props.categories;
+    this.typesProduct = this.props.types;
     this.createForm();
   }
 
   createForm() {
     this.form = new FormGroup({
-      id_categoria: new FormControl("", Validators.required),
+      id_tipo: new FormControl("", Validators.required),
       nombre: new FormControl("", Validators.required),
       descripcion: new FormControl("", Validators.required),
       precio: new FormControl("", Validators.required),
       url_image: new FormControl("", Validators.required),
-      url_background: new FormControl("", Validators.required),
     });
   }
 
@@ -70,34 +62,24 @@ export class NewComponent implements OnInit {
     );
   }
 
-  closeModal() {
-    this.modal.close(false);
-  }
-
-  fileEventUrlImage(e) {
-    this.filedataImage = (e.target as HTMLInputElement).files[0];
-    let reader = new FileReader();
-    reader.onload = (event: any) => {
-      this.url_image = event.target.result;
-      // console.log(this.url_image);
-    };
-    reader.readAsDataURL(this.filedataImage);
-  }
-
-  fileEventUrlBackground(e) {
-    this.filedatabackground = (e.target as HTMLInputElement).files[0];
-    let reader = new FileReader();
-    reader.onload = (event: any) => {
-      this.url_background = event.target.result;
-      // console.log(this.url_background);
-    };
-    reader.readAsDataURL(this.filedatabackground);
-  }
-
   cancel() {
-    this.url_image = "";
-    this.url_background = "";
+    this.url = "";
     this.modal.close();
+  }
+
+  closeModal() {
+    this.modal.close();
+  }
+
+  fileEvent(e) {
+    // this.selectedFiles = e.target.files;
+    this.filedata = (e.target as HTMLInputElement).files[0];
+    let reader = new FileReader();
+    reader.onload = (event: any) => {
+      this.url = event.target.result;
+      console.log(this.url);
+    };
+    reader.readAsDataURL(this.filedata);
   }
 
   save() {
@@ -107,31 +89,23 @@ export class NewComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
-    const idType = this.props.categories.length;
-    const type: TypeProduct = {
-      id: this.props.categories.length,
-      id_categoria: parseInt(this.form.get("id_categoria").value),
+    const action = "new";
+    const plans: PlanProduct = {
+      id: this.props.id,
+      id_tipo: this.form.get("id_tipo").value,
       nombre: this.form.get("nombre").value,
-      descripcion: this.form.get("descripcion").value,
       precio: this.form.get("precio").value,
+      url_image: this.form.get("url_image").value,
     };
-
-    this.currentFileUploadImg = new FileUpload(this.filedataImage);
-    this.currentFileUploadBack = new FileUpload(this.filedatabackground);
-
-    this.typeSrv
-      .pushBackgroundImage(
-        this.currentFileUploadImg,
-        this.currentFileUploadBack,
-        type
-      )
+    this.currentFileUpload = new FileUpload(this.filedata);
+    this.planSrv
+      .pushImageAndSave(this.currentFileUpload, plans, action)
       .subscribe(
         (percentage) => {
           this.percentage = Math.round(percentage);
           if (this.percentage === 100) {
             this.isLoading = false;
-            this.currentFileUploadImg = null;
-            this.currentFileUploadImg = null;
+            this.currentFileUpload = null;
             this.success = true;
             this.spinner.hide();
           }
@@ -139,8 +113,7 @@ export class NewComponent implements OnInit {
         (error) => {
           console.log(error);
           this.isLoading = false;
-          this.currentFileUploadImg = null;
-          this.currentFileUploadImg = null;
+          this.currentFileUpload = null;
           this.spinner.hide();
           this.success = true;
         }
