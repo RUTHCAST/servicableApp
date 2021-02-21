@@ -1,4 +1,5 @@
 import { BrowserModule } from "@angular/platform-browser";
+import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { LocationStrategy, HashLocationStrategy } from "@angular/common";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -49,6 +50,7 @@ import { environment } from "../environments/environment";
 @NgModule({
   imports: [
     BrowserModule,
+    CommonModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     AppAsideModule,

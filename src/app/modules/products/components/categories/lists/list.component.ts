@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { NavigationExtras, Router } from "@angular/router";
 
 import { NgbModalRef, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 

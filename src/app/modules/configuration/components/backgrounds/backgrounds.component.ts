@@ -1,6 +1,9 @@
 import { Component, OnInit } from "@angular/core";
+import { NgbModalRef, NgbModal } from "@ng-bootstrap/ng-bootstrap";
+
 import { Background } from "../../models/background.model";
 import { BackgroundsService } from "../../services/backgrounds.service";
+import { EditComponent } from "./edit/edit.component";
 
 @Component({
   selector: "app-backgrounds",
@@ -10,7 +13,10 @@ import { BackgroundsService } from "../../services/backgrounds.service";
 export class BackgroundsComponent implements OnInit {
   backgrounds: Background[] = [];
 
-  constructor(private BackgroundSrv: BackgroundsService) {}
+  constructor(
+    private BackgroundSrv: BackgroundsService,
+    private modalService: NgbModal
+  ) {}
 
   ngOnInit(): void {
     this.getBackgrounds();
@@ -31,5 +37,19 @@ export class BackgroundsComponent implements OnInit {
         });
         // console.log(this.backgrounds);
       });
+  }
+
+  change(background: Background, id: number): void {
+    const modalRef: NgbModalRef = this.modalService.open(EditComponent, {
+      size: "lg",
+    });
+    const props = {
+      id,
+      background: background,
+    };
+    modalRef.componentInstance.props = props;
+    modalRef.result.then((result) => {
+      console.log(result);
+    });
   }
 }

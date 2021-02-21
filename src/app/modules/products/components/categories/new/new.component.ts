@@ -9,7 +9,6 @@ import {
 } from "@ng-bootstrap/ng-bootstrap";
 
 import { FileUpload } from "../../../../../core/models/fileUpload";
-// import { ProductsService } from "../../../services/categories.service";
 import { Category } from "../../../models/categoy.model";
 import { ModalConfirmationComponent } from "../../../../../core/components/modal-confirmation/modal-confirmation.component";
 import { CategoriesService } from "../../../services/categories.service";
