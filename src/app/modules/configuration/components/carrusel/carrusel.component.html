@@ -23,9 +23,9 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Pantalla de fondo {{background.nombre}}</h5>
                                     <p>
-                                        <button class="btn btn-sm btn-primary">Cambiar</button>
+                                        <button class="btn btn-sm btn-primary" (click)="change(background)">Cambiar</button>
                                     </p>
-                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                    <p class="card-text"><small class="text-muted">Ultima actualizacion el {{background.createdAt}}</small></p>
                                 </div>
                             </div>
                         </div>

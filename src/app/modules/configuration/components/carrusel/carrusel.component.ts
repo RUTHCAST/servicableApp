@@ -1,6 +1,9 @@
 import { Component, OnInit } from "@angular/core";
+import { NgbModalRef, NgbModal } from "@ng-bootstrap/ng-bootstrap";
+
 import { Carrusel } from "../../models/carrusel.model";
 import { CarruselService } from "../../services/carrusel.service";
+import { EditComponent } from "./edit/edit.component";
 
 @Component({
   selector: "app-carrusel",
@@ -10,7 +13,10 @@ import { CarruselService } from "../../services/carrusel.service";
 export class CarruselComponent implements OnInit {
   carruselImages: Carrusel[] = [];
 
-  constructor(private carruselSrv: CarruselService) {}
+  constructor(
+    private carruselSrv: CarruselService,
+    private modalService: NgbModal
+  ) {}
 
   ngOnInit(): void {
     this.getCarruselImages();
@@ -31,5 +37,19 @@ export class CarruselComponent implements OnInit {
           this.carruselImages.push(carruselImages as Carrusel);
         });
       });
+  }
+
+  change(carrusel: Carrusel): void {
+    const modalRef: NgbModalRef = this.modalService.open(EditComponent, {
+      size: "lg",
+    });
+    const props = {
+      id: this.carruselImages.length,
+      carrusel: carrusel,
+    };
+    modalRef.componentInstance.props = props;
+    modalRef.result.then((result) => {
+      console.log(result);
+    });
   }
 }

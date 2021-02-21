@@ -9,18 +9,21 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                <strong>CAMBIAR</strong> fondo
-            </div>
+                    <strong>CAMBIAR</strong> imagen carrusel
+                </div>
                 <div class="card-body">
-                    <form class="form-horizontal" 
-                        *ngIf="!success">
+                    <form class="form-horizontal" *ngIf="!success">
                         <div class="form-group row">
                             <div class="col-md-12 text-center">
-                                <img [src]="url ? url : props.background.url_image" alt="..." width="85%" height="350px"
+                                <img [src]="url ? url : props.carrusel.url_image" 
+                                    alt="..." 
+                                    width="85%" 
+                                    height="350px"
                                     style="margin:0px auto!important">
 
-                                <p class="alert alert-success m-3" *ngIf="imageChanged">
-                                    Imagen de fondo cambiada exitosamente
+                                <p class="alert alert-success m-3" 
+                                 *ngIf="imageChanged">
+                                    Imagen de carrusel cambiada exitosamente
                                 </p>
                             </div>
                             <div class="col-md-12 text-center my-2">
@@ -47,25 +50,22 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="form-group row" *ngIf="showButton">
-                            <label class="col-md-3 col-form-label" for="file-input">Imagen</label>
+                        <div class="form-group row" 
+                            *ngIf="showButton">
+                            <label class="col-md-3 col-form-label" 
+                                for="file-input">Imagen</label>
                             <div class="col-md-9">
-                                <input type="file" 
-                                id="file-input" 
-                                name="file-input"
-                                accept="image/*"
-                                (change)="fileEvent($event)" 
-                                required>
+                                <input type="file" id="file-input" 
+                                    name="file-input"
+                                    accept="image/*"
+                                    (change)="fileEvent($event)" 
+                                    required>
                             </div>
                         </div>
 
-                        <div *ngIf="currentFileUpload" 
-                            class="progress my-4">
-                            <div class="progress-bar progress-bar-info" 
-                                role="progressbar"
-                                attr.aria-valuenow="{{ percentage }}" 
-                                aria-valuemin="0" 
-                                aria-valuemax="100"
+                        <div *ngIf="currentFileUpload" class="progress my-4">
+                            <div class="progress-bar progress-bar-info" role="progressbar"
+                                attr.aria-valuenow="{{ percentage }}" aria-valuemin="0" aria-valuemax="100"
                                 [ngStyle]="{ width: percentage + '%' }">
                                 {{ percentage }}%
                             </div>
@@ -80,20 +80,13 @@
                     </div>
 
                 </div>
-                <div class="card-footer" *ngIf="!showButton">
-                    <!-- <button type="submit" 
-                        class="btn btn-sm btn-primary" 
-                        *ngIf="!success"
-                        [disabled]="!currentFileUpload" 
-                        (click)="update()">
-                        <i class="fa fa-dot-circle-o"></i>
-                        Actualizar
-                    </button> -->
+                <div class="card-footer" 
+                    *ngIf="!showButton">
                     <button type="reset" 
-                            class="btn btn-sm" 
-                            [ngClass]="{'btn-danger': !success,
+                        class="btn btn-sm" 
+                        [ngClass]="{'btn-danger': !success,
                                     'btn-secondary': success}" 
-                            (click)="closeModal()">
+                        (click)="closeModal()">
                         <span *ngIf="!success">
                             <i class="fa fa-ban"></i>
                             Cancelar
@@ -114,5 +107,5 @@
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
 </div> -->
 
-<ngx-spinner>
-</ngx-spinner>
+    <!-- <ngx-spinner>
+    </ngx-spinner> -->

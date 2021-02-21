@@ -3,4 +3,5 @@ export interface Carrusel {
   key?: string;
   nombre?: string;
   url_image?: string;
+  createdAt?: Date;
 }
