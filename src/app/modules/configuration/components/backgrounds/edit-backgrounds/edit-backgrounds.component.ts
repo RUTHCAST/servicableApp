@@ -10,11 +10,11 @@ import { BackgroundsService } from "../../../services/backgrounds.service";
 import { Background } from "../../../models/background.model";
 
 @Component({
-  selector: "app-edit",
-  templateUrl: "./edit.component.html",
-  styleUrls: ["./edit.component.scss"],
+  selector: "app-edit-backgrounds",
+  templateUrl: "./edit-backgrounds.component.html",
+  styleUrls: ["./edit-backgrounds.component.scss"],
 })
-export class EditComponent implements OnInit {
+export class EditBackgroundsComponent implements OnInit {
   isSubmit = false;
   isLoading = false;
   url = "";
@@ -29,6 +29,7 @@ export class EditComponent implements OnInit {
   percentage: number;
 
   @Input() props: any;
+
   constructor(
     public modal: NgbActiveModal,
     private modalService: NgbModal,

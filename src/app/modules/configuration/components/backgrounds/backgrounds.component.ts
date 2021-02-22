@@ -3,7 +3,7 @@ import { NgbModalRef, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 import { Background } from "../../models/background.model";
 import { BackgroundsService } from "../../services/backgrounds.service";
-import { EditComponent } from "./edit/edit.component";
+import { EditBackgroundsComponent } from "./edit-backgrounds/edit-backgrounds.component";
 
 @Component({
   selector: "app-backgrounds",
@@ -40,9 +40,12 @@ export class BackgroundsComponent implements OnInit {
   }
 
   change(background: Background, id: number): void {
-    const modalRef: NgbModalRef = this.modalService.open(EditComponent, {
-      size: "lg",
-    });
+    const modalRef: NgbModalRef = this.modalService.open(
+      EditBackgroundsComponent,
+      {
+        size: "lg",
+      }
+    );
     const props = {
       id,
       background: background,

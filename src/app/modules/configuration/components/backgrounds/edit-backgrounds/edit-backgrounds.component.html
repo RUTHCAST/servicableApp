@@ -9,11 +9,10 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                <strong>CAMBIAR</strong> fondo
-            </div>
+                    <strong>CAMBIAR</strong> fondo
+                </div>
                 <div class="card-body">
-                    <form class="form-horizontal" 
-                        *ngIf="!success">
+                    <form class="form-horizontal" *ngIf="!success">
                         <div class="form-group row">
                             <div class="col-md-12 text-center">
                                 <img [src]="url ? url : props.background.url_image" alt="..." width="85%" height="350px"
@@ -24,23 +23,17 @@
                                 </p>
                             </div>
                             <div class="col-md-12 text-center my-2">
-                                <button class="btn btn-sm btn-success" 
-                                    style="float:right;" 
-                                    *ngIf="!showButton"
+                                <button class="btn btn-sm btn-success" style="float:right;" *ngIf="!showButton"
                                     (click)="buttonChange()">
                                     <i class="fa fa-undo"></i>
                                     Cambiar
                                 </button>
-                                <button class="btn btn-sm btn-primary m-1" 
-                                    style="float:right;" 
-                                    *ngIf="showButton"
+                                <button class="btn btn-sm btn-primary m-1" style="float:right;" *ngIf="showButton"
                                     (click)="changeImage()">
                                     <i class="fa fa-floppy-o"></i>
                                     Guardar
                                 </button>
-                                <button class="btn btn-sm btn-secondary m-1" 
-                                    style="float:right;" 
-                                    *ngIf="showButton"
+                                <button class="btn btn-sm btn-secondary m-1" style="float:right;" *ngIf="showButton"
                                     (click)="showButton=false">
                                     <i class="fa fa-times"></i>
                                     Cancelar
@@ -50,32 +43,22 @@
                         <div class="form-group row" *ngIf="showButton">
                             <label class="col-md-3 col-form-label" for="file-input">Imagen</label>
                             <div class="col-md-9">
-                                <input type="file" 
-                                id="file-input" 
-                                name="file-input"
-                                accept="image/*"
-                                (change)="fileEvent($event)" 
-                                required>
+                                <input type="file" id="file-input" name="file-input" accept="image/*"
+                                    (change)="fileEvent($event)" required>
                             </div>
                         </div>
 
-                        <div *ngIf="currentFileUpload" 
-                            class="progress my-4">
-                            <div class="progress-bar progress-bar-info" 
-                                role="progressbar"
-                                attr.aria-valuenow="{{ percentage }}" 
-                                aria-valuemin="0" 
-                                aria-valuemax="100"
+                        <div *ngIf="currentFileUpload" class="progress my-4">
+                            <div class="progress-bar progress-bar-info" role="progressbar"
+                                attr.aria-valuenow="{{ percentage }}" aria-valuemin="0" aria-valuemax="100"
                                 [ngStyle]="{ width: percentage + '%' }">
                                 {{ percentage }}%
                             </div>
                         </div>
 
                     </form>
-                    <div class="py-1 my-3 d-flex flex-column justify-content-center" 
-                        *ngIf="success">
-                        <img src="assets/img/check.png" 
-                            style="margin:0px auto!important;">
+                    <div class="py-1 my-3 d-flex flex-column justify-content-center" *ngIf="success">
+                        <img src="assets/img/check.png" style="margin:0px auto!important;">
                         <h5 class="text-center">Categoria modificada exitosamente.</h5>
                     </div>
 
@@ -89,11 +72,8 @@
                         <i class="fa fa-dot-circle-o"></i>
                         Actualizar
                     </button> -->
-                    <button type="reset" 
-                            class="btn btn-sm" 
-                            [ngClass]="{'btn-danger': !success,
-                                    'btn-secondary': success}" 
-                            (click)="closeModal()">
+                    <button type="reset" class="btn btn-sm" [ngClass]="{'btn-danger': !success,
+                                    'btn-secondary': success}" (click)="closeModal()">
                         <span *ngIf="!success">
                             <i class="fa fa-ban"></i>
                             Cancelar
@@ -114,5 +94,5 @@
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
 </div> -->
 
-<ngx-spinner>
-</ngx-spinner>
+    <ngx-spinner>
+    </ngx-spinner>
