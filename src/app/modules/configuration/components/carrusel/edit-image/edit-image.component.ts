@@ -1,20 +1,23 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { NgxSpinnerService } from "ngx-spinner";
 import { CarruselService } from "../../../services/carrusel.service";
 import {
   NgbActiveModal,
   NgbModal,
   NgbModalRef,
 } from "@ng-bootstrap/ng-bootstrap";
+
+import { NgxSpinnerService } from "ngx-spinner";
+
 import { FileUpload } from "../../../../../core/models/fileUpload";
 import { Carrusel } from "../../../models/carrusel.model";
+// import { CarruselService } from '../../../services/carrusel.service';
 
 @Component({
-  selector: "app-edit",
-  templateUrl: "./edit.component.html",
-  styleUrls: ["./edit.component.scss"],
+  selector: "app-edit-image",
+  templateUrl: "./edit-image.component.html",
+  styleUrls: ["./edit-image.component.scss"],
 })
-export class EditComponent implements OnInit {
+export class EditImageComponent implements OnInit {
   public isSubmit = false;
   public isLoading = false;
   public url = "";
@@ -29,6 +32,7 @@ export class EditComponent implements OnInit {
   public percentage: number;
 
   @Input() props: any;
+
   constructor(
     public modal: NgbActiveModal,
     private spinner: NgxSpinnerService,
@@ -66,15 +70,15 @@ export class EditComponent implements OnInit {
     this.isLoading = true;
     this.spinner.show();
     const data: Carrusel = {
-      id: this.props.background.id,
-      key: this.props.background.key,
-      nombre: this.props.background.nombre,
+      id: this.props.carrusel.id,
+      key: this.props.carrusel.key,
+      nombre: this.props.carrusel.nombre,
       createdAt: new Date(),
     };
 
     this.currentFileUpload = new FileUpload(this.filedata);
     this.carruselSrv
-      .deleteFileStorage(this.props.background.url_image)
+      .deleteFileStorage(this.props.carrusel.url_image)
       .then(() => {
         this.carruselSrv
           .pushCarruselStorage(this.currentFileUpload, data, "update")
@@ -86,6 +90,7 @@ export class EditComponent implements OnInit {
                 this.currentFileUpload = null;
                 this.imageChanged = true;
                 this.spinner.hide();
+                this.success = true;
               }
             },
             (error) => {

@@ -7,16 +7,16 @@ import { ConfigurationRoutingModule } from "./configuration-routing.module";
 import { ConfigurationComponent } from "./configuration.component";
 import { BackgroundsComponent } from "./components/backgrounds/backgrounds.component";
 import { CarruselComponent } from "./components/carrusel/carrusel.component";
-import { EditComponent } from "./components/backgrounds/edit/edit.component";
-import { NewComponent } from "./components/carrusel/new/new.component";
+import { EditImageComponent } from "./components/carrusel/edit-image/edit-image.component";
+import { NewImageComponent } from './components/carrusel/new-image/new-image.component';
 
 @NgModule({
   declarations: [
     ConfigurationComponent,
     BackgroundsComponent,
     CarruselComponent,
-    EditComponent,
-    NewComponent,
+    EditImageComponent,
+    NewImageComponent,
   ],
   imports: [CommonModule, ConfigurationRoutingModule, CoreModule],
 })
