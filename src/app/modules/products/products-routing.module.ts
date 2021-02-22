@@ -32,6 +32,8 @@ export const routes: Routes = [
     data: {
       title: "Planes",
     },
+    loadChildren: () =>
+      import("./components/plans/plans.module").then((m) => m.PlansModule),
   },
 ];
 

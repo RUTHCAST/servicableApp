@@ -9,10 +9,10 @@ import {
   NgbModalRef,
 } from "@ng-bootstrap/ng-bootstrap";
 
-import { ProductsService } from "../../../services/products.service";
-import { FileUpload } from "../../../../../core/models/fileUpload";
 import { ModalConfirmationComponent } from "../../../../../core/components/modal-confirmation/modal-confirmation.component";
+import { FileUpload } from "../../../../../core/models/fileUpload";
 import { Category } from "../../../models/categoy.model";
+import { CategoriesService } from "../../../services/categories.service";
 @Component({
   selector: "app-edit",
   templateUrl: "./edit.component.html",
@@ -39,7 +39,7 @@ export class EditComponent implements OnInit {
     public modal: NgbActiveModal,
     private modalService: NgbModal,
     private spinner: NgxSpinnerService,
-    private productSrv: ProductsService
+    private categoriesSrv: CategoriesService
   ) {
     const navigation = this.router.getCurrentNavigation();
     this.value = navigation?.extras?.state;
@@ -107,10 +107,10 @@ export class EditComponent implements OnInit {
     };
 
     this.currentFileUpload = new FileUpload(this.filedata);
-    this.productSrv
+    this.categoriesSrv
       .deleteFileStorage(this.props.product.url_image)
       .then(() => {
-        this.productSrv
+        this.categoriesSrv
           .pushCategoryStorage(this.currentFileUpload, data, action)
           .subscribe(
             (percentage) => {
@@ -144,7 +144,7 @@ export class EditComponent implements OnInit {
       key: this.props.product.key,
       nombre: this.form.get("nombre").value,
     };
-    this.productSrv
+    this.categoriesSrv
       .updateCategory(data)
       .then(() => {
         console.log("Modificada exitosamente");

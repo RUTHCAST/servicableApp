@@ -16,14 +16,10 @@ import { FileUpload } from "../../../core/models/fileUpload";
 @Injectable({
   providedIn: "root",
 })
-export class ProductsService {
+export class CategoriesService {
   private categoryRef = "/categoria_productos";
-  private typeRef = "/tipos_producto";
   public basePath = "CATEGORIAS_PRODUCTOS/";
-
   categories: AngularFireList<Category>;
-  category: AngularFireList<Category>;
-
   typesProducts: AngularFireList<TypeProduct>;
 
   constructor(
@@ -31,13 +27,13 @@ export class ProductsService {
     private storage: AngularFireStorage
   ) {}
 
-  // Categorias
   getAllCategories(): AngularFireList<Category> {
     this.categories = this.db.list(
       this.categoryRef
     ) as AngularFireList<Category>;
     return this.categories;
   }
+
   newCategory(category: Category) {
     const categoryObj: Category = {
       id: category.id,
@@ -72,8 +68,6 @@ export class ProductsService {
       this.updateCategory(category);
     }
   }
-
-  // Storage
 
   pushCategoryStorage(
     fileUpload: FileUpload,
@@ -110,13 +104,5 @@ export class ProductsService {
   deleteFileStorage(downloadUrl) {
     console.log("entro a borrar la imagen con esta url", downloadUrl);
     return this.storage.storage.refFromURL(downloadUrl).delete();
-  }
-
-  // Tipos
-  getAllTypes(): AngularFireList<TypeProduct> {
-    this.typesProducts = this.db.list(
-      this.typeRef
-    ) as AngularFireList<TypeProduct>;
-    return this.typesProducts;
   }
 }
