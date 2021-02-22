@@ -9,6 +9,7 @@ import { BackgroundsComponent } from "./components/backgrounds/backgrounds.compo
 import { CarruselComponent } from "./components/carrusel/carrusel.component";
 import { EditImageComponent } from "./components/carrusel/edit-image/edit-image.component";
 import { NewImageComponent } from './components/carrusel/new-image/new-image.component';
+import { DeleteImageComponent } from './components/carrusel/delete-image/delete-image.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { NewImageComponent } from './components/carrusel/new-image/new-image.com
     CarruselComponent,
     EditImageComponent,
     NewImageComponent,
+    DeleteImageComponent,
   ],
   imports: [CommonModule, ConfigurationRoutingModule, CoreModule],
 })

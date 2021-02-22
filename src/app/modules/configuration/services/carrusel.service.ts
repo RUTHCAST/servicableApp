@@ -27,10 +27,11 @@ export class CarruselService {
   newCarrusel(carrusel: Carrusel) {
     const carruselObj: Carrusel = {
       id: carrusel.id,
-      nombre: carrusel.nombre,
-      url_image: carrusel.url_image + "_" + (carrusel.id + 1),
+      nombre: carrusel.nombre + "_" + (carrusel.id + 1),
+      url_image: carrusel.url_image,
       createdAt: carrusel.createdAt,
     };
+    // console.log(carruselObj);
     this.carrusel.push(carruselObj);
   }
 
@@ -39,6 +40,7 @@ export class CarruselService {
   }
 
   deleteCarruselDatabase(key: any) {
+    console.log(key);
     return this.carrusel.remove(key);
   }
 
@@ -47,6 +49,7 @@ export class CarruselService {
   }
 
   deleteCarrusel(carrusel: Carrusel) {
+    console.log(carrusel.key);
     return this.deleteCarruselDatabase(carrusel.key)
       .then(() => {
         this.deleteFileStorage(carrusel.url_image);
@@ -77,8 +80,9 @@ export class CarruselService {
               key: carrusel.key,
               nombre: carrusel.nombre,
               url_image: fileUpload.url,
-              createdAt: carrusel.createdAt,
+              createdAt: new Date(),
             };
+            console.log(data);
             this.executeActioncategory(typeAccion, data);
           });
         })
@@ -89,7 +93,8 @@ export class CarruselService {
     // }
   }
 
-  executeActioncategory(action: string, carrusel) {
+  executeActioncategory(action: string, carrusel: Carrusel) {
+    console.log(carrusel);
     if (action === "new") {
       this.newCarrusel(carrusel);
     } else if (action === "update") {

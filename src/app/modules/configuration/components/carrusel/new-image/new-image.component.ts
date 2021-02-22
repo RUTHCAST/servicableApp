@@ -31,7 +31,6 @@ export class NewImageComponent implements OnInit {
   @Input() props: any;
   constructor(
     public modal: NgbActiveModal,
-    private modalService: NgbModal,
     private carruselSrv: CarruselService,
     private spinner: NgxSpinnerService
   ) {}

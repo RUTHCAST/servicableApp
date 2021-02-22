@@ -27,7 +27,7 @@ export class BackgroundsComponent implements OnInit {
       .snapshotChanges()
       .subscribe((res) => {
         const size = this.backgrounds.length;
-        console.log(size);
+        // console.log(size);
         this.backgrounds.splice(0, size);
 
         res.forEach((t) => {

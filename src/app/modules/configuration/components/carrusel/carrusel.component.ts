@@ -6,6 +6,7 @@ import { CarruselService } from "../../services/carrusel.service";
 import { EditImageComponent } from "./edit-image/edit-image.component";
 // import { EditImageComponent } from "./edit/edit.component";
 import { NewImageComponent } from "./new-image/new-image.component";
+import { DeleteImageComponent } from "./delete-image/delete-image.component";
 
 @Component({
   selector: "app-carrusel",
@@ -38,6 +39,7 @@ export class CarruselComponent implements OnInit {
           carruselImages["key"] = t.key;
           this.carruselImages.push(carruselImages as Carrusel);
         });
+        console.log(this.carruselImages);
       });
   }
 
@@ -62,6 +64,21 @@ export class CarruselComponent implements OnInit {
     const props = {
       id: this.carruselImages.length,
       carrusel: this.carruselImages,
+    };
+    modalRef.componentInstance.props = props;
+    modalRef.result.then((result) => {
+      console.log(result);
+    });
+  }
+
+  delete(carrusel: Carrusel) {
+    const modalRef: NgbModalRef = this.modalService.open(DeleteImageComponent, {
+      size: "lg",
+    });
+    const props = {
+      id: this.carruselImages.length,
+      carrusel,
+      key: carrusel.key,
     };
     modalRef.componentInstance.props = props;
     modalRef.result.then((result) => {
