@@ -1,0 +1,66 @@
+<div class="animated fadeIn">
+    <!--/.row-->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-align-justify"></i> Reportes
+                </div>
+
+                <div class="card-body table-responsive">
+                    <button class="btn btn-danger float-right my-3 mx-1" (click)="openPDF()">
+                        <i class="fa fa-file-pdf-o" aria-hidden="true m-1"></i>
+                        Exportar
+                    </button>
+                    <button class="btn btn-success float-right my-3 mx-1" (click)="exportexcel()">
+                        <i class="fa fa-file-excel-o" aria-hidden="true m-1"></i>
+                        Exportar
+                    </button>
+<!-- 
+                    <div>
+
+                    </div> -->
+
+                    <table datatable 
+                        [dtOptions]="dtOptions" 
+                        [dtTrigger]="dtTrigger" 
+                        class="table table-striped" 
+                        id="table">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Nombre</th>
+                                <th class="text-center">Correo</th>
+                                <th class="text-center">Telefono</th>
+                                <th class="text-center">Distritos</th>
+                                <th class="text-center">Fecha de registro</th>
+                                <th class="text-center">Recibir publicidad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let product of stadictics">
+                                <td class="text-center py-2" width="25%">{{product.nombre}}</td>
+                                <td class="text-center py-2" width="20%">{{product.correo}}</td>
+                                <td class="text-center" width="15%">{{product.telefono}}</td>
+                                <td class="text-center py-2" width="15%">{{product.distrito}}</td>
+                                <td class="text-center py-2" width="15%">{{product.fechaHora | date: 'dd/MM/yyyy'}}</td>
+                                <td class="text-center py-2" width="10%">
+                                    <ng-container *ngIf="product.recibirPublicidad === 'SI'; else no">
+                                    <i class="fa fa-check-square-o text-success" aria-hidden="true"></i>
+                                    </ng-container>
+                                    
+                                    <ng-template #no>
+                                    <i class="fa fa-times text-danger" aria-hidden="true"></i>
+                                    </ng-template>                
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        <!--/.col-->
+    </div>
+    <!--/.row-->
+</div>
+

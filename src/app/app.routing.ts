@@ -9,11 +9,12 @@ import { P500Component } from "./views/error/500.component";
 import { LoginComponent } from "./modules/auth/components/login/login.component";
 import { RegisterComponent } from "./modules/auth/components/register/register.component";
 import { DashboardComponent } from "./modules/dashboard/components/dashboard.component";
+import { ReportsComponent } from "./modules/reports/components/reports/reports.component";
 
 export const routes: Routes = [
   {
     path: "",
-    redirectTo: "productos",
+    redirectTo: "dashboard",
     pathMatch: "full",
   },
   {
@@ -39,12 +40,10 @@ export const routes: Routes = [
       ),
   },
   {
-    path: "",
+    path: "reportes",
     component: DefaultLayoutComponent,
-    data: {
-      title: "Home",
-    },
-    children: [],
+    loadChildren: () =>
+      import("./modules/reports/reports.module").then((m) => m.ReportsModule),
   },
   {
     path: "configuracion",
@@ -52,6 +51,14 @@ export const routes: Routes = [
     loadChildren: () =>
       import("./modules/configuration/configuration.module").then(
         (m) => m.ConfigurationModule
+      ),
+  },
+  {
+    path: "dashboard",
+    component: DefaultLayoutComponent,
+    loadChildren: () =>
+      import("./modules/dashboard/dashboard.module").then(
+        (m) => m.DashboardModule
       ),
   },
   // { path: "**", component: P404Component },
