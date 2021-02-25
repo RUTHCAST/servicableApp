@@ -53,7 +53,7 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.dtTrigger.unsubscribe();
+    this.dtTrigger?.unsubscribe();
   }
 
   onDetail(product: any): void {

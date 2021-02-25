@@ -31,12 +31,12 @@ export const navItems: INavData[] = [
   },
   {
     title: true,
-    name: "Estadisticas",
+    name: "Reportes",
   },
 
   {
-    name: "Visitas",
-    url: "/base",
+    name: "Estadistica de visitas",
+    url: "/reportes",
     icon: "cil-graph",
   },
   {

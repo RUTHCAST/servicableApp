@@ -92,7 +92,7 @@ export class NewComponent implements OnInit {
     const action = "new";
     const plans: PlanProduct = {
       id: this.props.id,
-      id_tipo: this.form.get("id_tipo").value,
+      id_tipo: parseInt(this.form.get("id_tipo").value),
       nombre: this.form.get("nombre").value,
       precio: this.form.get("precio").value,
       url_image: this.form.get("url_image").value,

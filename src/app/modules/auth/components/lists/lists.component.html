@@ -1,1 +1,71 @@
-<p>lists works!</p>
+<div class="animated fadeIn">
+    <!--/.row-->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-align-justify"></i> Categorias
+                </div>
+
+                <div class="card-body table-responsive">
+                    <button class="btn btn-primary float-right my-3" >
+                        <i class="fa fa-plus" aria-hidden="true m-1"></i>
+                        Nuevo
+                    </button>
+                    <table datatable 
+                           [dtOptions]="dtOptions" 
+                           [dtTrigger]="dtTrigger" 
+                           class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="text-center">ID</th>
+                                <th class="text-center">Nombre</th>
+                                <th class="text-center">Imagen</th>
+                                <th class="text-center">Tipos</th>
+                                <th class="text-center">Configuracion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let product of categories">
+                                <td class="text-center py-2" width="10%">{{product.id}}</td>
+                                <td class="text-center py-2" width="40%">{{product.nombre}}</td>
+                                <td class="text-center" width="30%">
+                                    <img [src]="product.url_image" alt="" class="img-avatar-product" height="40" width="40">
+                                </td>
+                                <td class="text-center py-2" width="40%">ver</td>
+                                <td class="text-center btn-group py-2" role="group" aria-label="Acciones" width="100%">
+                                    <button type="button" class="btn btn-outline-success" title="ver"
+                                        (click)="onDetail(product)">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-warning" title="editar"
+                                        (click)="onEdit(product)">
+                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-danger" title="eliminar"
+                                        (click)="onDelete(product)">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- <nav>
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
+                            <li class="page-item active">
+                                <a class="page-link" href="#">1</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
+                        </ul>
+                    </nav> -->
+                </div>
+            </div>
+        </div>
+        <!--/.col-->
+    </div>
+    <!--/.row-->
+</div>

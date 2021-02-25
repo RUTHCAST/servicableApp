@@ -8,11 +8,40 @@
                 </div>
 
                 <div class="card-body table-responsive">
-                    <button class="btn btn-primary float-right my-3" (click)="onNew()">
-                        <i class="fa fa-plus" aria-hidden="true m-1"></i>
-                        Nuevo
-                    </button>
-                    <table datatable 
+                    <div class="row px-5">
+                        <div class="col-lg-12">
+                            <button class="btn btn-primary float-right my-3" (click)="onNew()">
+                                <i class="fa fa-plus" aria-hidden="true m-1"></i>
+                                Nuevo
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                        <div class="col-md-3" *ngFor="let background of categories">
+                            <div class="card" style="max-width: 18rem;">
+                                <img [src]="background.url_image" class="card-img-top" height="280px" width="80%" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{background.nombre}}</h5>
+                                    <p class="btn-group text-center">
+                                        <button type="button" class="btn btn-outline-success" title="ver" (click)="onDetail(background)">
+                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-outline-warning" title="editar" (click)="onEdit(background)">
+                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-outline-danger" title="eliminar" (click)="onDelete(background)">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </button>
+                                    </p>
+                                    <p class="card-text"><small class="text-muted">
+                                        Ultima actualizacion el {{background.createdAt | date:"MM/dd/yy"}}</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <table datatable 
                            [dtOptions]="dtOptions" 
                            [dtTrigger]="dtTrigger" 
                            class="table table-striped">
@@ -49,19 +78,8 @@
                                 </td>
                             </tr>
                         </tbody>
-                    </table>
-                    <!-- <nav>
-                        <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
-                            <li class="page-item active">
-                                <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">4</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
-                        </ul>
-                    </nav> -->
+                    </table> -->
+
                 </div>
             </div>
         </div>
