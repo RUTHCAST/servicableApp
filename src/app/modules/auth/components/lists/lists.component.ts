@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { users } from '../../models/user.model';
 
 @Component({
   selector: 'app-lists',
@@ -7,7 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListsComponent implements OnInit {
 
-  constructor() { }
+
+  users: users[] = [];
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
+
+  constructor(
+
+      private user
+
+
+  ) { }
 
   ngOnInit(): void {
   }
