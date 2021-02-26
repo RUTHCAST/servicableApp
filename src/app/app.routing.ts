@@ -9,12 +9,9 @@ import { P500Component } from "./views/error/500.component";
 import { LoginComponent } from "./modules/auth/components/login/login.component";
 import { RegisterComponent } from "./modules/auth/components/register/register.component";
 import { DashboardComponent } from "./modules/dashboard/components/dashboard.component";
-<<<<<<< HEAD
 import { AuthComponent } from "./modules/auth/components/auth.component";
 import { AuthModule } from "./modules/auth/auth.module";
-=======
 import { ReportsComponent } from "./modules/reports/components/reports/reports.component";
->>>>>>> main
 
 export const routes: Routes = [
   {
@@ -45,7 +42,6 @@ export const routes: Routes = [
       ),
   },
   {
-<<<<<<< HEAD
     path: "usuarios",
     component: DefaultLayoutComponent,
     loadChildren: () =>
@@ -53,10 +49,8 @@ export const routes: Routes = [
   },
 
   {
-    path: "",
-=======
+    
     path: "reportes",
->>>>>>> main
     component: DefaultLayoutComponent,
     loadChildren: () =>
       import("./modules/reports/reports.module").then((m) => m.ReportsModule),
