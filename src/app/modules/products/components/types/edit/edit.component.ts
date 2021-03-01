@@ -17,6 +17,7 @@ export class EditComponent implements OnInit {
   isSubmit = false;
   isLoading = false;
   success = false;
+  change = false;
 
   categories: Category[] = [];
 
