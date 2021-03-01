@@ -8,8 +8,6 @@ import { P404Component } from "./views/error/404.component";
 import { P500Component } from "./views/error/500.component";
 import { LoginComponent } from "./modules/auth/components/login/login.component";
 import { RegisterComponent } from "./modules/auth/components/register/register.component";
-import { DashboardComponent } from "./modules/dashboard/components/dashboard.component";
-import { ReportsComponent } from "./modules/reports/components/reports/reports.component";
 
 export const routes: Routes = [
   {
@@ -38,6 +36,12 @@ export const routes: Routes = [
       import("./modules/products/products.module").then(
         (m) => m.ProductsModule
       ),
+  },
+  {
+    path: "usuarios",
+    component: DefaultLayoutComponent,
+    loadChildren: () =>
+      import("./modules/auth/auth.module").then((m) => m.AuthModule),
   },
   {
     path: "reportes",

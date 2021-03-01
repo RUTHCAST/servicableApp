@@ -33,6 +33,7 @@ export const navItems: INavData[] = [
     title: true,
     name: "Reportes",
   },
+
   {
     name: "Estadistica de visitas",
     url: "/reportes",
@@ -62,6 +63,18 @@ export const navItems: INavData[] = [
   //     },
   //   ],
   // },
+  {
+    title: true,
+    name: "Usuarios",
+  },
+  {
+    name: "Lista de Usuarios",
+    url: "/usuarios",
+    icon: "icon-handbag",
+  },
+  {
+    divider: true,
+  },
   {
     title: true,
     name: "Configuraciones",
