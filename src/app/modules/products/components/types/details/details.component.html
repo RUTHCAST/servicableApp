@@ -1,1 +1,81 @@
-<p>details works!</p>
+<div class="modal-header">
+    <!-- <h4 class="modal-title" id="modal-basic-title" *ngIf="!success">Nueva categoria</h4> -->
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>VER</strong> producto.
+                            </div>
+                            <div class="card-body">
+                                <form [formGroup]="form" class="form-horizontal">
+
+                                    <div class="card" style="width: 100%; margin: 0px auto; margin-bottom:20px">
+                                        <label class="col-md-3 col-form-label">Imagen del producto</label>
+                                        <img [src]="props.product.url_image">
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label">Seleccione categoria</label>
+                                        <div class="col-md-9">
+                                            <select class="form-control" formControlName="id_categoria">
+                                                <option value="">Seleccione una categoria</option>
+                                                <option [value]="category.id" *ngFor="let category of categories">
+                                                    {{category.nombre}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label">Nombre</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" formControlName="nombre"
+                                                placeholder="Ingrese nombre">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label">Descripcion</label>
+                                        <div class="col-md-9">
+                                            <textarea 
+                                               rows="9" 
+                                                class="form-control" 
+                                                formControlName="descripcion"
+                                                placeholder="Ingrese descripcion del producto">
+                                            </textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label">Precio</label>
+                                        <div class="col-md-9">
+                                            <input type="number" 
+                                                class="form-control" 
+                                                formControlName="precio" 
+                                                min=0
+                                                placeholder="precio del producto">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-footer">
+                                <button type="reset" class="btn btn-secondary btn-sm" 
+                                       (click)="closeModal()">
+                                        <i class="fa fa-times"></i>
+                                        Cerrar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/.col-->
+                </div>
+                <!--/.row-->
+            </div>
+        </div>
+    </div>
+</div>

@@ -89,6 +89,7 @@ export class TypesProductsService {
             fileUploadImg.name = fileUploadImg.file.name;
             const data: TypeProduct = {
               id: type.id,
+              key: type.key,
               id_categoria: type.id_categoria,
               nombre: type.nombre,
               descripcion: type.descripcion,
@@ -123,6 +124,10 @@ export class TypesProductsService {
   }
 
   updateType(type: TypeProduct) {
+    console.log("Entro a actualizar");
+    console.log(type.key);
+    console.log(type);
+
     return this.typesProducts.update(type.key, type);
   }
 

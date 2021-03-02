@@ -67,8 +67,9 @@ export class BackgroundsService {
               id: background.id,
               key: background.key,
               nombre: background.nombre,
+              descripcion: background.descripcion,
               url_image: fileUpload.url,
-              createdAt: background.createdAt
+              createdAt: background.createdAt,
             };
             this.updateBackground(data);
           });

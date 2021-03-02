@@ -81,7 +81,8 @@ export class ListComponent implements OnInit, OnDestroy {
       size: "lg",
     });
     const props = {
-      type: type,
+      product: type,
+      categories: this.categories,
     };
     modalRef.componentInstance.props = props;
     modalRef.result.then((result) => {
