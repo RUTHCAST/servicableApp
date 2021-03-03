@@ -12,6 +12,15 @@ export const navItems: INavData[] = [
   },
   {
     title: true,
+    name: "Departamentos",
+  },
+  {
+    name: "Departamentos",
+    url: "/departamentos",
+    icon: "icon-handbag",
+  },
+  {
+    title: true,
     name: "Productos",
   },
   {

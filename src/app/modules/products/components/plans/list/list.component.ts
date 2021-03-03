@@ -8,8 +8,9 @@ import { TypesProductsService } from "../../../services/types-products.service";
 import { DetailsComponent } from "../details/details.component";
 import { EditComponent } from "../edit/edit.component";
 import { NewComponent } from "../new/new.component";
-import { PlanProduct } from "../../../models/plans.model";
+// import { PlanProduct } from "../../../models/plans.model";
 import { PlansService } from "../../../services/plans.service";
+import { PlanProduct } from "../../../models/plans.model";
 
 @Component({
   selector: "app-list",

@@ -65,6 +65,14 @@ export const routes: Routes = [
         (m) => m.DashboardModule
       ),
   },
+  {
+    path: "departamentos",
+    component: DefaultLayoutComponent,
+    loadChildren: () =>
+      import("./modules/departamentos/departamentos.module").then(
+        (m) => m.DepartamentosModule
+      ),
+  },
   // { path: "**", component: P404Component },
 ];
 
