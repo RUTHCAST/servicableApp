@@ -73,6 +73,22 @@ export const routes: Routes = [
         (m) => m.DepartamentosModule
       ),
   },
+  {
+    path: "aumento-megas",
+    component: DefaultLayoutComponent,
+    loadChildren: () =>
+      import("./modules/aumento-megas/aumento-megas.module").then(
+        (m) => m.AumentoMegasModule
+      ),
+  },
+  {
+    path: "solicitud-servicios",
+    component: DefaultLayoutComponent,
+    loadChildren: () =>
+      import("./modules/solicitud-servicios/solicitud-servicios.module").then(
+        (m) => m.SolicitudServiciosModule
+      ),
+  },
   // { path: "**", component: P404Component },
 ];
 

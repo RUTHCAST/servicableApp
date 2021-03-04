@@ -12,11 +12,21 @@ export const navItems: INavData[] = [
   },
   {
     title: true,
-    name: "Departamentos",
+    name: "Formularios",
   },
   {
     name: "Departamentos",
     url: "/departamentos",
+    icon: "icon-handbag",
+  },
+  {
+    name: "Aumento megas",
+    url: "/aumento-megas",
+    icon: "icon-handbag",
+  },
+  {
+    name: "Cambio plan",
+    url: "/solicitud-servicios",
     icon: "icon-handbag",
   },
   {

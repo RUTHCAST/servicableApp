@@ -1,12 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { NgbModalRef, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
-import { DetailsComponent } from "../components/details/details.component";
-import { Departamento } from "../models/departamento.model";
-import { DepartamentosService } from "../services/departamentos.service";
-import { ModalDeleteComponent } from "../../../core/components/modal-delete/modal-delete.component";
-import { NewComponent } from "../components/new/new.component";
-import { EditComponent } from "../components/edit/edit.component";
+import { DetailsComponent } from "../details/details.component";
+import { Departamento } from "../../models/departamento.model";
+import { DepartamentosService } from "../../services/departamentos.service";
+import { ModalDeleteComponent } from "../../../../core/components/modal-delete/modal-delete.component";
+import { NewComponent } from "../new/new.component";
+import { EditComponent } from "../edit/edit.component";
 
 @Component({
   selector: "app-lists",

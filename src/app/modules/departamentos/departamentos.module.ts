@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { DepartamentosRoutingModule } from "./departamentos-routing.module";
 
 import { DepartamentosComponent } from "./departamentos.component";
-import { ListsComponent } from "./lists/lists.component";
+import { ListsComponent } from "./components/lists/lists.component";
 import { NewComponent } from "./components/new/new.component";
 import { EditComponent } from "./components/edit/edit.component";
 import { CoreModule } from "../../core/core.module";
