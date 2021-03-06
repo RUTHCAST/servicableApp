@@ -6,6 +6,10 @@ import { EditComponent } from "./components/edit/edit.component";
 import { ListsComponent } from "./components/lists/lists.component";
 import { NewComponent } from "./components/new/new.component";
 import { SolicitudServiciosComponent } from "./components/solicitud-servicios.component";
+import { CoreModule } from "../../core/core.module";
+import { ListsServiciosComponent } from './components/lists-servicios/lists-servicios.component';
+import { NewServicioComponent } from './components/lists-servicios/new-servicio/new-servicio.component';
+import { EditServicioComponent } from './components/lists-servicios/edit-servicio/edit-servicio.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +17,10 @@ import { SolicitudServiciosComponent } from "./components/solicitud-servicios.co
     EditComponent,
     ListsComponent,
     NewComponent,
+    ListsServiciosComponent,
+    NewServicioComponent,
+    EditServicioComponent,
   ],
-  imports: [CommonModule, SolicitudServiciosRoutingModule],
+  imports: [CommonModule, SolicitudServiciosRoutingModule, CoreModule],
 })
 export class SolicitudServiciosModule {}

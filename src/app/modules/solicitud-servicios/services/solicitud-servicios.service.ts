@@ -31,7 +31,7 @@ export class SolicitudServiciosService {
     return this.productos.push(productoObj);
   }
 
-  updateDepartament(producto: ProductoSolicitudServicio) {
+  updateProducto(producto: ProductoSolicitudServicio) {
     return this.productos.update(producto.key, producto);
   }
 

@@ -1,32 +1,32 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import {
-  NgbActiveModal,
-  NgbModal,
-  NgbModalRef,
-} from "@ng-bootstrap/ng-bootstrap";
+import { ActivatedRoute, Params } from "@angular/router";
+import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { NgxSpinnerService } from "ngx-spinner";
-import { ServicioSolServicio } from "../../modules/servicioSolServicios.model";
-import { SolicitudServiciosService } from "../../services/solicitud-servicios.service";
+import { v4 as uuid } from "uuid";
+
+import { AumentoMegasService } from "../../../services/aumento-megas.service";
+import { PlanAumentoMegas } from "../../../models/planAumentoMegas.model";
 
 @Component({
-  selector: "app-edit",
-  templateUrl: "./edit.component.html",
-  styleUrls: ["./edit.component.scss"],
+  selector: "app-new-plan",
+  templateUrl: "./new-plan.component.html",
+  styleUrls: ["./new-plan.component.scss"],
 })
-export class EditComponent implements OnInit {
+export class NewPlanComponent implements OnInit {
   form: FormGroup;
   isSubmit = false;
   isLoading = false;
-  showButton = false;
   success = false;
+  productoId: number;
 
   @Input() props: any;
   constructor(
     public modal: NgbActiveModal,
     private modalService: NgbModal,
+    private aumentoMegasSrv: AumentoMegasService,
     private spinner: NgxSpinnerService,
-    private solSrv: SolicitudServiciosService
+    private _route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -35,7 +35,7 @@ export class EditComponent implements OnInit {
 
   createForm() {
     this.form = new FormGroup({
-      nombre: new FormControl(this.props.product.nombre, Validators.required),
+      nombre: new FormControl("", Validators.required),
     });
   }
 
@@ -55,30 +55,31 @@ export class EditComponent implements OnInit {
     );
   }
 
+  cancel() {
+    this.modal.close();
+  }
+
   closeModal() {
     this.modal.close(false);
   }
 
-  cancel() {
-    this.showButton = false;
-    this.modal.close();
-  }
-
-  edit() {
-    this.showButton = false;
+  save() {
+    this.isSubmit = true;
     this.isLoading = true;
     this.spinner.show();
-
-    const data: ServicioSolServicio = {
-      id: this.props.product.id,
-      key: this.props.product.key,
+    if (!this.form.valid) {
+      return;
+    }
+    const data: PlanAumentoMegas = {
+      id: this.props.id,
+      key: uuid(),
+      producto_id: this.props.productoId,
       nombre: this.form.get("nombre").value,
     };
 
-    this.solSrv
-      .updateProducto(data)
+    this.aumentoMegasSrv
+      .newPlan(data)
       .then((resp: any) => {
-        console.log(resp);
         this.isLoading = false;
         this.success = true;
         this.spinner.hide();

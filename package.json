@@ -65,6 +65,7 @@
     "simple-line-icons": "^2.5.5",
     "ts-helpers": "^1.1.2",
     "tslib": "^2.0.0",
+    "uuid": "^8.3.2",
     "web-animations-js": "^2.3.2",
     "xlsx": "^0.16.9",
     "xlsx-import": "^2.3.4",

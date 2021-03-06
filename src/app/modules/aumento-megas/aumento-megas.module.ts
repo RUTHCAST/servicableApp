@@ -7,6 +7,9 @@ import { NewComponent } from "./components/new/new.component";
 import { EditComponent } from "./components/edit/edit.component";
 import { AumentoMegasComponent } from "./components/aumento-megas.component";
 import { CoreModule } from "../../core/core.module";
+import { ListsPlanesComponent } from './components/lists-planes/lists-planes.component';
+import { NewPlanComponent } from './components/lists-planes/new-plan/new-plan.component';
+import { EditPlanComponent } from './components/lists-planes/edit-plan/edit-plan.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +17,9 @@ import { CoreModule } from "../../core/core.module";
     ListsComponent,
     NewComponent,
     EditComponent,
+    ListsPlanesComponent,
+    NewPlanComponent,
+    EditPlanComponent,
   ],
   imports: [CommonModule, AumentoMegasRoutingModule, CoreModule],
 })

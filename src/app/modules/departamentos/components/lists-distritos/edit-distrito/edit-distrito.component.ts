@@ -25,7 +25,6 @@ export class EditDistritoComponent implements OnInit {
   @Input() props: any;
   constructor(
     public modal: NgbActiveModal,
-    private modalService: NgbModal,
     private spinner: NgxSpinnerService,
     private departSrv: DepartamentosService
   ) {}

@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Params } from "@angular/router";
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { NgxSpinnerService } from "ngx-spinner";
+import { v4 as uuid } from "uuid";
 
 import { DepartamentosService } from "../../../services/departamentos.service";
 import { Distrito } from "../../../models/distrito.model";
@@ -73,7 +74,7 @@ export class NewDistritoComponent implements OnInit {
       return;
     }
     const data: Distrito = {
-      key: this.props.id,
+      key: uuid(),
       departamento_id: this.props.departamento_id,
       nombre: this.form.get("nombre").value,
     };

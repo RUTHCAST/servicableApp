@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { NgxSpinnerService } from "ngx-spinner";
+import { v4 as uuid } from "uuid";
 import { DepartamentosService } from "../../services/departamentos.service";
 import {
   NgbActiveModal,
@@ -30,6 +31,7 @@ export class NewComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
+    // console.log(uuid());
   }
 
   createForm() {
@@ -71,7 +73,7 @@ export class NewComponent implements OnInit {
     }
     const data: Departamento = {
       id: this.props.id,
-      key: this.props.id,
+      key: uuid(),
       nombre: this.form.get("nombre").value,
     };
 

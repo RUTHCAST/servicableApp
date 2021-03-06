@@ -9,7 +9,6 @@ import { NewDistritoComponent } from "./new-distrito/new-distrito.component";
 import { EditDistritoComponent } from "./edit-distrito/edit-distrito.component";
 import { ModalDeleteComponent } from "../../../../core/components/modal-delete/modal-delete.component";
 import { Distrito } from "../../models/distrito.model";
-import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 
 @Component({
   selector: "app-lists-distritos",

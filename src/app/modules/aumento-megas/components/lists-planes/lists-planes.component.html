@@ -9,8 +9,12 @@
 
                 <div class="card-body table-responsive">
                     <div class="row px-5">
-                        <div class="col-lg-12">
-                            <button class="btn btn-primary float-right my-3" (click)="onNew()">
+                        <div class="col-lg-12 d-flex justify-content-between">
+                            <a class="text-primary mb-3" routerLink="/aumento-megas">
+                                <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>
+                                Volver
+                            </a>
+                            <button class="btn btn-primary mb-3" (click)="onNew()">
                                 <i class="fa fa-plus" aria-hidden="true m-1"></i>
                                 Nuevo
                             </button>
@@ -26,14 +30,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let product of productos">
+                            <tr *ngFor="let product of planes">
                                 <td class="text-center py-2" width="20%">{{product.id}}</td>
                                 <td class="text-center py-2" width="70%">{{product.nombre}}</td>
                                 <td class="text-center btn-group py-2" role="group" aria-label="Acciones" width="100%">
-                                    <button type="button" class="btn btn-outline-success" title="ver distritos"
-                                        [routerLink]="['servicios/', product.id]">
-                                        <i class="fa fa-search" aria-hidden="true"></i>
-                                    </button>
                                     <button type="button" class="btn btn-outline-warning" title="editar"
                                         (click)="onEdit(product)">
                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>

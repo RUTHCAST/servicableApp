@@ -1,20 +1,21 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+
 import {
   NgbActiveModal,
   NgbModal,
   NgbModalRef,
 } from "@ng-bootstrap/ng-bootstrap";
 import { NgxSpinnerService } from "ngx-spinner";
-import { ServicioSolServicio } from "../../modules/servicioSolServicios.model";
-import { SolicitudServiciosService } from "../../services/solicitud-servicios.service";
+import { AumentoMegasService } from "../../../services/aumento-megas.service";
+import { PlanAumentoMegas } from "../../../models/planAumentoMegas.model";
 
 @Component({
-  selector: "app-edit",
-  templateUrl: "./edit.component.html",
-  styleUrls: ["./edit.component.scss"],
+  selector: "app-edit-plan",
+  templateUrl: "./edit-plan.component.html",
+  styleUrls: ["./edit-plan.component.scss"],
 })
-export class EditComponent implements OnInit {
+export class EditPlanComponent implements OnInit {
   form: FormGroup;
   isSubmit = false;
   isLoading = false;
@@ -24,9 +25,8 @@ export class EditComponent implements OnInit {
   @Input() props: any;
   constructor(
     public modal: NgbActiveModal,
-    private modalService: NgbModal,
     private spinner: NgxSpinnerService,
-    private solSrv: SolicitudServiciosService
+    private aumentoMegasSrv: AumentoMegasService
   ) {}
 
   ngOnInit(): void {
@@ -35,7 +35,7 @@ export class EditComponent implements OnInit {
 
   createForm() {
     this.form = new FormGroup({
-      nombre: new FormControl(this.props.product.nombre, Validators.required),
+      nombre: new FormControl(this.props.plan.nombre, Validators.required),
     });
   }
 
@@ -69,14 +69,14 @@ export class EditComponent implements OnInit {
     this.isLoading = true;
     this.spinner.show();
 
-    const data: ServicioSolServicio = {
-      id: this.props.product.id,
-      key: this.props.product.key,
+    const data: PlanAumentoMegas = {
+      key: this.props.plan.key,
+      producto_id: this.props.plan.producto_id,
       nombre: this.form.get("nombre").value,
     };
-
-    this.solSrv
-      .updateProducto(data)
+    console.log(data);
+    this.aumentoMegasSrv
+      .updatePlanes(data)
       .then((resp: any) => {
         console.log(resp);
         this.isLoading = false;
