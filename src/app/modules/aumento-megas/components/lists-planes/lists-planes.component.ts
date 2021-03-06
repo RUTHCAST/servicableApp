@@ -53,27 +53,7 @@ export class ListsPlanesComponent implements OnInit {
     this._route.params.subscribe((params: Params) => {
       this.productoId = parseInt(params.id);
     });
-    this.getProductos();
     this.getPlanes();
-  }
-  // Verificar si se necesita esta peticion
-  getProductos(): void {
-    this.aumentoMegasSrv
-      .getAllProductos()
-      .snapshotChanges()
-      .subscribe((res) => {
-        const size = this.productos.length;
-        console.log(size);
-        this.productos.splice(0, size);
-
-        res.forEach((t) => {
-          const producto = t.payload.toJSON();
-          producto["key"] = t.key;
-          this.productos.push(producto as ProductoAumentoMegas);
-        });
-        console.log(this.productos);
-        // this.dtTrigger.next();
-      });
   }
 
   getPlanes(): void {
@@ -95,7 +75,7 @@ export class ListsPlanesComponent implements OnInit {
           (dept) => dept.producto_id === this.productoId
         );
         console.log(this.planes);
-        // this.dtTrigger.next();
+        this.dtTrigger.next();
       });
   }
 
@@ -104,13 +84,9 @@ export class ListsPlanesComponent implements OnInit {
       size: "lg",
     });
     const props = {
-      id: this.productos.length,
       productoId: this.productoId,
     };
     modalRef.componentInstance.props = props;
-    modalRef.result.then((result) => {
-      // console.log(result);
-    });
   }
 
   onEdit(plan: PlanAumentoMegas): void {
@@ -121,8 +97,5 @@ export class ListsPlanesComponent implements OnInit {
       plan,
     };
     modalRef.componentInstance.props = props;
-    modalRef.result.then((result) => {
-      console.log(result);
-    });
   }
 }

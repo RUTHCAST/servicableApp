@@ -48,7 +48,6 @@ export class SolicitudServiciosService {
 
   newServicio(servicio: ServicioSolServicio) {
     const servicioObj: ServicioSolServicio = {
-      id: servicio.id,
       key: servicio.key,
       producto_id: servicio.producto_id,
       nombre: servicio.nombre,

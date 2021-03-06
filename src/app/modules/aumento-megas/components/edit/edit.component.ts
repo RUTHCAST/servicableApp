@@ -78,7 +78,7 @@ export class EditComponent implements OnInit {
     this.aumentoMegasSrv
       .updateProducto(data)
       .then((resp: any) => {
-        console.log(resp);
+        // console.log(resp);
         this.isLoading = false;
         this.success = true;
         this.spinner.hide();

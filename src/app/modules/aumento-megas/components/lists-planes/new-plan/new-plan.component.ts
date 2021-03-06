@@ -18,15 +18,12 @@ export class NewPlanComponent implements OnInit {
   isSubmit = false;
   isLoading = false;
   success = false;
-  productoId: number;
 
   @Input() props: any;
   constructor(
     public modal: NgbActiveModal,
-    private modalService: NgbModal,
     private aumentoMegasSrv: AumentoMegasService,
-    private spinner: NgxSpinnerService,
-    private _route: ActivatedRoute
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
@@ -71,7 +68,6 @@ export class NewPlanComponent implements OnInit {
       return;
     }
     const data: PlanAumentoMegas = {
-      id: this.props.id,
       key: uuid(),
       producto_id: this.props.productoId,
       nombre: this.form.get("nombre").value,

@@ -33,9 +33,9 @@ export class ListsComponent implements OnInit {
       product: departamento,
     };
     modalRef.componentInstance.props = props;
-    modalRef.result.then((result) => {
-      console.log(result);
-    });
+    // modalRef.result.then((result) => {
+    //   console.log(result);
+    // });
   }
 
   onEdit(departamento: Departamento): void {
@@ -46,9 +46,9 @@ export class ListsComponent implements OnInit {
       product: departamento,
     };
     modalRef.componentInstance.props = props;
-    modalRef.result.then((result) => {
-      console.log(result);
-    });
+    // modalRef.result.then((result) => {
+    //   console.log(result);
+    // });
   }
 
   onDelete(departamento: Departamento): void {
@@ -72,9 +72,9 @@ export class ListsComponent implements OnInit {
       id: this.departamentos.length,
     };
     modalRef.componentInstance.props = props;
-    modalRef.result.then((result) => {
-      console.log(result);
-    });
+    // modalRef.result.then((result) => {
+    //   console.log(result);
+    // });
   }
 
   getDepartamentos(): void {

@@ -70,7 +70,6 @@ export class EditComponent implements OnInit {
     this.spinner.show();
 
     const data: ServicioSolServicio = {
-      id: this.props.product.id,
       key: this.props.product.key,
       nombre: this.form.get("nombre").value,
     };

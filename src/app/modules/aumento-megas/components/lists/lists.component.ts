@@ -31,9 +31,9 @@ export class ListsComponent implements OnInit {
       product: producto,
     };
     modalRef.componentInstance.props = props;
-    modalRef.result.then((result) => {
-      // console.log(result);
-    });
+    // modalRef.result.then((result) => {
+    //   // console.log(result);
+    // });
   }
 
   onDelete(producto: ProductoAumentoMegas): void {
@@ -44,9 +44,9 @@ export class ListsComponent implements OnInit {
       product: producto,
     };
     modalRef.componentInstance.props = props;
-    modalRef.result.then((result) => {
-      // console.log(result);
-    });
+    // modalRef.result.then((result) => {
+    //   // console.log(result);
+    // });
   }
 
   onNew(): void {
@@ -57,9 +57,9 @@ export class ListsComponent implements OnInit {
       id: this.productos.length,
     };
     modalRef.componentInstance.props = props;
-    modalRef.result.then((result) => {
-      // console.log(result);
-    });
+    // modalRef.result.then((result) => {
+    //   // console.log(result);
+    // });
   }
 
   getProductos(): void {

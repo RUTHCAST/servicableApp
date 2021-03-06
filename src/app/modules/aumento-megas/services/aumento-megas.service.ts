@@ -49,7 +49,6 @@ export class AumentoMegasService {
 
   newPlan(plan: PlanAumentoMegas) {
     const planObj: PlanAumentoMegas = {
-      id: plan.id,
       key: plan.key,
       producto_id: plan.producto_id,
       nombre: plan.nombre,

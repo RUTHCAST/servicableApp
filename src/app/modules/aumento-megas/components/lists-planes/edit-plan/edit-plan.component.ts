@@ -56,7 +56,7 @@ export class EditPlanComponent implements OnInit {
   }
 
   closeModal() {
-    this.modal.close(false);
+    this.modal.close();
   }
 
   cancel() {
