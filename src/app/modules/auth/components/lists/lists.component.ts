@@ -1,7 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
+import { NgbModalRef, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { users } from '../../models/user.model';
 import { UsersService } from '../../services/users.service';
+import { DetailsComponent } from '../details/details.component';
+import { EditComponent } from '../edit/edit.component';
+import { ModalDeleteComponent } from '../../../../core/components/modal-delete/modal-delete.component';
+
 
 @Component({
   selector: 'app-lists',
@@ -17,12 +22,15 @@ export class ListsComponent implements OnInit, OnDestroy {
 
   constructor(
 
-      private usersSrv: UsersService
+    private modalService: NgbModal,
+    private usersSrv: UsersService
 
 
   ) { }
 
   ngOnInit(): void {
+
+
 
     this.dtOptions = {
       pagingType: "full_numbers",
@@ -48,13 +56,69 @@ export class ListsComponent implements OnInit, OnDestroy {
       },
     };
 
+    this.getUsers(); 
+
 
 
   }
+
 
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }
+
+  onDetail(user: users): void {
+    const modalRef: NgbModalRef = this.modalService.open(DetailsComponent, {
+      size: "lg",
+    });
+    const props = {
+     user,
+    };
+    modalRef.componentInstance.props = props;
+    modalRef.result.then((result) => {
+      console.log(result);
+    });
+  }
+
+  onEdit(user:users): void {
+    const modalRef: NgbModalRef = this.modalService.open(EditComponent, {
+      size: "lg",
+    });
+    const props = {
+      user,
+    };
+    modalRef.componentInstance.props = props;
+    modalRef.result.then((result) => {
+      console.log(result);
+    });
+  }
+
+  onDelete(user: users): void {
+    const modalRef: NgbModalRef = this.modalService.open(ModalDeleteComponent, {
+      size: "lg",
+    });
+    const props = {
+      user,
+    };
+    modalRef.componentInstance.props = props;
+    modalRef.result.then((result) => {
+      console.log(result);
+    });
+  }
+
+  onNew(): void {
+    const modalRef: NgbModalRef = this.modalService.open(NewComponent, {
+      size: "lg",
+    });
+    const props = {
+      id: this.categories.length,
+    };
+    modalRef.componentInstance.props = props;
+    modalRef.result.then((result) => {
+      console.log(result);
+    });
+  }
+
 
 
   getUsers(): void {
