@@ -1,15 +1,17 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-
+import { ActivatedRoute, Params, Router } from "@angular/router";
 import { NgbModalRef, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 import { EditComponent } from "../edit/edit.component";
 import { DetailsComponent } from "../details/details.component";
-import { ModalDeleteComponent } from "../../../../../core/components/modal-delete/modal-delete.component";
+import { ModalDeleteComponent } from "../modal-delete/modal-delete.component";
 import { NewComponent } from "../new/new.component";
 
 import { Category } from "../../../models/categoy.model";
 import { Subject } from "rxjs";
 import { CategoriesService } from "../../../services/categories.service";
+import { TypesProductsService } from "../../../services/types-products.service";
+import { TypeProduct } from "../../../models/types.model";
 @Component({
   selector: "app-list",
   templateUrl: "./list.component.html",
@@ -17,12 +19,16 @@ import { CategoriesService } from "../../../services/categories.service";
 })
 export class ListComponent implements OnInit, OnDestroy {
   categories: Category[] = [];
+  typesProduct: TypeProduct[] = [];
+  productoId: number;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(
     private modalService: NgbModal,
-    private categoriesSrv: CategoriesService
+    private categoriesSrv: CategoriesService,
+    private typeSrv: TypesProductsService,
+    private _route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -49,7 +55,11 @@ export class ListComponent implements OnInit, OnDestroy {
         },
       },
     };
+    this._route.params.subscribe((params: Params) => {
+      this.productoId = parseInt(params.id);
+    });
     this.getCategorys();
+    this.getTypes();
   }
 
   ngOnDestroy(): void {
@@ -87,7 +97,8 @@ export class ListComponent implements OnInit, OnDestroy {
       size: "lg",
     });
     const props = {
-      product: product,
+      product,
+      types: this.typesProduct,
     };
     modalRef.componentInstance.props = props;
     modalRef.result.then((result) => {
@@ -122,7 +133,36 @@ export class ListComponent implements OnInit, OnDestroy {
           category["key"] = t.key;
           this.categories.push(category as Category);
         });
+        if (this.productoId) {
+          this.categories.filter((value) => value.id === this.productoId);
+        }
+
         console.log(this.categories);
+        this.dtTrigger.next();
+      });
+  }
+
+  getTypes(): void {
+    this.typeSrv
+      .getAllTypes()
+      .snapshotChanges()
+      .subscribe((res) => {
+        const size = this.typesProduct.length;
+        console.log(size);
+        this.typesProduct.splice(0, size);
+        res.forEach((t) => {
+          const typesProduct = t.payload.toJSON();
+          typesProduct["key"] = t.key;
+          this.typesProduct.push(typesProduct as TypeProduct);
+        });
+        if (this.productoId) {
+          this.typesProduct.filter(
+            (value) => value.id_categoria === this.productoId
+          );
+        }
+
+        // this.categories = data;
+        console.log(this.typesProduct);
         this.dtTrigger.next();
       });
   }

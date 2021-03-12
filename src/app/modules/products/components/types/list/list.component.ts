@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 import { NgbModalRef, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Subject } from "rxjs";
 
@@ -7,7 +7,7 @@ import { Subject } from "rxjs";
 import { DetailsComponent } from "../details/details.component";
 import { EditComponent } from "../edit/edit.component";
 import { NewComponent } from "../new/new.component";
-import { ModalDeleteComponent } from "../../../../../core/components/modal-delete/modal-delete.component";
+import { ModalDeleteComponent } from "../../categories/modal-delete/modal-delete.component";
 
 // Interfaces and services
 import { Category } from "../../../models/categoy.model";
@@ -24,10 +24,13 @@ export class ListComponent implements OnInit, OnDestroy {
   constructor(
     private modalService: NgbModal,
     private categoriesSrv: CategoriesService,
-    private typeSrv: TypesProductsService
+    private typeSrv: TypesProductsService,
+    private _route: ActivatedRoute
   ) {}
   categories: Category[] = [];
   typesProduct: TypeProduct[] = [];
+  productoId: number;
+
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
 
@@ -55,6 +58,10 @@ export class ListComponent implements OnInit, OnDestroy {
         },
       },
     };
+    this._route.params.subscribe((params: Params) => {
+      this.productoId = parseInt(params.id);
+    });
+
     this.getTypes();
     this.getCategorys();
   }
@@ -131,6 +138,13 @@ export class ListComponent implements OnInit, OnDestroy {
           this.typesProduct.push(typesProduct as TypeProduct);
         });
 
+        if (this.productoId !== null) {
+          console.log("Entro");
+          console.log(this.productoId);
+          this.typesProduct.filter((value) => console.log(value.id_categoria));
+          console.log(this.typesProduct);
+        }
+
         // this.categories = data;
         console.log(this.typesProduct);
         this.dtTrigger.next();
@@ -151,11 +165,17 @@ export class ListComponent implements OnInit, OnDestroy {
           category["key"] = t.key;
           this.categories.push(category as Category);
         });
+        console.log(this.productoId);
+
+        if (this.productoId !== null) {
+          this.categories.filter((value) => value.id === this.productoId);
+        }
+
         this.categories.sort((a, b) =>
           a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0
         );
         console.log(this.categories);
-        this.dtTrigger.next();
+        // this.dtTrigger.next();
       });
   }
 }

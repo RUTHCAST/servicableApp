@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { NgbModalRef, NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { ModalDeleteComponent } from "../../../../core/components/modal-delete/modal-delete.component";
+// import { ModalDeleteComponent } from "../../../products/components/categories/modal-delete/modal-delete.component";
 import { ProductoAumentoMegas } from "../../models/productoAumentoMegas.model";
 import { AumentoMegasService } from "../../services/aumento-megas.service";
+import { DeleteComponent } from "../delete/delete.component";
 import { EditComponent } from "../edit/edit.component";
 import { NewComponent } from "../new/new.component";
 
@@ -37,7 +38,7 @@ export class ListsComponent implements OnInit {
   }
 
   onDelete(producto: ProductoAumentoMegas): void {
-    const modalRef: NgbModalRef = this.modalService.open(ModalDeleteComponent, {
+    const modalRef: NgbModalRef = this.modalService.open(DeleteComponent, {
       size: "lg",
     });
     const props = {

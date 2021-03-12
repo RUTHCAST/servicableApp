@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { NgbModalRef, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Subject } from "rxjs";
 
-import { ModalDeleteComponent } from "../../../../../core/components/modal-delete/modal-delete.component";
+import { ModalDeleteComponent } from "../../categories/modal-delete/modal-delete.component";
 import { TypeProduct } from "../../../models/types.model";
 import { TypesProductsService } from "../../../services/types-products.service";
 import { DetailsComponent } from "../details/details.component";

@@ -7,7 +7,7 @@ import { Departamento } from "../../models/departamento.model";
 import { DepartamentosService } from "../../services/departamentos.service";
 import { NewDistritoComponent } from "./new-distrito/new-distrito.component";
 import { EditDistritoComponent } from "./edit-distrito/edit-distrito.component";
-import { ModalDeleteComponent } from "../../../../core/components/modal-delete/modal-delete.component";
+import { ModalDeleteComponent } from "../../../products/components/categories/modal-delete/modal-delete.component";
 import { Distrito } from "../../models/distrito.model";
 
 @Component({

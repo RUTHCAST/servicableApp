@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
-import { CategoriesService } from "../../../modules/products/services/categories.service";
+import { Router } from "@angular/router";
+import { CategoriesService } from "../../../services/categories.service";
 
 @Component({
   selector: "app-modal-delete",
@@ -13,13 +14,29 @@ export class ModalDeleteComponent implements OnInit {
   @Input() props: any;
   constructor(
     public modal: NgbActiveModal,
-    private categoriesSrv: CategoriesService
+    private categoriesSrv: CategoriesService,
+    private _route: Router
   ) {}
 
   ngOnInit(): void {}
 
   closeModal() {
     this.modal.close(false);
+  }
+
+  verify(id: number) {
+    console.log(id);
+    const verify = this.props.types.some(
+      (arrVal) => arrVal.id_categoria === id
+    );
+
+    if (verify) {
+      this.closeModal();
+      // this._route.navigateByUrl("productos/tipos");
+      this._route.navigate(["/productos/tipos/", id]);
+    } else {
+      this.delete();
+    }
   }
 
   delete() {

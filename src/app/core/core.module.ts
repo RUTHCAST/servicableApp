@@ -5,10 +5,9 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { NgxSpinnerModule } from "ngx-spinner";
 import { DataTablesModule } from "angular-datatables";
 
-import { ModalDeleteComponent } from "./components/modal-delete/modal-delete.component";
 import { ModalConfirmationComponent } from "./components/modal-confirmation/modal-confirmation.component";
 @NgModule({
-  declarations: [ModalDeleteComponent, ModalConfirmationComponent],
+  declarations: [ModalConfirmationComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

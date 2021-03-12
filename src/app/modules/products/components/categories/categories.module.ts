@@ -9,9 +9,16 @@ import { ListComponent } from "./lists/list.component";
 import { DetailsComponent } from "./details/details.component";
 import { NewComponent } from "./new/new.component";
 import { EditComponent } from "./edit/edit.component";
+import { ModalDeleteComponent } from "./modal-delete/modal-delete.component";
 
 @NgModule({
-  declarations: [ListComponent, DetailsComponent, NewComponent, EditComponent],
+  declarations: [
+    ListComponent,
+    DetailsComponent,
+    NewComponent,
+    EditComponent,
+    ModalDeleteComponent,
+  ],
   imports: [CommonModule, CategoriesRoutingModule, NgbModalModule, CoreModule],
 })
 export class CategoriesModule {}

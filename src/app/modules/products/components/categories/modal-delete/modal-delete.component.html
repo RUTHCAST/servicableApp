@@ -22,7 +22,7 @@
     <button 
      class="btn btn-danger" 
      *ngIf="!success  && !isLoading"
-     (click)="delete()">
+     (click)="verify(props.product.id)">
         Eliminar
     </button>
 

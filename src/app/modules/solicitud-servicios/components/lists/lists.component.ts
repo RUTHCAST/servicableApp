@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { NgbModalRef, NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { ModalDeleteComponent } from "../../../../core/components/modal-delete/modal-delete.component";
+import { ModalDeleteComponent } from "../../../products/components/categories/modal-delete/modal-delete.component";
 import { ServicioSolServicio } from "../../modules/servicioSolServicios.model";
 import { SolicitudServiciosService } from "../../services/solicitud-servicios.service";
 import { EditComponent } from "../edit/edit.component";
