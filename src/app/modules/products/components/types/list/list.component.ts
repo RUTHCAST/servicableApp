@@ -29,7 +29,7 @@ export class ListComponent implements OnInit, OnDestroy {
   ) {}
   categories: Category[] = [];
   typesProduct: TypeProduct[] = [];
-  productoId: number;
+  productoId = null;
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
@@ -59,15 +59,23 @@ export class ListComponent implements OnInit, OnDestroy {
       },
     };
     this._route.params.subscribe((params: Params) => {
-      this.productoId = parseInt(params.id);
+      if (params.id) {
+        console.log("existe el id");
+        this.productoId = parseInt(params.id);
+      }
     });
 
+    console.log(typeof this.productoId);
     this.getTypes();
     this.getCategorys();
   }
 
   ngOnDestroy(): void {
-    this.dtTrigger.unsubscribe();
+    this.dtTrigger?.unsubscribe();
+  }
+
+  isNumber(val): boolean {
+    return typeof val === "number";
   }
 
   onNew(): void {
@@ -132,16 +140,20 @@ export class ListComponent implements OnInit, OnDestroy {
         const size = this.typesProduct.length;
         console.log(size);
         this.typesProduct.splice(0, size);
+
         res.forEach((t) => {
           const typesProduct = t.payload.toJSON();
           typesProduct["key"] = t.key;
           this.typesProduct.push(typesProduct as TypeProduct);
         });
 
-        if (this.productoId !== null) {
+        console.log("id capturado", this.productoId);
+        if (this.productoId != null) {
           console.log("Entro");
-          console.log(this.productoId);
-          this.typesProduct.filter((value) => console.log(value.id_categoria));
+          console.log(typeof this.productoId);
+          this.typesProduct = this.typesProduct.filter(
+            (value) => value.id_categoria === this.productoId
+          );
           console.log(this.typesProduct);
         }
 

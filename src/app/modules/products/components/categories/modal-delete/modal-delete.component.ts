@@ -32,7 +32,6 @@ export class ModalDeleteComponent implements OnInit {
 
     if (verify) {
       this.closeModal();
-      // this._route.navigateByUrl("productos/tipos");
       this._route.navigate(["/productos/tipos/", id]);
     } else {
       this.delete();

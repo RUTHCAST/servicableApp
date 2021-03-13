@@ -92,13 +92,14 @@ export class ListComponent implements OnInit, OnDestroy {
     });
   }
 
-  onDelete(product: any): void {
+  onDelete(product: any, message: string): void {
     const modalRef: NgbModalRef = this.modalService.open(ModalDeleteComponent, {
       size: "lg",
     });
     const props = {
       product,
       types: this.typesProduct,
+      message,
     };
     modalRef.componentInstance.props = props;
     modalRef.result.then((result) => {
@@ -155,11 +156,11 @@ export class ListComponent implements OnInit, OnDestroy {
           typesProduct["key"] = t.key;
           this.typesProduct.push(typesProduct as TypeProduct);
         });
-        if (this.productoId) {
-          this.typesProduct.filter(
-            (value) => value.id_categoria === this.productoId
-          );
-        }
+        // if (this.productoId) {
+        //   this.typesProduct.filter(
+        //     (value) => value.id_categoria === this.productoId
+        //   );
+        // }
 
         // this.categories = data;
         console.log(this.typesProduct);
@@ -167,7 +168,19 @@ export class ListComponent implements OnInit, OnDestroy {
       });
   }
 
-  getCategory(id) {
-    console.log(id);
+  verify(product: any) {
+    const verify = this.typesProduct.some(
+      (arrVal) => arrVal.id_categoria === product.id
+    );
+
+    if (verify) {
+      const message =
+        "La categoria seleccionada tiene tipos asociados, por lo que será redireccionado a la pagina de tipos de productos para que elimine cada uno de ellos.";
+      this.onDelete(product, message);
+    } else {
+      const message =
+        "Esta acción eliminara permanentemente la categoría y productos relacionados. Esta seguro de continuar?";
+      this.onDelete(product, message);
+    }
   }
 }
