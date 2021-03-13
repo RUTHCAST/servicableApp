@@ -8,7 +8,10 @@
                 </div>
 
                 <div class="card-body table-responsive">
-                    <button class="btn btn-primary float-right my-3" (click)="onNew()">
+                    <button 
+                        class="btn btn-primary float-right my-3"
+                        *ngIf="productoId === null" 
+                        (click)="onNew()">
                         <i class="fa fa-plus" aria-hidden="true m-1"></i>
                         Nuevo
                     </button>
@@ -34,11 +37,17 @@
                                         width="40">
                                 </td>
                                 <td class="text-center btn-group py-2" role="group" aria-label="Acciones" width="100%">
-                                    <button type="button" class="btn btn-outline-success" title="ver"
+                                    <button type="button" 
+                                        class="btn btn-outline-success" 
+                                        title="ver"
+                                        *ngIf="productoId === null"
                                         (click)="onDetail(product)">
                                         <i class="fa fa-search" aria-hidden="true"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline-warning" title="editar"
+                                    <button type="button" 
+                                        class="btn btn-outline-warning" 
+                                        title="editar"
+                                        *ngIf="productoId === null"
                                         (click)="onEdit(product)">
                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                     </button>

@@ -14,6 +14,9 @@ import { Category } from "../../../models/categoy.model";
 import { TypeProduct } from "../../../models/types.model";
 import { CategoriesService } from "../../../services/categories.service";
 import { TypesProductsService } from "../../../services/types-products.service";
+import { PlanProduct } from '../../../models/plans.model';
+import { PlansService } from "../../../services/plans.service";
+import { DeleteTypeComponent } from "../delete-type/delete-type.component";
 
 @Component({
   selector: "app-list",
@@ -25,10 +28,13 @@ export class ListComponent implements OnInit, OnDestroy {
     private modalService: NgbModal,
     private categoriesSrv: CategoriesService,
     private typeSrv: TypesProductsService,
+    private planSrv: PlansService,
     private _route: ActivatedRoute
   ) {}
   categories: Category[] = [];
   typesProduct: TypeProduct[] = [];
+  plansProduct: PlanProduct[] = [];
+
   productoId = null;
 
   dtOptions: DataTables.Settings = {};
@@ -68,6 +74,7 @@ export class ListComponent implements OnInit, OnDestroy {
     console.log(typeof this.productoId);
     this.getTypes();
     this.getCategorys();
+    this.getPlans();
   }
 
   ngOnDestroy(): void {
@@ -119,17 +126,54 @@ export class ListComponent implements OnInit, OnDestroy {
     });
   }
 
-  onDelete(type: any): void {
-    const modalRef: NgbModalRef = this.modalService.open(ModalDeleteComponent, {
+  onDelete(type: any, message: string, plans: PlanProduct[]=[]): void {
+    const modalRef: NgbModalRef = this.modalService.open(DeleteTypeComponent, {
       size: "lg",
     });
     const props = {
-      type: type,
+      type,
+      plans,
+      message,
     };
     modalRef.componentInstance.props = props;
     modalRef.result.then((result) => {
       console.log(result);
     });
+  }
+
+  verify(product: any) {
+    const verify = this.plansProduct.some(
+      (arrVal) => arrVal.id_tipo === product.id
+    );
+
+    if (verify) {
+      const message =
+        "El tipo de producto seleccionado tiene planes asociados, por lo que será redireccionado a la pagina de planes de productos para que elimine cada uno de ellos.";
+      this.onDelete(product, message, this.plansProduct);
+    } else {
+      const message =
+        "Esta acción eliminara permanentemente el tipo de producrto. Esta seguro de continuar?";
+      this.onDelete(product, message);
+    }
+  }
+
+  getPlans(): void {
+    this.planSrv
+      .getAllTypes()
+      .snapshotChanges()
+      .subscribe((res) => {
+        const size = this.plansProduct.length;
+        console.log(size);
+        this.plansProduct.splice(0, size);
+        res.forEach((t) => {
+          const plansProduct = t.payload.toJSON();
+          plansProduct["key"] = t.key;
+          this.plansProduct.push(plansProduct as PlanProduct);
+        });
+
+        // this.categories = data;
+        console.log(this.plansProduct);
+      });
   }
 
   getTypes(): void {
@@ -157,7 +201,6 @@ export class ListComponent implements OnInit, OnDestroy {
           console.log(this.typesProduct);
         }
 
-        // this.categories = data;
         console.log(this.typesProduct);
         this.dtTrigger.next();
       });

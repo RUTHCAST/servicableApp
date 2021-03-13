@@ -86,4 +86,18 @@ export class PlansService {
     console.log("entro a borrar la imagen con esta url", downloadUrl);
     return this.storage.storage.refFromURL(downloadUrl).delete();
   }
+
+  deletePlanesDatabase(key: any) {
+    return this.plansProducts.remove(key);
+  }
+
+  deletePlan(plan: PlanProduct) {
+    return this.deletePlanesDatabase(plan.key)
+      .then(() => {
+        this.deleteFileStorage(plan.url_image);
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+  }
 }
