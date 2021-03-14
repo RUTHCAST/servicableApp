@@ -1,20 +1,20 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { Router } from "@angular/router";
-import { CategoriesService } from "../../../services/categories.service";
+import { TypesProductsService } from "../../../services/types-products.service";
 
 @Component({
-  selector: "app-modal-delete",
-  templateUrl: "./modal-delete.component.html",
-  styleUrls: ["./modal-delete.component.scss"],
+  selector: "app-delete-type",
+  templateUrl: "./delete-type.component.html",
+  styleUrls: ["./delete-type.component.scss"],
 })
-export class ModalDeleteComponent implements OnInit {
+export class DeleteTypeComponent implements OnInit {
   success = false;
   isLoading = false;
   @Input() props: any;
   constructor(
     public modal: NgbActiveModal,
-    private categoriesSrv: CategoriesService,
+    private typeSrv: TypesProductsService,
     private _route: Router
   ) {}
 
@@ -26,22 +26,22 @@ export class ModalDeleteComponent implements OnInit {
 
   verify(id: number) {
     console.log(id);
-    const verify = this.props.types.some(
-      (arrVal) => arrVal.id_categoria === id
-    );
+    const verify = this.props.plans.some((arrVal) => arrVal.id_tipo === id);
+    console.log(verify);
 
     if (verify) {
       this.closeModal();
-      this._route.navigate(["/productos/tipos/", id]);
+      this._route.navigate(["/productos/planes/", id]);
     } else {
-      this.delete();
+      alert("Entro a borrar");
+      // this.delete();
     }
   }
 
   delete() {
     this.isLoading = true;
-    this.categoriesSrv
-      .deleteCategory(this.props.product)
+    this.typeSrv
+      .deleteType(this.props.type)
       .then(() => {
         this.success = true;
         this.isLoading = false;

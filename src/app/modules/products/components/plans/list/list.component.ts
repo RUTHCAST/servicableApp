@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { NgbModalRef, NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Subject } from "rxjs";
 
 import { ModalDeleteComponent } from "../../categories/modal-delete/modal-delete.component";
@@ -21,13 +22,16 @@ export class ListComponent implements OnInit {
   typesProduct: TypeProduct[] = [];
   plansProduct: PlanProduct[] = [];
 
+  productoId = null;
+
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(
     private modalService: NgbModal,
     private typeSrv: TypesProductsService,
-    private planSrv: PlansService
+    private planSrv: PlansService,
+    private _route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -54,6 +58,13 @@ export class ListComponent implements OnInit {
         },
       },
     };
+
+    this._route.params.subscribe((params: Params) => {
+      if (params.id) {
+        console.log("existe el id");
+        this.productoId = parseInt(params.id);
+      }
+    });
 
     this.getTypes();
     this.getPlans();
@@ -93,7 +104,7 @@ export class ListComponent implements OnInit {
       size: "lg",
     });
     const props = {
-      product: product,
+      product,
     };
     modalRef.componentInstance.props = props;
     modalRef.result.then((result) => {
@@ -148,6 +159,13 @@ export class ListComponent implements OnInit {
           plansProduct["key"] = t.key;
           this.plansProduct.push(plansProduct as PlanProduct);
         });
+
+        if (this.productoId != null) {
+          this.plansProduct = this.plansProduct.filter(
+            (value) => value.id_tipo === this.productoId
+          );
+          console.log(this.plansProduct);
+        }
 
         // this.categories = data;
         console.log(this.plansProduct);

@@ -44,6 +44,15 @@ export const routes: Routes = [
     loadChildren: () =>
       import("./components/plans/plans.module").then((m) => m.PlansModule),
   },
+  {
+    path: "planes/:id",
+    component: PlansComponent,
+    data: {
+      title: "Planes",
+    },
+    loadChildren: () =>
+      import("./components/plans/plans.module").then((m) => m.PlansModule),
+  },
 ];
 
 @NgModule({

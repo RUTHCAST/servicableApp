@@ -136,6 +136,21 @@ export class TypesProductsService {
     return this.storage.storage.refFromURL(downloadUrl).delete();
   }
 
+  deleteTypeDatabase(key: any) {
+    return this.typesProducts.remove(key);
+  }
+
+  deleteType(type: TypeProduct) {
+    console.log(type);
+    return this.deleteTypeDatabase(type.key)
+      .then(() => {
+        this.deleteFileStorage(type.url_image);
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+  }
+
   executeActionType(action: string, type: TypeProduct) {
     if (action === "new") {
       this.newType(type);

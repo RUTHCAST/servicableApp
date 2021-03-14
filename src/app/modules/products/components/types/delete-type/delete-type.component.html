@@ -5,7 +5,7 @@
     </button>
 </div>
 <div class="modal-body py-4 h6" *ngIf="!success">
-{{props.message}}
+    {{props.message}}
 </div>
 
 <div class="alert alert-success m-3 p-3 text-center" *ngIf="success">
@@ -14,21 +14,17 @@
 
 <div class="modal-footer">
     <button class="btn btn-secondary mr-2" (click)="closeModal()">
-      <span *ngIf="!success">Cancelar</span>
-      <span *ngIf="success">Cerrar</span>
-    </button>
-    
-    <button 
-     class="btn btn-danger" 
-     *ngIf="!success  && !isLoading"
-     (click)="verify(props.product.id)">
-        Eliminar
+        <span *ngIf="!success">Cancelar</span>
+        <span *ngIf="success">Cerrar</span>
     </button>
 
     <button 
         class="btn btn-danger" 
-        *ngIf="success && isLoading" 
-        [disabled]="true">
+        (click)="verify(props.type.id)">
+        Eliminar
+    </button>
+
+    <button class="btn btn-danger" *ngIf="success && isLoading" [disabled]="true">
         <i class="fa fa-circle-o-notch fa-spin"></i> Espere...
     </button>
 </div>
