@@ -61,6 +61,21 @@ export const navItems: INavData[] = [
   {
     divider: true,
   },
+
+  {
+    title: true,
+    name: "Canales",
+  },
+  {
+    name: "Administrador Canales",
+    url: "/canales",
+    icon: "icon-handbag",
+  },
+  {
+    divider: true,
+  },
+
+
   // {
   //   title: true,
   //   name: "configuraciones",
