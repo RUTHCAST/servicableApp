@@ -83,12 +83,17 @@ export const routes: Routes = [
   },
   {
     path: "solicitud-servicios",
-    component: DefaultLayoutComponent,
+    
     loadChildren: () =>
       import("./modules/solicitud-servicios/solicitud-servicios.module").then(
         (m) => m.SolicitudServiciosModule
       ),
   },
+
+  { path: 'canales', component: DefaultLayoutComponent,
+    loadChildren: () => import('./modules/canales/canales.module').then
+           (m => m.CanalesModule) },
+  
   // { path: "**", component: P404Component },
 ];
 
