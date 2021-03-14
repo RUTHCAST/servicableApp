@@ -73,7 +73,8 @@
                                                 formControlName="id_categoria"
                                                 [class.is-invalid]="onInvalidField('id_categoria')">
                                                 <option value="">Seleccione una categoria</option>
-                                                <option [value]="category.id" *ngFor="let category of categories">
+                                                <option [value]="category.id" 
+                                                *ngFor="let category of categories">
                                                     {{category.nombre}}
                                                 </option>
                                             </select>

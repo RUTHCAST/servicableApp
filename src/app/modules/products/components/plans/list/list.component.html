@@ -27,7 +27,9 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let product of plansProduct">
-                                <td class="text-left py-2" width="20%">{{product.nombre}}</td>
+                                <td class="text-left py-2" width="20%">
+                                    {{product.nombre}}
+                                </td>
                                 <td class="text-left py-2" width="35%">{{product.descripcion !== "''" ?
                                     product.descripcion : 'Sin descripcion'}}</td>
                                 <td class="text-center py-2" width="5%">{{product.precio !== "''" ? product.precio :

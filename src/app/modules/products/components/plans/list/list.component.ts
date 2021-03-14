@@ -92,6 +92,7 @@ export class ListComponent implements OnInit {
     });
     const props = {
       product: product,
+      types: this.typesProduct,
     };
     modalRef.componentInstance.props = props;
     modalRef.result.then((result) => {
