@@ -122,7 +122,8 @@
                             <div class="card-footer">
                                 <button 
                                     class="btn btn-sm btn-primary" 
-                                    *ngIf="!isLoading && !success" 
+                                    *ngIf="!isLoading && !success"
+                                    [disabled]="!form.valid" 
                                     (click)="save()">
                                     <i class="fa fa-dot-circle-o"></i>
                                     Guardar
