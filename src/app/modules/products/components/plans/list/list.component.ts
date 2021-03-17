@@ -3,15 +3,15 @@ import { NgbModalRef, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Subject } from "rxjs";
 
-import { ModalDeleteComponent } from "../../categories/modal-delete/modal-delete.component";
 import { TypeProduct } from "../../../models/types.model";
 import { TypesProductsService } from "../../../services/types-products.service";
 import { DetailsComponent } from "../details/details.component";
 import { EditComponent } from "../edit/edit.component";
 import { NewComponent } from "../new/new.component";
-// import { PlanProduct } from "../../../models/plans.model";
+// import { PlanProduct } from '../../../models/plans.model';
 import { PlansService } from "../../../services/plans.service";
 import { PlanProduct } from "../../../models/plans.model";
+import { DeletePlanComponent } from "../delete-plan/delete-plan.component";
 
 @Component({
   selector: "app-list",
@@ -91,7 +91,7 @@ export class ListComponent implements OnInit {
       size: "lg",
     });
     const props = {
-      product: product,
+      product,
       types: this.typesProduct,
     };
     modalRef.componentInstance.props = props;
@@ -100,12 +100,12 @@ export class ListComponent implements OnInit {
     });
   }
 
-  onDelete(product: any): void {
-    const modalRef: NgbModalRef = this.modalService.open(ModalDeleteComponent, {
+  onDelete(plan: PlanProduct): void {
+    const modalRef: NgbModalRef = this.modalService.open(DeletePlanComponent, {
       size: "lg",
     });
     const props = {
-      product,
+      plan,
     };
     modalRef.componentInstance.props = props;
     modalRef.result.then((result) => {
@@ -140,6 +140,7 @@ export class ListComponent implements OnInit {
           typesProduct["key"] = t.key;
           this.typesProduct.push(typesProduct as TypeProduct);
         });
+
         this.typesProduct = this.typesProduct.filter(
           (value) => parseInt(value.precio) > 0
         );

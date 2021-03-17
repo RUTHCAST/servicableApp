@@ -12,14 +12,14 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong>CREAR</strong> nuevos tipos de productos
+                                <strong>EDITAR</strong> tipo de productos
                             </div>
                             <div class="card-body">
                                 <form [formGroup]="form" class="form-horizontal" *ngIf="!success">
 
                                     <div class="card" style="width: 100%; margin: 0px auto; margin-bottom:20px">
                                         <label class="col-md-3 col-form-label">Imagen del producto</label>
-                                        <img [src]="url_image ? url_image : props.product.url_image">
+                                        <img [src]="url_image !=null ? url_image : props.product.url_image">
                                         <div class="card-body">
                                             <p class="card-text btn-group">
                                                 <button class="btn btn-sm btn-success" 
@@ -28,8 +28,10 @@
                                                     <i class="fa fa-refresh" aria-hidden="true"></i>
                                                     Cambiar
                                                 </button>
+                                            
                                                 <button class="btn btn-sm btn-primary" 
-                                                        *ngIf="changeBtn"
+                                                        *ngIf="changeBtn && url_image"
+                                                        [disabled]="url_image== null ? true : false"
                                                         (click)="saveImage()">
                                                     <i class="fa fa-floppy-o" aria-hidden="true"></i>
                                                     Guardar
@@ -131,7 +133,7 @@
                                 <div class="py-1 my-3 d-flex flex-column justify-content-center" 
                                     *ngIf="success && !error">
                                     <img src="assets/img/check.png" style="margin:0px auto!important;">
-                                    <h5 class="text-center">Tipo de producto agregado exitosamente.</h5>
+                                    <h5 class="text-center">Tipo de producto modificado exitosamente.</h5>
                                 </div>
 
                                 <div class="py-1 my-3 d-flex flex-column justify-content-center" 

@@ -28,7 +28,7 @@ export class EditComponent implements OnInit {
   currentFileUploadImg: FileUpload;
   currentFileUploadBack: FileUpload;
 
-  url_image: any = "";
+  url_image: any;
   filedataImage: File;
 
   url_background: any = "";
@@ -98,6 +98,7 @@ export class EditComponent implements OnInit {
 
   cancelImageChange() {
     this.changeBtn = false;
+    this.url_image = null;
   }
 
   fileEventUrlImage(e) {
@@ -181,6 +182,7 @@ export class EditComponent implements OnInit {
                 this.currentFileUploadImg = null;
                 this.changeBtn = true;
                 this.spinner.hide();
+                this.changeBtn = false;
               }
             },
             (error) => {

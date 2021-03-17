@@ -12,14 +12,14 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong>CREAR</strong> nuevo plan.
+                                <strong>MODIFICAR</strong> plan.
                             </div>
                             <div class="card-body">
                                 <form [formGroup]="form" class="form-horizontal" *ngIf="!success">
 
                                     <div class="card" style="width: 100%; margin: 0px auto; margin-bottom:20px">
                                         <label class="col-md-3 col-form-label">Imagen del plan</label>
-                                        <img [src]="url_image ? url_image : props.product.url_image">
+                                        <img [src]="url_image !=null ? url_image : props.product.url_image">
                                         <div class="card-body">
                                             <p class="card-text btn-group">
                                                 <button class="btn btn-sm btn-success" 
@@ -29,8 +29,9 @@
                                                     Cambiar
                                                 </button>
                                                 <button class="btn btn-sm btn-primary" 
-                                                    *ngIf="changeBtn"
-                                                    (click)="saveImage()">
+                                                    *ngIf="changeBtn && url_image != null"
+                                                    [disabled]="url_image== null ? true : false"
+                                                    (click)="changeImage()">
                                                     <i class="fa fa-floppy-o" aria-hidden="true"></i>
                                                     Guardar
                                                 </button>
@@ -67,12 +68,9 @@
                                             </small>
                                         </div>
                                     </div>
-{{typesProducts|json}}
                                     <div class="form-group row">
                                         <label class="col-md-3 col-form-label">Seleccione tipo</label>
-                                        <div class="col-md-9">
-                                            {{props.product|json}}
-                                            
+                                        <div class="col-md-9">                                            
                                             <select 
                                                 class="form-control" 
                                                 formControlName="id_tipo"
@@ -81,8 +79,8 @@
                                                 <option value="">Seleccione un tipo</option>
                                                 <option 
                                                     [value]="category.id" 
-                                                    *ngFor="let category of typesProducts">
-                                                    {{category.id}}
+                                                    *ngFor="let category of props.types">
+                                                    {{category.nombre}}
                                                 </option>
                                             </select>
                                             <small *ngIf="onValidator('id_tipo', 'required')"
@@ -125,7 +123,7 @@
                                 <div class="py-1 my-3 d-flex flex-column justify-content-center"
                                     *ngIf="success && !error">
                                     <img src="assets/img/check.png" style="margin:0px auto!important;">
-                                    <h5 class="text-center">Plan agregado exitosamente.</h5>
+                                    <h5 class="text-center">Plan Modificado exitosamente.</h5>
                                 </div>
 
                                 <div class="py-1 my-3 d-flex flex-column justify-content-center"
@@ -135,8 +133,9 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button class="btn btn-sm btn-primary" *ngIf="!isLoading && !success && !changeBtn"
-                                    (click)="updateType()">
+                                <button class="btn btn-sm btn-primary" 
+                                    *ngIf="!isLoading && !success && !changeBtn"
+                                    (click)="updatePlan()">
                                     <i class="fa fa-dot-circle-o"></i>
                                     Guardar
                                 </button>

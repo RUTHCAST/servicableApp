@@ -8,9 +8,10 @@ import { NewComponent } from "./new/new.component";
 import { EditComponent } from "./edit/edit.component";
 import { DetailsComponent } from "./details/details.component";
 import { CoreModule } from "../../../../core/core.module";
+import { DeletePlanComponent } from './delete-plan/delete-plan.component';
 
 @NgModule({
-  declarations: [ListComponent, NewComponent, EditComponent, DetailsComponent],
+  declarations: [ListComponent, NewComponent, EditComponent, DetailsComponent, DeletePlanComponent],
   imports: [CommonModule, PlansRoutingModule, CoreModule],
 })
 export class PlansModule {}

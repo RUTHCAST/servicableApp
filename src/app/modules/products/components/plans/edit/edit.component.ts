@@ -29,7 +29,7 @@ export class EditComponent implements OnInit {
   currentFileUpload: FileUpload;
   percentage: number;
 
-  url_image: any = "";
+  url_image: any;
   filedataImage: File;
 
   @Input() props: any;
@@ -42,6 +42,7 @@ export class EditComponent implements OnInit {
 
   ngOnInit(): void {
     this.typesProducts = this.props.types;
+    console.log(this.typesProducts);
     this.createForm();
   }
 
@@ -98,6 +99,7 @@ export class EditComponent implements OnInit {
 
   cancelImageChange() {
     this.changeBtn = false;
+    this.url_image = null;
   }
 
   changeImage() {
@@ -126,6 +128,7 @@ export class EditComponent implements OnInit {
                 this.isLoading = false;
                 this.currentFileUpload = null;
                 this.imageChanged = true;
+                this.changeBtn = false;
                 this.spinner.hide();
               }
             },
@@ -142,7 +145,7 @@ export class EditComponent implements OnInit {
       });
   }
 
-  saveImage() {
+  updatePlan() {
     this.isLoading = true;
     this.spinner.show();
     const action = "update";
@@ -155,32 +158,19 @@ export class EditComponent implements OnInit {
       url_image: this.props.product.url_image,
     };
     console.log("data", data);
-    this.currentFileUpload = new FileUpload(this.filedataImage);
     this.planSrv
-      .deleteFileStorage(this.props.product.url_image)
+      .updatePlan(data)
       .then(() => {
-        this.planSrv
-          .pushImageAndSave(this.currentFileUpload, data, action)
-          .subscribe(
-            (percentage) => {
-              this.percentage = Math.round(percentage);
-              if (this.percentage === 100) {
-                this.isLoading = false;
-                this.currentFileUpload = null;
-                this.changeBtn = true;
-                this.spinner.hide();
-              }
-            },
-            (error) => {
-              console.log(error);
-              this.isLoading = false;
-              this.currentFileUpload = null;
-              this.spinner.hide();
-            }
-          );
+        this.isLoading = false;
+        this.currentFileUpload = null;
+        this.changeBtn = false;
+        this.spinner.hide();
+        this.success = true;
+        this.error = false;
       })
       .catch((err: any) => {
         console.log(err);
+        this.spinner.hide();
       });
   }
 }
