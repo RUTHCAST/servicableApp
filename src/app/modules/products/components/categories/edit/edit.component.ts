@@ -151,17 +151,20 @@ export class EditComponent implements OnInit {
       key: this.props.product.key,
       nombre: this.form.get("nombre").value,
     };
+
     this.categoriesSrv
       .updateCategory(data)
       .then(() => {
         console.log("Modificada exitosamente");
         this.success = true;
         this.isLoading = false;
+        this.spinner.hide();
       })
       .catch((err: any) => {
         console.log(err);
         this.success = true;
         this.isLoading = false;
+        this.spinner.hide();
       });
   }
 
