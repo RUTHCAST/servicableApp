@@ -23,7 +23,7 @@ export class EditComponent implements OnInit {
   form: FormGroup;
   isSubmit = false;
   isLoading = false;
-  url: any = "";
+  url: any = null;
   id: any;
   showButton = false;
   success = false;
@@ -78,8 +78,13 @@ export class EditComponent implements OnInit {
     this.modal.close(false);
   }
 
+  cancelChangeImage() {
+    this.url = null;
+    this.showButton = false;
+  }
+
   cancel() {
-    this.url = "";
+    this.url = null;
     this.showButton = false;
     this.modal.close();
   }
@@ -119,6 +124,7 @@ export class EditComponent implements OnInit {
                 this.isLoading = false;
                 this.currentFileUpload = null;
                 this.imageChanged = true;
+                this.url = null;
                 this.spinner.hide();
               }
             },
@@ -126,6 +132,7 @@ export class EditComponent implements OnInit {
               console.log(error);
               this.isLoading = false;
               this.currentFileUpload = null;
+              this.url = null;
               this.spinner.hide();
             }
           );

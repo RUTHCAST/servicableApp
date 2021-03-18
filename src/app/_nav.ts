@@ -12,7 +12,7 @@ export const navItems: INavData[] = [
   },
   {
     title: true,
-    name: "Formularios",
+    name: "Formularios de la app",
   },
   {
     name: "Departamentos",
@@ -31,7 +31,7 @@ export const navItems: INavData[] = [
   },
   {
     title: true,
-    name: "Productos",
+    name: "Pantalla productos",
   },
   {
     name: "Categorias",
@@ -74,7 +74,6 @@ export const navItems: INavData[] = [
   {
     divider: true,
   },
-
 
   // {
   //   title: true,

@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Editar categoria</h4>
+    <!-- <h4 class="modal-title" id="modal-basic-title">Editar categoria</h4> -->
     <button type="button" class="close" aria-label="Close" (click)="closeModal()">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -9,9 +9,9 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <!-- <div class="card-header">
-                <strong>Basic Form</strong> Elements
-            </div> -->
+            <div class="card-header">
+                <strong>MODIFICAR</strong> categoria
+            </div>
             <div class="card-body">
                 <form [formGroup]="form" class="form-horizontal" *ngIf="!success">
                     <div class="form-group row">
@@ -38,8 +38,7 @@
                             <button 
                                 class="btn btn-sm btn-primary m-1" 
                                 style="float:right;" 
-                                *ngIf="showButton"
-                                [disable]="!currentFileUpload" 
+                                *ngIf="showButton && url !=null"
                                 (click)="changeImage()">
                                 <i class="fa fa-floppy-o"></i>
                                 Guardar
@@ -48,7 +47,7 @@
                                 class="btn btn-sm btn-secondary m-1" 
                                 style="float:right;" 
                                 *ngIf="showButton" 
-                                (click)="showButton=false">
+                                (click)="cancelChangeImage()">
                                 <i class="fa fa-times"></i>
                                 Cancelar
                             </button>
@@ -142,3 +141,5 @@
 <!-- <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
 </div> -->
+<ngx-spinner>
+</ngx-spinner>
