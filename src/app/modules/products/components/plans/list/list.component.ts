@@ -73,12 +73,14 @@ export class ListComponent implements OnInit {
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }
+
   onDetail(product: any): void {
     const modalRef: NgbModalRef = this.modalService.open(DetailsComponent, {
       size: "lg",
     });
     const props = {
-      product: product,
+      product,
+      types: this.typesProduct,
     };
     modalRef.componentInstance.props = props;
     modalRef.result.then((result) => {
@@ -140,10 +142,6 @@ export class ListComponent implements OnInit {
           typesProduct["key"] = t.key;
           this.typesProduct.push(typesProduct as TypeProduct);
         });
-
-        this.typesProduct = this.typesProduct.filter(
-          (value) => parseInt(value.precio) > 0
-        );
         // console.log(this.typesProduct);
       });
   }

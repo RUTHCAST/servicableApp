@@ -15,17 +15,20 @@
                                 <strong>EDITAR</strong> tipo de productos
                             </div>
                             <div class="card-body">
-                                <form [formGroup]="form" class="form-horizontal" *ngIf="!success">
-
-                                    <div class="card" style="width: 100%; margin: 0px auto; margin-bottom:20px">
-                                        <label class="col-md-3 col-form-label">Imagen del producto</label>
-                                        <img [src]="url_image !=null ? url_image : props.product.url_image">
+                                <form [formGroup]="form" 
+                                        class="form-horizontal" 
+                                        *ngIf="!success">
+                                    <div class="card" 
+                                        style="width: 100%; margin: 0px auto; margin-bottom:20px">
+                                        <img [src]="url_image !=null ? url_image : props.product.url_image" 
+                                            class="p-3">
                                         <div class="card-body">
                                             <p class="card-text btn-group">
                                                 <button class="btn btn-sm btn-success" 
                                                         *ngIf="!changeBtn"
                                                         (click)="changeImage()">
-                                                    <i class="fa fa-refresh" aria-hidden="true"></i>
+                                                    <i class="fa fa-refresh" 
+                                                        aria-hidden="true"></i>
                                                     Cambiar
                                                 </button>
                                             
@@ -46,14 +49,20 @@
                                         </div>
                                     </div>
                                     
-                                    <div *ngIf="currentFileUploadBack" class="progress mt-2">
-                                        <div class="progress-bar progress-bar-info" role="progressbar" attr.aria-valuenow="{{ percentage }}"
-                                            aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ width: percentage + '%' }">
+                                    <div *ngIf="currentFileUploadBack" 
+                                            class="progress mt-2">
+                                        <div class="progress-bar progress-bar-info" 
+                                            role="progressbar" 
+                                            attr.aria-valuenow="{{ percentage }}"
+                                            aria-valuemin="0" 
+                                            aria-valuemax="100" 
+                                            [ngStyle]="{ width: percentage + '%' }">
                                             {{ percentage }}%
                                         </div>
                                     </div>
 
-                                    <div class="form-group row" *ngIf="changeBtn">
+                                    <div class="form-group row" 
+                                            *ngIf="changeBtn">
                                         <label class="col-md-3 col-form-label">Imagen del producto</label>
                                         <div class="col-md-9">
                                             <input type="file" 

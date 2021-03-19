@@ -33,8 +33,8 @@ export class DeleteTypeComponent implements OnInit {
       this.closeModal();
       this._route.navigate(["/productos/planes/", id]);
     } else {
-      alert("Entro a borrar");
-      // this.delete();
+      // alert("Entro a borrar");
+      this.delete();
     }
   }
 

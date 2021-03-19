@@ -19,7 +19,8 @@
     </button>
 
     <button 
-        class="btn btn-danger" 
+        class="btn btn-danger"
+        *ngIf="!success" 
         (click)="verify(props.type.id)">
         Eliminar
     </button>

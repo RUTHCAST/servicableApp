@@ -5,9 +5,9 @@
     </button>
 </div>
 <div class="modal-body">
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-12">
-            <div class="card">
+            <div class="card"> -->
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
@@ -19,7 +19,7 @@
 
                                     <div class="card" style="width: 100%; margin: 0px auto; margin-bottom:20px">
                                         <label class="col-md-3 col-form-label">Imagen del plan</label>
-                                        <img [src]="url_image !=null ? url_image : props.product.url_image">
+                                        <img [src]="url_image !=null ? url_image : props.product.url_image" width="80%" style="height: 350px; margin:0px auto;">
                                         <div class="card-body">
                                             <p class="card-text btn-group">
                                                 <button class="btn btn-sm btn-success" 
@@ -45,9 +45,13 @@
                                         </div>
                                     </div>
 
-                                    <div *ngIf="currentFileUploadBack" class="progress mt-2">
-                                        <div class="progress-bar progress-bar-info" role="progressbar"
-                                            attr.aria-valuenow="{{ percentage }}" aria-valuemin="0" aria-valuemax="100"
+                                    <div *ngIf="currentFileUploadBack" 
+                                            class="progress mt-2">
+                                        <div class="progress-bar progress-bar-info" 
+                                            role="progressbar"
+                                            attr.aria-valuenow="{{ percentage }}" 
+                                            aria-valuemin="0" 
+                                            aria-valuemax="100"
                                             [ngStyle]="{ width: percentage + '%' }">
                                             {{ percentage }}%
                                         </div>
@@ -159,9 +163,9 @@
                     <!--/.col-->
                 </div>
                 <!--/.row-->
-            </div>
+            <!-- </div>
         </div>
-    </div>
+    </div> -->
 </div>
 <ngx-spinner>
 </ngx-spinner>

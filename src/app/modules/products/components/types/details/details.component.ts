@@ -26,15 +26,21 @@ export class DetailsComponent implements OnInit {
     this.form = new FormGroup({
       // id: new FormControl(this.props.product.id, Validators.required),
       id_categoria: new FormControl(
-        this.props.product.id_categoria,
+        { value: this.props.product.id_categoria, disabled: true },
         Validators.required
       ),
-      nombre: new FormControl(this.props.product.nombre, Validators.required),
+      nombre: new FormControl(
+        { value: this.props.product.nombre, disabled: true },
+        Validators.required
+      ),
       descripcion: new FormControl(
-        this.props.product.descripcion,
+        { value: this.props.product.descripcion, disabled: true },
         Validators.required
       ),
-      precio: new FormControl(this.props.product.precio, Validators.required),
+      precio: new FormControl(
+        { value: this.props.product.precio, disabled: true },
+        Validators.required
+      ),
     });
   }
 

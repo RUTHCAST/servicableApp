@@ -7,14 +7,13 @@ import { Subject } from "rxjs";
 import { DetailsComponent } from "../details/details.component";
 import { EditComponent } from "../edit/edit.component";
 import { NewComponent } from "../new/new.component";
-import { ModalDeleteComponent } from "../../categories/modal-delete/modal-delete.component";
 
 // Interfaces and services
 import { Category } from "../../../models/categoy.model";
 import { TypeProduct } from "../../../models/types.model";
 import { CategoriesService } from "../../../services/categories.service";
 import { TypesProductsService } from "../../../services/types-products.service";
-import { PlanProduct } from '../../../models/plans.model';
+import { PlanProduct } from "../../../models/plans.model";
 import { PlansService } from "../../../services/plans.service";
 import { DeleteTypeComponent } from "../delete-type/delete-type.component";
 
@@ -57,16 +56,15 @@ export class ListComponent implements OnInit, OnDestroy {
         zeroRecords: "No hay data para mostrar",
         emptyTable: "Sin registros para mostrar",
         paginate: {
-          first: "<<",
+          first: "Primero",
           previous: "Anterior",
           next: "Siguiente",
-          last: ">>",
+          last: "Ultimo",
         },
       },
     };
     this._route.params.subscribe((params: Params) => {
       if (params.id) {
-        console.log("existe el id");
         this.productoId = parseInt(params.id);
       }
     });
@@ -91,11 +89,9 @@ export class ListComponent implements OnInit, OnDestroy {
     });
     const props = {
       categories: this.categories,
+      id: this.typesProduct.length,
     };
     modalRef.componentInstance.props = props;
-    modalRef.result.then((result) => {
-      console.log(result);
-    });
   }
 
   onDetail(type: any): void {
@@ -107,9 +103,6 @@ export class ListComponent implements OnInit, OnDestroy {
       categories: this.categories,
     };
     modalRef.componentInstance.props = props;
-    modalRef.result.then((result) => {
-      console.log(result);
-    });
   }
 
   onEdit(type: any): void {
@@ -121,12 +114,9 @@ export class ListComponent implements OnInit, OnDestroy {
       categories: this.categories,
     };
     modalRef.componentInstance.props = props;
-    modalRef.result.then((result) => {
-      console.log(result);
-    });
   }
 
-  onDelete(type: any, message: string, plans: PlanProduct[]=[]): void {
+  onDelete(type: any, message: string, plans: PlanProduct[] = []): void {
     const modalRef: NgbModalRef = this.modalService.open(DeleteTypeComponent, {
       size: "lg",
     });
@@ -136,12 +126,9 @@ export class ListComponent implements OnInit, OnDestroy {
       message,
     };
     modalRef.componentInstance.props = props;
-    modalRef.result.then((result) => {
-      console.log(result);
-    });
   }
 
-  verify(product: any) {
+  verify(product: TypeProduct) {
     const verify = this.plansProduct.some(
       (arrVal) => arrVal.id_tipo === product.id
     );
@@ -163,16 +150,12 @@ export class ListComponent implements OnInit, OnDestroy {
       .snapshotChanges()
       .subscribe((res) => {
         const size = this.plansProduct.length;
-        console.log(size);
         this.plansProduct.splice(0, size);
         res.forEach((t) => {
           const plansProduct = t.payload.toJSON();
           plansProduct["key"] = t.key;
           this.plansProduct.push(plansProduct as PlanProduct);
         });
-
-        // this.categories = data;
-        console.log(this.plansProduct);
       });
   }
 
@@ -182,7 +165,6 @@ export class ListComponent implements OnInit, OnDestroy {
       .snapshotChanges()
       .subscribe((res) => {
         const size = this.typesProduct.length;
-        console.log(size);
         this.typesProduct.splice(0, size);
 
         res.forEach((t) => {
@@ -193,15 +175,11 @@ export class ListComponent implements OnInit, OnDestroy {
 
         console.log("id capturado", this.productoId);
         if (this.productoId != null) {
-          console.log("Entro");
-          console.log(typeof this.productoId);
           this.typesProduct = this.typesProduct.filter(
             (value) => value.id_categoria === this.productoId
           );
-          console.log(this.typesProduct);
         }
 
-        console.log(this.typesProduct);
         this.dtTrigger.next();
       });
   }
@@ -212,7 +190,6 @@ export class ListComponent implements OnInit, OnDestroy {
       .snapshotChanges()
       .subscribe((res) => {
         const size = this.categories.length;
-        console.log(size);
         this.categories.splice(0, size);
 
         res.forEach((t) => {
@@ -220,7 +197,6 @@ export class ListComponent implements OnInit, OnDestroy {
           category["key"] = t.key;
           this.categories.push(category as Category);
         });
-        console.log(this.productoId);
 
         if (this.productoId !== null) {
           this.categories.filter((value) => value.id === this.productoId);
@@ -229,8 +205,6 @@ export class ListComponent implements OnInit, OnDestroy {
         this.categories.sort((a, b) =>
           a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0
         );
-        console.log(this.categories);
-        // this.dtTrigger.next();
       });
   }
 }

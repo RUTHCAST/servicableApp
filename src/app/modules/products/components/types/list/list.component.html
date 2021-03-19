@@ -31,8 +31,8 @@
                         <tbody>
                             <tr *ngFor="let product of typesProduct">
                                 <td class="text-left py-2" width="25%">{{product.nombre}}</td>
-                                <td class="text-left py-2" width="325%">{{product.descripcion !== "''" ? product.descripcion : 'Sin descripcion'}}</td>
-                                <td class="text-center py-2" width="10%">{{product.precio !== "''" ? product.precio : ''}}</td>
+                                <td class="text-left py-2" width="25%">{{product.descripcion !== "''" ? product.descripcion : 'Sin descripcion'}}</td>
+                                <td class="text-center py-2" width="20%">{{product.precio !== "''" ? product.precio : ''}}</td>
                                 <td class="text-center py-2" width="10%">
                                     <img [src]="product.url_image" alt="" class="img-avatar-product" height="40" width="40">
                                 </td>
@@ -40,7 +40,7 @@
                                     <img [src]="product.url_background" alt="" class="img-avatar-product" height="40"
                                         width="40">
                                 </td>
-                                <td class="text-center btn-group py-2" role="group" aria-label="Acciones" width="100%">
+                                <td class="text-center btn-group py-2" role="group" aria-label="Acciones" width="10%">
                                     <button 
                                         type="button" 
                                         class="btn btn-outline-success" 
