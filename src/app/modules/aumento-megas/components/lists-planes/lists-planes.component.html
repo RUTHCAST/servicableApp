@@ -34,11 +34,17 @@
                                 <td class="text-center py-2" width="20%">{{product.id}}</td>
                                 <td class="text-center py-2" width="70%">{{product.nombre}}</td>
                                 <td class="text-center btn-group py-2" role="group" aria-label="Acciones" width="100%">
-                                    <button type="button" class="btn btn-outline-warning" title="editar"
+                                    <button 
+                                        type="button" 
+                                        class="btn btn-outline-warning" 
+                                        title="editar"
                                         (click)="onEdit(product)">
                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline-danger" title="eliminar"
+                                    <button 
+                                        type="button" 
+                                        class="btn btn-outline-danger" 
+                                        title="eliminar"
                                         (click)="onDelete(product)">
                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                     </button>
