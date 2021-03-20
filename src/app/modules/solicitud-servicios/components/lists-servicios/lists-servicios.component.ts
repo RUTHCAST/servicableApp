@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { NgbModalRef, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Subject } from "rxjs";
@@ -7,6 +7,7 @@ import { ServicioSolServicio } from "../../modules/servicioSolServicios.model";
 import { SolicitudServiciosService } from "../../services/solicitud-servicios.service";
 import { EditServicioComponent } from "./edit-servicio/edit-servicio.component";
 import { NewServicioComponent } from "./new-servicio/new-servicio.component";
+import { DeleteServicesComponent } from "./delete-services/delete-services.component";
 
 @Component({
   selector: "app-lists-servicios",
@@ -19,7 +20,10 @@ export class ListsServiciosComponent implements OnInit {
   productoId: number;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
+  isLoading = false;
+  success = false;
 
+  @Input() props: any;
   constructor(
     private modalService: NgbModal,
     private solSrv: SolicitudServiciosService,
@@ -116,6 +120,33 @@ export class ListsServiciosComponent implements OnInit {
     const props = {
       servicio,
       productos: this.productos,
+    };
+    modalRef.componentInstance.props = props;
+  }
+
+  delete() {
+    this.isLoading = true;
+    this.solSrv
+      .deleteServicios(this.props.plan.key)
+      .then(() => {
+        this.success = true;
+        this.isLoading = false;
+      })
+      .catch((err: any) => {
+        console.log(err);
+        this.isLoading = false;
+      });
+  }
+
+  onDelete(product: ServicioSolServicio): void {
+    const modalRef: NgbModalRef = this.modalService.open(
+      DeleteServicesComponent,
+      {
+        size: "lg",
+      }
+    );
+    const props = {
+      product,
     };
     modalRef.componentInstance.props = props;
   }

@@ -1,20 +1,20 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
-import { AumentoMegasService } from "../../../services/aumento-megas.service";
+import { SolicitudServiciosService } from "../../../services/solicitud-servicios.service";
 
 @Component({
-  selector: "app-delete-planes-mega",
-  templateUrl: "./delete-planes-mega.component.html",
-  styleUrls: ["./delete-planes-mega.component.scss"],
+  selector: "app-delete-services",
+  templateUrl: "./delete-services.component.html",
+  styleUrls: ["./delete-services.component.scss"],
 })
-export class DeletePlanesMegaComponent implements OnInit {
+export class DeleteServicesComponent implements OnInit {
   success = false;
   isLoading = false;
-  @Input() props: any;
 
+  @Input() props: any;
   constructor(
     public modal: NgbActiveModal,
-    private aumentoMegasSrv: AumentoMegasService
+    private serSrv: SolicitudServiciosService
   ) {}
 
   ngOnInit(): void {}
@@ -25,8 +25,8 @@ export class DeletePlanesMegaComponent implements OnInit {
 
   delete() {
     this.isLoading = true;
-    this.aumentoMegasSrv
-      .deletePlanes(this.props.plan.key)
+    this.serSrv
+      .deleteServicios(this.props.product.key)
       .then(() => {
         this.success = true;
         this.isLoading = false;

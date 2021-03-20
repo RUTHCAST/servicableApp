@@ -11,6 +11,7 @@ import { ListsServiciosComponent } from "./components/lists-servicios/lists-serv
 import { NewServicioComponent } from "./components/lists-servicios/new-servicio/new-servicio.component";
 import { EditServicioComponent } from "./components/lists-servicios/edit-servicio/edit-servicio.component";
 import { DeleteServiceComponent } from "./components/delete-service/delete-service.component";
+import { DeleteServicesComponent } from './components/lists-servicios/delete-services/delete-services.component';
 // import { DeleteServiceComponent } from './components/delete-service/delete-service.component';
 
 @NgModule({
@@ -23,6 +24,7 @@ import { DeleteServiceComponent } from "./components/delete-service/delete-servi
     NewServicioComponent,
     EditServicioComponent,
     DeleteServiceComponent,
+    DeleteServicesComponent,
   ],
   imports: [CommonModule, SolicitudServiciosRoutingModule, CoreModule],
 })
