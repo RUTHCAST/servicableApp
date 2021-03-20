@@ -67,7 +67,7 @@ export class ListsComponent implements OnInit {
     const verify = this.planes.some(
       (arrVal) => arrVal.producto_id === product.id
     );
-    console.log(verify);
+    // console.log(verify);
     if (verify) {
       const message =
         "El producto seleccionada tiene planes asociados, por lo que será redireccionado a la pagina de tipos de productos para que elimine cada uno de ellos.";

@@ -62,4 +62,8 @@ export class SolicitudServiciosService {
   deleteServicios(key: any) {
     return this.servicios.remove(key);
   }
+
+  deleteProductos(key: any) {
+    return this.productos.remove(key);
+  }
 }

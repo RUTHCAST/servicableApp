@@ -23,7 +23,7 @@ export class NewComponent implements OnInit {
   @Input() props: any;
   constructor(
     public modal: NgbActiveModal,
-    private modalService: NgbModal,
+    // private modalService: NgbModal,
     private spinner: NgxSpinnerService,
     private solSrv: SolicitudServiciosService
   ) {}
@@ -63,6 +63,7 @@ export class NewComponent implements OnInit {
   }
 
   save() {
+    console.log(this.props);
     this.isSubmit = true;
     this.isLoading = true;
     this.spinner.show();

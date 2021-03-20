@@ -1,22 +1,23 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { Router } from "@angular/router";
-import { AumentoMegasService } from "../../services/aumento-megas.service";
+import { ServicioSolServicio } from "../../modules/servicioSolServicios.model";
+import { SolicitudServiciosService } from "../../services/solicitud-servicios.service";
 
 @Component({
-  selector: "app-delete",
-  templateUrl: "./delete.component.html",
-  styleUrls: ["./delete.component.scss"],
+  selector: "app-delete-service",
+  templateUrl: "./delete-service.component.html",
+  styleUrls: ["./delete-service.component.scss"],
 })
-export class DeleteComponent implements OnInit {
+export class DeleteServiceComponent implements OnInit {
   success = false;
   isLoading = false;
-  @Input() props: any;
 
+  @Input() props: any;
   constructor(
     public modal: NgbActiveModal,
     private _route: Router,
-    private aumentoMegasSrv: AumentoMegasService
+    private serSrv: SolicitudServiciosService
   ) {}
 
   ngOnInit(): void {}
@@ -26,13 +27,13 @@ export class DeleteComponent implements OnInit {
   }
 
   verify(id: number) {
-    const verify = this.props.planes.some(
+    const verify = this.props.servicios.some(
       (arrVal) => arrVal.producto_id === id
     );
 
     if (verify) {
       this.closeModal();
-      this._route.navigate(["/aumento-megas/planes/", id]);
+      this._route.navigate(["/solicitud-servicios/servicios/", id]);
     } else {
       // alert("ELIMINAR");
       this.delete();
@@ -41,8 +42,8 @@ export class DeleteComponent implements OnInit {
 
   delete() {
     this.isLoading = true;
-    this.aumentoMegasSrv
-      .deleteProduct(this.props.product.key)
+    this.serSrv
+      .deleteProductos(this.props.product.key)
       .then(() => {
         this.success = true;
         this.isLoading = false;
