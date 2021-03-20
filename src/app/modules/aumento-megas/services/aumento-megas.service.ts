@@ -61,6 +61,12 @@ export class AumentoMegasService {
   }
 
   deletePlanes(key: any) {
+    console.log(key);
     return this.planes.remove(key);
+  }
+
+  deleteProduct(key: any) {
+    console.log(key);
+    return this.productos.remove(key);
   }
 }

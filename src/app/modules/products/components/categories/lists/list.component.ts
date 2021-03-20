@@ -156,14 +156,7 @@ export class ListComponent implements OnInit, OnDestroy {
           typesProduct["key"] = t.key;
           this.typesProduct.push(typesProduct as TypeProduct);
         });
-        // if (this.productoId) {
-        //   this.typesProduct.filter(
-        //     (value) => value.id_categoria === this.productoId
-        //   );
-        // }
-
-        // this.categories = data;
-        console.log(this.typesProduct);
+        // console.log(this.typesProduct);
         this.dtTrigger.next();
       });
   }
