@@ -34,6 +34,10 @@ export class EditServicioComponent implements OnInit {
 
   createForm() {
     this.form = new FormGroup({
+      productoId: new FormControl(
+        this.props.servicio.producto_id,
+        Validators.required
+      ),
       nombre: new FormControl(this.props.servicio.nombre, Validators.required),
     });
   }
@@ -70,7 +74,7 @@ export class EditServicioComponent implements OnInit {
 
     const data: ServicioSolServicio = {
       key: this.props.servicio.key,
-      producto_id: this.props.servicio.producto_id,
+      producto_id: parseInt(this.form.get("productoId").value),
       nombre: this.form.get("nombre").value,
     };
     console.log(data);

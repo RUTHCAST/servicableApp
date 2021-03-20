@@ -43,10 +43,10 @@ export class ListsServiciosComponent implements OnInit {
         zeroRecords: "No hay data para mostrar",
         emptyTable: "Sin registros para mostrar",
         paginate: {
-          first: "<<",
+          first: "Primero",
           previous: "Anterior",
           next: "Siguiente",
-          last: ">>",
+          last: "Ultimo",
         },
       },
     };
@@ -54,6 +54,7 @@ export class ListsServiciosComponent implements OnInit {
       this.productoId = parseInt(params.id);
     });
     this.getServicios();
+    this.getProductos();
   }
 
   getServicios(): void {
@@ -78,6 +79,23 @@ export class ListsServiciosComponent implements OnInit {
       });
   }
 
+  getProductos(): void {
+    this.solSrv
+      .getAllProductos()
+      .snapshotChanges()
+      .subscribe((res) => {
+        const size = this.productos.length;
+        console.log(size);
+        this.productos.splice(0, size);
+
+        res.forEach((t) => {
+          const producto = t.payload.toJSON();
+          producto["key"] = t.key;
+          this.productos.push(producto as ServicioSolServicio);
+        });
+      });
+  }
+
   onNew(): void {
     const modalRef: NgbModalRef = this.modalService.open(NewServicioComponent, {
       size: "lg",
@@ -97,6 +115,7 @@ export class ListsServiciosComponent implements OnInit {
     );
     const props = {
       servicio,
+      productos: this.productos,
     };
     modalRef.componentInstance.props = props;
   }
