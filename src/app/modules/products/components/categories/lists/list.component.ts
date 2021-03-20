@@ -20,7 +20,7 @@ import { TypeProduct } from "../../../models/types.model";
 export class ListComponent implements OnInit, OnDestroy {
   categories: Category[] = [];
   typesProduct: TypeProduct[] = [];
-  productoId: number;
+  productoId = null;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
 

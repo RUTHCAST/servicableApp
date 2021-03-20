@@ -13,6 +13,26 @@
                 </div>
                 <div class="card-body">
                     <form [formGroup]="form" *ngIf="!success">
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label"
+                                for="text-input">Producto</label>
+                                <div class="col-md-9">
+                                    <select 
+                                        class="form-control" 
+                                        formControlName="productoId" 
+                                        [class.is-invalid]="onInvalidField('productoId')">
+                                        <option value="">Seleccione un tipo de producto</option>
+                                        <option [value]="category.id" *ngFor="let category of props.products">
+                                            {{category.nombre}}
+                                        </option>
+                                    </select>
+                                    <small 
+                                        *ngIf="onValidator('productoId', 'required')" 
+                                        class="text text-danger">
+                                        Requerido
+                                    </small>
+                                </div>
+                        </div>
 
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label" for="text-input">Nombre</label>

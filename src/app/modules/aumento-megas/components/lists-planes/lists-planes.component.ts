@@ -54,6 +54,7 @@ export class ListsPlanesComponent implements OnInit {
       this.productoId = parseInt(params.id);
     });
     this.getPlanes();
+    this.getProductos();
   }
 
   getPlanes(): void {
@@ -72,10 +73,29 @@ export class ListsPlanesComponent implements OnInit {
         });
 
         this.planes = this.planes.filter(
-          (dept) => dept.producto_id === this.productoId
+          (dept) => dept.producto_id == this.productoId
         );
         console.log(this.planes);
         this.dtTrigger.next();
+      });
+  }
+
+  getProductos(): void {
+    this.aumentoMegasSrv
+      .getAllProductos()
+      .snapshotChanges()
+      .subscribe((res) => {
+        const size = this.productos.length;
+        console.log(size);
+        this.productos.splice(0, size);
+
+        res.forEach((t) => {
+          const producto = t.payload.toJSON();
+          producto["key"] = t.key;
+          this.productos.push(producto as ProductoAumentoMegas);
+        });
+        // console.log(this.productos);
+        // this.dtTrigger.next();
       });
   }
 
@@ -95,6 +115,7 @@ export class ListsPlanesComponent implements OnInit {
     });
     const props = {
       plan,
+      products: this.productos,
     };
     modalRef.componentInstance.props = props;
   }

@@ -34,8 +34,9 @@
                                 <td class="text-left py-2" width="35%">
                                     {{product.nombre}}
                                 </td>
-                                <td class="text-left py-2" width="35%">{{product.descripcion !== "''" ?
-                                    product.descripcion : 'Sin descripcion'}}</td>
+                                <td class="text-left py-2" width="35%">
+                                    {{product.descripcion !== "''" ? product.descripcion : 'Sin descripcion'}}
+                                </td>
                                 <td class="text-center py-2" width="10%">{{product.precio !== "''" ? product.precio :
                                     ''}}</td>
                                 <td class="text-center py-2" width="10%">
@@ -49,7 +50,7 @@
                                     <button type="button" 
                                         class="btn btn-outline-success" 
                                         title="ver"
-                                        *ngIf="productoId === null"
+                                        *ngIf="productoId == null"
                                         (click)="onDetail(product)">
                                         <i class="fa fa-search" aria-hidden="true"></i>
                                     </button>
@@ -73,7 +74,5 @@
                 </div>
             </div>
         </div>
-        <!--/.col-->
     </div>
-    <!--/.row-->
 </div>

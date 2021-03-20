@@ -35,6 +35,10 @@ export class EditPlanComponent implements OnInit {
 
   createForm() {
     this.form = new FormGroup({
+      productoId: new FormControl(
+        this.props.plan.producto_id,
+        Validators.required
+      ),
       nombre: new FormControl(this.props.plan.nombre, Validators.required),
     });
   }
@@ -71,7 +75,7 @@ export class EditPlanComponent implements OnInit {
 
     const data: PlanAumentoMegas = {
       key: this.props.plan.key,
-      producto_id: this.props.plan.producto_id,
+      producto_id: this.form.get("productoId").value,
       nombre: this.form.get("nombre").value,
     };
     console.log(data);
