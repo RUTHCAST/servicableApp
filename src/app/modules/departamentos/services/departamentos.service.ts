@@ -62,4 +62,8 @@ export class DepartamentosService {
   deleteDistrito(key: any) {
     return this.distritos.remove(key);
   }
+
+  deleteDepartamento(key: any) {
+    return this.departamentos.remove(key);
+  }
 }
