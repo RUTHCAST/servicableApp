@@ -12,6 +12,7 @@ import { ListsDistritosComponent } from "./components/lists-distritos/lists-dist
 import { NewDistritoComponent } from "./components/lists-distritos/new-distrito/new-distrito.component";
 import { EditDistritoComponent } from "./components/lists-distritos/edit-distrito/edit-distrito.component";
 import { DeleteDepartmentComponent } from './components/delete-department/delete-department.component';
+import { DeleteDistritoComponent } from './components/lists-distritos/delete-distrito/delete-distrito.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { DeleteDepartmentComponent } from './components/delete-department/delete
     NewDistritoComponent,
     EditDistritoComponent,
     DeleteDepartmentComponent,
+    DeleteDistritoComponent,
   ],
   imports: [CommonModule, DepartamentosRoutingModule, CoreModule],
 })

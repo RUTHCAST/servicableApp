@@ -35,6 +35,10 @@ export class EditDistritoComponent implements OnInit {
 
   createForm() {
     this.form = new FormGroup({
+      departamento_id: new FormControl(
+        this.props.distrito.departamento_id,
+        Validators.required
+      ),
       nombre: new FormControl(this.props.distrito.nombre, Validators.required),
     });
   }
@@ -71,7 +75,7 @@ export class EditDistritoComponent implements OnInit {
 
     const data: Distrito = {
       key: this.props.distrito.key,
-      departamento_id: this.props.distrito.departamento_id,
+      departamento_id: parseInt(this.form.get("departamento_id").value),
       nombre: this.form.get("nombre").value,
     };
     console.log(data);

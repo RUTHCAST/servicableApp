@@ -9,6 +9,7 @@ import { NewDistritoComponent } from "./new-distrito/new-distrito.component";
 import { EditDistritoComponent } from "./edit-distrito/edit-distrito.component";
 import { ModalDeleteComponent } from "../../../products/components/categories/modal-delete/modal-delete.component";
 import { Distrito } from "../../models/distrito.model";
+import { DeleteDistritoComponent } from "./delete-distrito/delete-distrito.component";
 
 @Component({
   selector: "app-lists-distritos",
@@ -45,10 +46,10 @@ export class ListsDistritosComponent implements OnInit, OnDestroy {
         zeroRecords: "No hay data para mostrar",
         emptyTable: "Sin registros para mostrar",
         paginate: {
-          first: "<<",
+          first: "Primero",
           previous: "Anterior",
           next: "Siguiente",
-          last: ">>",
+          last: "Ultimo",
         },
       },
     };
@@ -127,6 +128,7 @@ export class ListsDistritosComponent implements OnInit, OnDestroy {
     );
     const props = {
       distrito,
+      departamentos: this.departamentos,
     };
     modalRef.componentInstance.props = props;
     modalRef.result.then((result) => {
@@ -135,11 +137,14 @@ export class ListsDistritosComponent implements OnInit, OnDestroy {
   }
 
   onDelete(product: any): void {
-    const modalRef: NgbModalRef = this.modalService.open(ModalDeleteComponent, {
-      size: "lg",
-    });
+    const modalRef: NgbModalRef = this.modalService.open(
+      DeleteDistritoComponent,
+      {
+        size: "lg",
+      }
+    );
     const props = {
-      product: product,
+      product,
     };
     modalRef.componentInstance.props = props;
     modalRef.result.then((result) => {
