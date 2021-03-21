@@ -4,7 +4,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <i class="fa fa-align-justify"></i> Categorias
+                    <i class="fa fa-align-justify"></i> Planes - Aumento de megas
                 </div>
 
                 <div class="card-body table-responsive">
@@ -24,16 +24,16 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th class="text-center">ID</th>
-                                <th class="text-center">Nombre</th>
+                                <!-- <th class="text-center">ID</th> -->
+                                <th class="text-left">Nombre</th>
                                 <th class="text-center">Configuracion</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let product of planes">
-                                <td class="text-center py-2" width="20%">{{product.id}}</td>
-                                <td class="text-center py-2" width="70%">{{product.nombre}}</td>
-                                <td class="text-center btn-group py-2" role="group" aria-label="Acciones" width="100%">
+                                <!-- <td class="text-center py-2" width="20%">{{product.id}}</td> -->
+                                <td class="text-left py-2" width="100%">{{product.nombre}}</td>
+                                <td class="text-center btn-group py-2" role="group" aria-label="Acciones" width="10%">
                                     <button 
                                         type="button" 
                                         class="btn btn-outline-warning" 

@@ -51,10 +51,10 @@ export class ListComponent implements OnInit {
         zeroRecords: "No hay data para mostrar",
         emptyTable: "Sin registros para mostrar",
         paginate: {
-          first: "<<",
+          first: "Primero",
           previous: "Anterior",
           next: "Siguiente",
-          last: ">>",
+          last: "Ultimo",
         },
       },
     };
