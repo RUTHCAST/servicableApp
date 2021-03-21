@@ -9,6 +9,7 @@ import { NewComponent } from "../new/new.component";
 import { EditComponent } from "../edit/edit.component";
 import { Distrito } from "../../models/distrito.model";
 import { DeleteDepartmentComponent } from "../delete-department/delete-department.component";
+import { Subject } from "rxjs";
 
 @Component({
   selector: "app-lists",
@@ -18,6 +19,8 @@ import { DeleteDepartmentComponent } from "../delete-department/delete-departmen
 export class ListsComponent implements OnInit {
   departamentos: Departamento[] = [];
   distritos: any[] = [];
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(
     private modalService: NgbModal,
@@ -118,7 +121,7 @@ export class ListsComponent implements OnInit {
           this.departamentos.push(departamento as Departamento);
         });
         console.log(this.departamentos);
-        // this.dtTrigger.next();
+        this.dtTrigger.next();
       });
   }
 
