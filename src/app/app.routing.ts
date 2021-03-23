@@ -12,7 +12,7 @@ import { RegisterComponent } from "./modules/auth/components/register/register.c
 export const routes: Routes = [
   {
     path: "",
-    redirectTo: "dashboard",
+    redirectTo: "login",
     pathMatch: "full",
   },
   {

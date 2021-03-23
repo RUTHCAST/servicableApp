@@ -32,7 +32,7 @@ export class ListsDistritosComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.dtOptions = {
       pagingType: "full_numbers",
-      pageLength: 7,
+      pageLength: 10,
       retrieve: true,
       language: {
         processing: "Procesando datos...",
@@ -81,8 +81,10 @@ export class ListsDistritosComponent implements OnInit, OnDestroy {
         this.distritos = this.distritos.filter(
           (dept) => dept.departamento_id === this.departamentoId
         );
+        this.dtTrigger.next();
+
         // this.distritos = this.departamentos[0].distritos;
-        console.log(this.distritos);
+        // console.log(this.distritos);
       });
   }
 
@@ -100,8 +102,7 @@ export class ListsDistritosComponent implements OnInit, OnDestroy {
           departamento["key"] = t.key;
           this.departamentos.push(departamento as Departamento);
         });
-        console.log(this.departamentos);
-        // this.dtTrigger.next();
+        // console.log(this.departamentos);
       });
   }
 

@@ -28,6 +28,29 @@ export class ListsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.dtOptions = {
+      pagingType: "full_numbers",
+      pageLength: 7,
+      retrieve: true,
+      language: {
+        processing: "Procesando datos...",
+        search: "Buscar",
+        lengthMenu: "Mostrar _MENU_ Registros",
+        info: "Mostrando _START_ de _END_ de un total de _TOTAL_ registros",
+        infoEmpty: "Mostrar 0 &agrave; 0 sur 0 &eacute;registros",
+        infoFiltered: "(Mostrar _MAX_ registros)",
+        infoPostFix: "",
+        loadingRecords: "Cargando datos...",
+        zeroRecords: "No hay data para mostrar",
+        emptyTable: "Sin registros para mostrar",
+        paginate: {
+          first: "Primero",
+          previous: "Anterior",
+          next: "Siguiente",
+          last: "Ultimo",
+        },
+      },
+    };
     this.getDepartamentos();
     this.getDitritos();
   }

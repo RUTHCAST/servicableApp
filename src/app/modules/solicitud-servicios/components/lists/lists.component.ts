@@ -6,6 +6,7 @@ import { EditComponent } from "../edit/edit.component";
 import { NewComponent } from "../new/new.component";
 import { ProductoSolicitudServicio } from "../../modules/productoSolicitudServicio.model";
 import { DeleteServiceComponent } from "../delete-service/delete-service.component";
+import { Subject } from "rxjs";
 
 @Component({
   selector: "app-lists",
@@ -15,6 +16,8 @@ import { DeleteServiceComponent } from "../delete-service/delete-service.compone
 export class ListsComponent implements OnInit {
   productos: ProductoSolicitudServicio[] = [];
   servicios: ServicioSolServicio[] = [];
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(
     private modalService: NgbModal,
@@ -22,6 +25,29 @@ export class ListsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.dtOptions = {
+      pagingType: "full_numbers",
+      pageLength: 15,
+      retrieve: true,
+      language: {
+        processing: "Procesando datos...",
+        search: "Buscar",
+        lengthMenu: "Mostrar _MENU_ Registros",
+        info: "Mostrando _START_ de _END_ de un total de _TOTAL_ registros",
+        infoEmpty: "Mostrar 0 &agrave; 0 sur 0 &eacute;registros",
+        infoFiltered: "(Mostrar _MAX_ registros)",
+        infoPostFix: "",
+        loadingRecords: "Cargando datos...",
+        zeroRecords: "No hay data para mostrar",
+        emptyTable: "Sin registros para mostrar",
+        paginate: {
+          first: "Primero",
+          previous: "Anterior",
+          next: "Siguiente",
+          last: "Ultimo",
+        },
+      },
+    };
     this.getProductos();
     this.getServicios();
   }
@@ -92,7 +118,7 @@ export class ListsComponent implements OnInit {
           this.productos.push(producto as ServicioSolServicio);
         });
         // console.log(this.productos);
-        // this.dtTrigger.next();
+        this.dtTrigger.next();
       });
   }
 

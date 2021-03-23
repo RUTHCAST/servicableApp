@@ -14,7 +14,8 @@
                                 <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>
                                 Volver
                             </a>
-                            <button class="btn btn-primary mb-3" (click)="onNew()">
+                            <button class="btn btn-primary mb-3" 
+                                (click)="onNew()">
                                 <i class="fa fa-plus" aria-hidden="true m-1"></i>
                                 Nuevo
                             </button>
@@ -32,18 +33,23 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let product of distritos;let i = index">
-                                <td class="text-left py-2" width="90%">{{product.nombre}}</td>
-                                <td class="text-center btn-group py-2" role="group" aria-label="Acciones" width="100%">
-                                    <!-- <button type="button" class="btn btn-outline-success" title="ver"
-                                        (click)="onDetail(product)">
-                                        <i class="fa fa-search" aria-hidden="true"></i>
-                                    </button> -->
-                                    <button type="button" class="btn btn-outline-warning" title="editar"
-                                        (click)="onEdit(product)">
-                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                <td class="text-left py-2" 
+                                    width="90%">{{product.nombre}}</td>
+                                <td class="text-center btn-group py-2" 
+                                    role="group" 
+                                    aria-label="Acciones" 
+                                    width="100%">
+                                    <button type="button" 
+                                    class="btn btn-outline-warning" 
+                                    title="editar"
+                                    (click)="onEdit(product)">
+                                        <i class="fa fa-pencil-square-o" 
+                                        aria-hidden="true"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline-danger" title="eliminar"
-                                        (click)="onDelete(product)">
+                                    <button type="button" 
+                                    class="btn btn-outline-danger" 
+                                    title="eliminar"
+                                    (click)="onDelete(product)">
                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                     </button>
                                 </td>
@@ -54,8 +60,6 @@
                 </div>
             </div>
         </div>
-        <!--/.col-->
     </div>
-    <!--/.row-->
 </div>
 
