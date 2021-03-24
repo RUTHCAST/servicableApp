@@ -3,9 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { DetailsComponent } from "./components/details/details.component";
 import { EditComponent } from "./components/edit/edit.component";
 import { ListsComponent } from "./components/lists/lists.component";
-//import { ListComponent } from '../products/components/categories/lists/list.component';
 import { NewComponent } from "./components/new/new.component";
-import { LoginComponent } from "./components/login/login.component";
 
 const routes: Routes = [
   { path: "", component: ListsComponent },

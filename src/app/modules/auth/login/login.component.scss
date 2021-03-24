@@ -1,0 +1,19 @@
+.form-container{
+    margin: 15rem auto;
+}
+
+.app-body{
+    background-image: url(./../../../../assets/img/imagen_fondo.jpg);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+button.btn-eye{
+  position: absolute;
+  right: 0px;
+  top: 0;
+  padding: 2px;
+  z-index: 999;
+  height: 34px;
+  width: 38px;
+}
