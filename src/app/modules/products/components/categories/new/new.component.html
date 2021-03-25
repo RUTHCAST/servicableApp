@@ -60,10 +60,11 @@
                                        class="form-control"
                                        [class.is-invalid]="onInvalidField('nombre')"
                                        placeholder="Nombre de la categoria">
-                                    <small *ngIf="onValidator('nombre', 'required')" class="text text-danger">
+                                    <small 
+                                        *ngIf="onValidator('nombre', 'required')" 
+                                        class="text text-danger">
                                         Requerido
                                     </small>
-
                             </div>
                         </div>
                     </form>

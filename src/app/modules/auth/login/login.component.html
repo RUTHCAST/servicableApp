@@ -1,0 +1,93 @@
+<div class="app-body">
+    <main class="main d-flex align-items-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <div class="card-group form-container">
+                        <div class="card p-4">
+                            <div class="card-body">
+                                <form [formGroup]="form">
+                                    <p class="text-center" style="width:100%;">
+                                        <img src="../../../../../assets/img/logo.png" width="200px"
+                                            style="margin:0px auto" alt="">
+                                    </p>
+                                    <p class="text-muted">Inicia sesion con tu cuenta</p>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="icon-user"></i></span>
+                                        </div>
+                                        <input type="email" formControlName="email" class="form-control"
+                                            placeholder="usuario" [class.is-invalid]="onInvalidField('email')">                                            
+                                    </div>
+
+                                    <div class="row my-2 mx-1"
+                                        *ngIf="onValidator('email', 'required') || onValidator('email', 'pattern')">
+                                        <small *ngIf="onValidator('email', 'required')" class="text text-danger">
+                                            Requerido
+                                        </small>
+                                        <small *ngIf="onValidator('email', 'pattern')" class="text text-danger">
+                                            Email invalido
+                                        </small>
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="icon-lock"></i>
+                                            </span>
+                                        </div>
+                                        <input
+                                            type="{{ passVisibility == 'off' ? 'password' : 'text' }}" 
+                                            formControlName="clave" 
+                                            class="form-control"
+                                            placeholder="Contraseña" 
+                                            [class.is-invalid]="onInvalidField('clave')">
+                                            <button class="btn btn-sm btn-eye" *ngIf="passVisibility == 'on'" (click)="passVisibility = 'off'">
+                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-eye" *ngIf="passVisibility == 'off'" (click)="passVisibility = 'on'">
+                                                <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                            </button>
+                                    </div>
+                                    
+                                    <div class="row my-2 mx-1" 
+                                        *ngIf="onValidator('clave', 'required') || 
+                                               onValidator('clave', 'maxLength') || 
+                                               onValidator('clave', 'minLength')">
+                                            <small *ngIf="onValidator('clave', 'required')" class="text text-danger">
+                                                Requerido
+                                            </small>
+                                            <small *ngIf="onValidator('clave', 'maxLength')" class="text text-danger">
+                                                La contraseña debe ser de 6 digitos
+                                            </small>
+                                            <small *ngIf="onValidator('clave', 'minLength')" class="text text-danger">
+                                                La contraseña debe ser de 6 digitos
+                                            </small>
+                                    </div>
+
+
+                                    <div class="row my-2">
+                                        <div class="col-6">
+                                            <button 
+                                                type="button" 
+                                                class="btn btn-primary px-4" 
+                                                [disabled]="!form.valid"
+                                                (click)="login()">
+                                                Ingresar
+                                            </button>
+                                        </div>
+                                        <div class="col-6 text-right">
+                                            <button type="button" class="btn btn-link px-0">
+                                                Registrar usuario
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
