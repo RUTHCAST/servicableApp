@@ -1,0 +1,106 @@
+<div class="modal-header">
+    <button type="button" 
+        class="close" 
+        aria-label="Close" 
+        (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <!--/.row-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>MODIFICAR</strong> servicio
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="form" *ngIf="!success">
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label" 
+                                for="text-input">Producto</label>
+                            <div class="col-md-9">
+                                <select 
+                                    class="form-control" 
+                                    formControlName="productoId" 
+                                    [class.is-invalid]="onInvalidField('productoId')">
+
+                                    <option value="">Seleccione un tipo de producto</option>
+                                    <option [value]="category.id" 
+                                    *ngFor="let category of props.productos">
+                                        {{category.nombre}}
+                                    </option>
+                                </select>
+                                <small *ngIf="onValidator('productoId', 'required')" 
+                                    class="text text-danger">
+                                    Requerido
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label 
+                                class="col-md-3 col-form-label" 
+                                for="text-input">Nombre</label>
+                            <div class="col-md-9">
+                                <input type="text" 
+                                    formControlName="nombre" 
+                                    id="text-input" 
+                                    name="text-input"
+                                    class="form-control" 
+                                    [class.is-invalid]="onInvalidField('nombre')"
+                                    placeholder="Nombre del plan">
+                                <small *ngIf="onValidator('nombre', 'required')" class="text text-danger">
+                                    Requerido
+                                </small>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="py-1 my-3 d-flex flex-column justify-content-center" 
+                        *ngIf="success">
+                        <img src="assets/img/check.png" 
+                        style="margin:0px auto!important;">
+                        <h5 class="text-center">Departamento modificado exitosamente.</h5>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <button type="submit" 
+                        class="btn btn-sm btn-primary" 
+                        [disabled]="!form.valid"
+                        *ngIf="!isLoading && !success" 
+                        (click)="edit()">
+                        <i class="fa fa-dot-circle-o"></i>
+                        Agregar
+                    </button>
+                    <button 
+                        class="btn btn-sm btn-primary" 
+                        *ngIf="isLoading  && !success" 
+                        [disabled]="true">
+                        <i class="fa fa-circle-o-notch fa-spin"></i> Espere...
+                    </button>
+
+                    <button type="reset" 
+                        class="btn btn-sm" 
+                        [ngClass]="{'btn-danger': !success,
+                                    'btn-secondary': success}" 
+                        (click)="cancel()">
+
+                        <span *ngIf="!success">
+                            <i class="fa fa-ban"></i>
+                            Cancelar
+                        </span>
+
+                        <span *ngIf="success">
+                            <i class="fa fa-times"></i>
+                            Cerrar
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ngx-spinner>
+    </ngx-spinner>
+

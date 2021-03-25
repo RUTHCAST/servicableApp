@@ -1,0 +1,63 @@
+<div class="animated fadeIn">
+    <!--/.row-->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-align-justify"></i> Planes - Aumento de megas
+                </div>
+
+                <div class="card-body table-responsive">
+                    <div class="row px-5">
+                        <div class="col-lg-12 d-flex justify-content-between">
+                            <a class="text-primary mb-3" routerLink="/aumento-megas">
+                                <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>
+                                Volver
+                            </a>
+                            <button class="btn btn-primary mb-3" (click)="onNew()">
+                                <i class="fa fa-plus" aria-hidden="true m-1"></i>
+                                Nuevo
+                            </button>
+                        </div>
+                    </div>
+
+                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <!-- <th class="text-center">ID</th> -->
+                                <th class="text-left">Nombre</th>
+                                <th class="text-center">Configuracion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let product of planes">
+                                <!-- <td class="text-center py-2" width="20%">{{product.id}}</td> -->
+                                <td class="text-left py-2" width="100%">{{product.nombre}}</td>
+                                <td class="text-center btn-group py-2" role="group" aria-label="Acciones" width="10%">
+                                    <button 
+                                        type="button" 
+                                        class="btn btn-outline-warning" 
+                                        title="editar"
+                                        (click)="onEdit(product)">
+                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    </button>
+                                    <button 
+                                        type="button" 
+                                        class="btn btn-outline-danger" 
+                                        title="eliminar"
+                                        (click)="onDelete(product)">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        <!--/.col-->
+    </div>
+    <!--/.row-->
+</div>
+

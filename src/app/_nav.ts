@@ -12,7 +12,26 @@ export const navItems: INavData[] = [
   },
   {
     title: true,
-    name: "Productos",
+    name: "Formularios de la app",
+  },
+  {
+    name: "Departamentos",
+    url: "/departamentos",
+    icon: "icon-handbag",
+  },
+  {
+    name: "Aumento megas",
+    url: "/aumento-megas",
+    icon: "icon-handbag",
+  },
+  {
+    name: "Cambio plan",
+    url: "/solicitud-servicios",
+    icon: "icon-handbag",
+  },
+  {
+    title: true,
+    name: "Pantalla productos",
   },
   {
     name: "Categorias",
@@ -38,10 +57,27 @@ export const navItems: INavData[] = [
     name: "Estadistica de visitas",
     url: "/reportes",
     icon: "cil-graph",
+<<<<<<< HEAD
+=======
   },
   {
     divider: true,
   },
+
+  {
+    title: true,
+    name: "Canales",
+  },
+  {
+    name: "Administrador Canales",
+    url: "/canales",
+    icon: "icon-handbag",
+>>>>>>> main
+  },
+  {
+    divider: true,
+  },
+
   // {
   //   title: true,
   //   name: "configuraciones",
@@ -63,7 +99,10 @@ export const navItems: INavData[] = [
   //     },
   //   ],
   // },
+<<<<<<< HEAD
   
+=======
+>>>>>>> main
   {
     title: true,
     name: "Usuarios",

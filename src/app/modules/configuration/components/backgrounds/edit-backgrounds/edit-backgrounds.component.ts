@@ -71,6 +71,7 @@ export class EditBackgroundsComponent implements OnInit {
       id: this.props.background.id,
       key: this.props.background.key,
       nombre: this.props.background.nombre,
+      descripcion: this.props.background.descripcion,
       createdAt: new Date(),
     };
 

@@ -72,16 +72,17 @@
                         <i class="fa fa-dot-circle-o"></i>
                         Actualizar
                     </button> -->
-                    <button type="reset" class="btn btn-sm" [ngClass]="{'btn-danger': !success,
-                                    'btn-secondary': success}" (click)="closeModal()">
+                    <button type="reset" 
+                            class="btn btn-secondary btn-sm" 
+                            (click)="closeModal()">
                         <span *ngIf="!success">
-                            <i class="fa fa-ban"></i>
-                            Cancelar
-                        </span>
-                        <span *ngIf="success">
                             <i class="fa fa-times"></i>
                             Cerrar
                         </span>
+                        <!-- <span *ngIf="success">
+                            <i class="fa fa-times"></i>
+                            Cerrar
+                        </span> -->
 
                     </button>
                 </div>

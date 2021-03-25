@@ -8,15 +8,18 @@ import { P404Component } from "./views/error/404.component";
 import { P500Component } from "./views/error/500.component";
 import { LoginComponent } from "./modules/auth/components/login/login.component";
 import { RegisterComponent } from "./modules/auth/components/register/register.component";
+<<<<<<< HEAD
 import { DashboardComponent } from "./modules/dashboard/components/dashboard.component";
 import { AuthComponent } from "./modules/auth/components/auth.component";
 import { AuthModule } from "./modules/auth/auth.module";
 import { ReportsComponent } from "./modules/reports/components/reports/reports.component";
+=======
+>>>>>>> main
 
 export const routes: Routes = [
   {
     path: "",
-    redirectTo: "dashboard",
+    redirectTo: "login",
     pathMatch: "full",
   },
   {
@@ -47,9 +50,11 @@ export const routes: Routes = [
     loadChildren: () =>
       import("./modules/auth/auth.module").then((m) => m.AuthModule),
   },
-
   {
+<<<<<<< HEAD
     
+=======
+>>>>>>> main
     path: "reportes",
     component: DefaultLayoutComponent,
     loadChildren: () =>
@@ -71,6 +76,38 @@ export const routes: Routes = [
         (m) => m.DashboardModule
       ),
   },
+  {
+    path: "departamentos",
+    component: DefaultLayoutComponent,
+    loadChildren: () =>
+      import("./modules/departamentos/departamentos.module").then(
+        (m) => m.DepartamentosModule
+      ),
+  },
+  {
+    path: "aumento-megas",
+    component: DefaultLayoutComponent,
+    loadChildren: () =>
+      import("./modules/aumento-megas/aumento-megas.module").then(
+        (m) => m.AumentoMegasModule
+      ),
+  },
+  {
+    path: "solicitud-servicios",
+    component: DefaultLayoutComponent,
+    loadChildren: () =>
+      import("./modules/solicitud-servicios/solicitud-servicios.module").then(
+        (m) => m.SolicitudServiciosModule
+      ),
+  },
+
+  {
+    path: "canales",
+    component: DefaultLayoutComponent,
+    loadChildren: () =>
+      import("./modules/canales/canales.module").then((m) => m.CanalesModule),
+  },
+
   // { path: "**", component: P404Component },
 ];
 

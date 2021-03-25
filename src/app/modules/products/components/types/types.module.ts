@@ -7,9 +7,10 @@ import { DetailsComponent } from "./details/details.component";
 import { NewComponent } from "./new/new.component";
 import { EditComponent } from "./edit/edit.component";
 import { ListComponent } from "./list/list.component";
+import { DeleteTypeComponent } from './delete-type/delete-type.component';
 
 @NgModule({
-  declarations: [ListComponent, DetailsComponent, NewComponent, EditComponent],
+  declarations: [ListComponent, DetailsComponent, NewComponent, EditComponent, DeleteTypeComponent],
   imports: [CommonModule, TypesRoutingModule, TypesRoutingModule, CoreModule],
 })
 export class TypesModule {}

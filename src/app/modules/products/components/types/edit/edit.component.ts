@@ -17,13 +17,18 @@ export class EditComponent implements OnInit {
   isSubmit = false;
   isLoading = false;
   success = false;
+  change = false;
+  error = false;
+  mensajeError: string;
+
+  changeBtn = false;
 
   categories: Category[] = [];
 
   currentFileUploadImg: FileUpload;
   currentFileUploadBack: FileUpload;
 
-  url_image: any = "";
+  url_image: any;
   filedataImage: File;
 
   url_background: any = "";
@@ -33,7 +38,6 @@ export class EditComponent implements OnInit {
   @Input() props: any;
   constructor(
     public modal: NgbActiveModal,
-    private modalService: NgbModal,
     private spinner: NgxSpinnerService,
     private typeSrv: TypesProductsService
   ) {}
@@ -79,7 +83,7 @@ export class EditComponent implements OnInit {
   }
 
   closeModal() {
-    this.modal.close(false);
+    this.modal.close();
   }
 
   cancel() {
@@ -88,7 +92,17 @@ export class EditComponent implements OnInit {
     this.modal.close();
   }
 
+  changeImage() {
+    this.changeBtn = true;
+  }
+
+  cancelImageChange() {
+    this.changeBtn = false;
+    this.url_image = null;
+  }
+
   fileEventUrlImage(e) {
+    this.changeBtn = true;
     this.filedataImage = (e.target as HTMLInputElement).files[0];
     let reader = new FileReader();
     reader.onload = (event: any) => {
@@ -104,5 +118,83 @@ export class EditComponent implements OnInit {
       this.url_background = event.target.result;
     };
     reader.readAsDataURL(this.filedatabackground);
+  }
+
+  updateType() {
+    this.isLoading = true;
+    this.spinner.show();
+    if (!this.form.valid) {
+      return;
+    }
+    const data: TypeProduct = {
+      id: this.props.product.id,
+      key: this.props.product.key,
+      id_categoria: this.form.get("id_categoria").value,
+      nombre: this.form.get("nombre").value,
+      descripcion: this.form.get("descripcion").value,
+      precio: this.form.get("precio").value,
+      url_image: this.props.product.url_image,
+      url_background: this.props.product.url_background,
+    };
+
+    this.typeSrv
+      .updateType(data)
+      .then((res: any) => {
+        console.log(res);
+        this.success = true;
+        this.isLoading = false;
+        this.spinner.hide();
+      })
+      .catch((err: any) => {
+        console.log(err);
+        this.error = true;
+        this.isLoading = false;
+        this.success = false;
+        this.spinner.hide();
+      });
+  }
+
+  saveImage() {
+    this.isLoading = true;
+    this.spinner.show();
+    const action = "update";
+    const data: TypeProduct = {
+      id: this.props.product.id,
+      key: this.props.product.key,
+      id_categoria: this.form.get("id_categoria").value,
+      nombre: this.form.get("nombre").value,
+      descripcion: this.form.get("descripcion").value,
+      precio: this.form.get("precio").value,
+      url_background: this.props.product.url_background,
+    };
+    console.log("data", data);
+    this.currentFileUploadImg = new FileUpload(this.filedataImage);
+    this.typeSrv
+      .deleteFileStorage(this.props.product.url_image)
+      .then(() => {
+        this.typeSrv
+          .pushImageAndSave(this.currentFileUploadImg, data, action)
+          .subscribe(
+            (percentage) => {
+              this.percentage = Math.round(percentage);
+              if (this.percentage === 100) {
+                this.isLoading = false;
+                this.currentFileUploadImg = null;
+                this.changeBtn = true;
+                this.spinner.hide();
+                this.changeBtn = false;
+              }
+            },
+            (error) => {
+              console.log(error);
+              this.isLoading = false;
+              this.currentFileUploadImg = null;
+              this.spinner.hide();
+            }
+          );
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
   }
 }

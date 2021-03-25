@@ -35,7 +35,7 @@ export class PlansService {
     const filePath = `${this.basePath}${Date.now()}_${fileUploadImg.file.name}`;
     const storageRef = this.storage.ref(filePath);
     const uploadTask = this.storage.upload(filePath, fileUploadImg.file);
-
+    console.log("paso por el punto 1");
     uploadTask
       .snapshotChanges()
       .pipe(
@@ -45,6 +45,7 @@ export class PlansService {
             fileUploadImg.name = fileUploadImg.file.name;
             const data: PlanProduct = {
               id: plan.id,
+              key: plan.key,
               id_tipo: plan.id_tipo,
               nombre: plan.nombre,
               precio: plan.precio,
@@ -63,6 +64,8 @@ export class PlansService {
     if (action === "new") {
       this.newPlan(plan);
     } else if (action === "update") {
+      console.log("paso por el punto 2");
+
       this.updatePlan(plan);
     }
   }
@@ -79,11 +82,26 @@ export class PlansService {
   }
 
   updatePlan(plan: PlanProduct) {
+    console.log("paso por el punto 3");
     return this.plansProducts.update(plan.key, plan);
   }
 
   deleteFileStorage(downloadUrl) {
     console.log("entro a borrar la imagen con esta url", downloadUrl);
     return this.storage.storage.refFromURL(downloadUrl).delete();
+  }
+
+  deletePlanesDatabase(key: any) {
+    return this.plansProducts.remove(key);
+  }
+
+  deletePlan(plan: PlanProduct) {
+    return this.deletePlanesDatabase(plan.key)
+      .then(() => {
+        this.deleteFileStorage(plan.url_image);
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
   }
 }

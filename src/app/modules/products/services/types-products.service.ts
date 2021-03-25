@@ -89,6 +89,7 @@ export class TypesProductsService {
             fileUploadImg.name = fileUploadImg.file.name;
             const data: TypeProduct = {
               id: type.id,
+              key: type.key,
               id_categoria: type.id_categoria,
               nombre: type.nombre,
               descripcion: type.descripcion,
@@ -123,12 +124,31 @@ export class TypesProductsService {
   }
 
   updateType(type: TypeProduct) {
+    console.log("Entro a actualizar");
+    console.log(type.key);
+    console.log(type);
+
     return this.typesProducts.update(type.key, type);
   }
 
   deleteFileStorage(downloadUrl) {
     console.log("entro a borrar la imagen con esta url", downloadUrl);
     return this.storage.storage.refFromURL(downloadUrl).delete();
+  }
+
+  deleteTypeDatabase(key: any) {
+    return this.typesProducts.remove(key);
+  }
+
+  deleteType(type: TypeProduct) {
+    console.log(type);
+    return this.deleteTypeDatabase(type.key)
+      .then(() => {
+        this.deleteFileStorage(type.url_image);
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
   }
 
   executeActionType(action: string, type: TypeProduct) {

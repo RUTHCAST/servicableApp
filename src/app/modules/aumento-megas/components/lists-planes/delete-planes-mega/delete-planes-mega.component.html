@@ -4,8 +4,8 @@
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
-<div class="modal-body py-4" *ngIf="!success">
-    Esta acción eliminara permanentemente la categoría y productos relacionados.
+<div class="modal-body py-4 h6" *ngIf="!success">
+    Esta acciòn eliminara permanentemente el plan seleccionado.
     Esta seguro de continuar?
 </div>
 
@@ -15,21 +15,20 @@
 
 <div class="modal-footer">
     <button class="btn btn-secondary mr-2" (click)="closeModal()">
-      <span *ngIf="!success">Cancelar</span>
-      <span *ngIf="success">Cerrar</span>
+        <span *ngIf="!success">
+            Cancelar
+        </span>
+        <span *ngIf="success">
+            Cerrar
+        </span>
     </button>
-    
-    <button 
-     class="btn btn-danger" 
-     *ngIf="!success  && !isLoading"
-     (click)="delete()">
+
+    <button class="btn btn-danger" *ngIf="!success  && !isLoading" (click)="delete()">
         Eliminar
     </button>
 
-    <button 
-        class="btn btn-danger" 
-        *ngIf="success && isLoading" 
-        [disabled]="true">
+    <button class="btn btn-danger" *ngIf="success && isLoading" [disabled]="true">
         <i class="fa fa-circle-o-notch fa-spin"></i> Espere...
     </button>
 </div>
+

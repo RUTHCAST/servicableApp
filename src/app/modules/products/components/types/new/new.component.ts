@@ -48,7 +48,7 @@ export class NewComponent implements OnInit {
       id_categoria: new FormControl("", Validators.required),
       nombre: new FormControl("", Validators.required),
       descripcion: new FormControl("", Validators.required),
-      precio: new FormControl("", Validators.required),
+      precio: new FormControl("", Validators.pattern("^[0-9]*$")),
       url_image: new FormControl("", Validators.required),
       url_background: new FormControl("", Validators.required),
     });
@@ -107,9 +107,10 @@ export class NewComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
-    const idType = this.props.categories.length;
+
+    console.log(this.props.id);
     const type: TypeProduct = {
-      id: this.props.categories.length,
+      id: this.props.id,
       id_categoria: parseInt(this.form.get("id_categoria").value),
       nombre: this.form.get("nombre").value,
       descripcion: this.form.get("descripcion").value,

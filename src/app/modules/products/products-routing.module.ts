@@ -27,7 +27,25 @@ export const routes: Routes = [
       import("./components/types/types.module").then((m) => m.TypesModule),
   },
   {
+    path: "tipos/:id",
+    component: TypesComponent,
+    data: {
+      title: "Tipos",
+    },
+    loadChildren: () =>
+      import("./components/types/types.module").then((m) => m.TypesModule),
+  },
+  {
     path: "planes",
+    component: PlansComponent,
+    data: {
+      title: "Planes",
+    },
+    loadChildren: () =>
+      import("./components/plans/plans.module").then((m) => m.PlansModule),
+  },
+  {
+    path: "planes/:id",
     component: PlansComponent,
     data: {
       title: "Planes",

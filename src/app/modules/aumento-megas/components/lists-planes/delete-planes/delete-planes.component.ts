@@ -1,19 +1,19 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
-import { CategoriesService } from "../../../modules/products/services/categories.service";
+import { AumentoMegasService } from "../../../services/aumento-megas.service";
 
 @Component({
-  selector: "app-modal-delete",
-  templateUrl: "./modal-delete.component.html",
-  styleUrls: ["./modal-delete.component.scss"],
+  selector: "app-delete-planes",
+  templateUrl: "./delete-planes.component.html",
+  styleUrls: ["./delete-planes.component.scss"],
 })
-export class ModalDeleteComponent implements OnInit {
+export class DeletePlanesComponent implements OnInit {
   success = false;
   isLoading = false;
   @Input() props: any;
   constructor(
     public modal: NgbActiveModal,
-    private categoriesSrv: CategoriesService
+    private aumentoMegasSrv: AumentoMegasService
   ) {}
 
   ngOnInit(): void {}
@@ -24,8 +24,8 @@ export class ModalDeleteComponent implements OnInit {
 
   delete() {
     this.isLoading = true;
-    this.categoriesSrv
-      .deleteCategory(this.props.product)
+    this.aumentoMegasSrv
+      .deletePlanes(this.props.product.key)
       .then(() => {
         this.success = true;
         this.isLoading = false;

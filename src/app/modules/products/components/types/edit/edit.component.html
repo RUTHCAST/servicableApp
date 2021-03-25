@@ -12,50 +12,66 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong>CREAR</strong> nuevos tipos de productos
+                                <strong>EDITAR</strong> tipo de productos
                             </div>
                             <div class="card-body">
-                                <form [formGroup]="form" class="form-horizontal" *ngIf="!success">
-                                    <!-- <div class="form-group row">
-                                        <div class="col-md-12">
-                                            <img 
-                                            [src]="url_image ? url_image : props.product.url_image" 
-                                            class="card-img-top" 
-                                            alt="..." 
-                                            height="350px">
+                                <form [formGroup]="form" 
+                                        class="form-horizontal" 
+                                        *ngIf="!success">
+                                    <div class="card" 
+                                        style="width: 100%; margin: 0px auto; margin-bottom:20px">
+                                        <img [src]="url_image !=null ? url_image : props.product.url_image" 
+                                            class="p-3">
+                                        <div class="card-body">
+                                            <p class="card-text btn-group">
+                                                <button class="btn btn-sm btn-success" 
+                                                        *ngIf="!changeBtn"
+                                                        (click)="changeImage()">
+                                                    <i class="fa fa-refresh" 
+                                                        aria-hidden="true"></i>
+                                                    Cambiar
+                                                </button>
+                                            
+                                                <button class="btn btn-sm btn-primary" 
+                                                        *ngIf="changeBtn && url_image"
+                                                        [disabled]="url_image== null ? true : false"
+                                                        (click)="saveImage()">
+                                                    <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                                                    Guardar
+                                                </button>
+                                                <button class="btn btn-sm btn-secondary" 
+                                                        *ngIf="changeBtn"
+                                                        (click)="cancelImageChange()">
+                                                    <i class="fa fa-ban" aria-hidden="true"></i>
+                                                    Cancelar
+                                                </button>
+                                            </p>                                        
                                         </div>
-                                    </div> -->
+                                    </div>
+                                    
+                                    <div *ngIf="currentFileUploadBack" 
+                                            class="progress mt-2">
+                                        <div class="progress-bar progress-bar-info" 
+                                            role="progressbar" 
+                                            attr.aria-valuenow="{{ percentage }}"
+                                            aria-valuemin="0" 
+                                            aria-valuemax="100" 
+                                            [ngStyle]="{ width: percentage + '%' }">
+                                            {{ percentage }}%
+                                        </div>
+                                    </div>
 
-                                    <div class="form-group row">
+                                    <div class="form-group row" 
+                                            *ngIf="changeBtn">
                                         <label class="col-md-3 col-form-label">Imagen del producto</label>
                                         <div class="col-md-9">
                                             <input type="file" 
                                                 formControlName="url_image" 
-                                                accept="image/*" 
+                                                accept="image/*"
                                                 [class.is-invalid]="onInvalidField('url_image')"
                                                 (change)="fileEventUrlImage($event)" 
                                                 required>
                                             <small *ngIf="onValidator('url_image', 'required')" class="text text-danger">
-                                                Requerido
-                                            </small>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- <div class="form-group row">
-                                        <div class="col-md-12">
-                                            <img [src]="url_background ? url_background : props.product.url_background" 
-                                            class="card-img-top" 
-                                            alt="..."
-                                            height="350px">
-                                        </div>
-                                    </div> -->
-
-                                    <div class="form-group row">
-                                        <label class="col-md-3 col-form-label" for="file-input">Imagen de fondo</label>
-                                        <div class="col-md-9">
-                                            <input type="file" formControlName="url_background" accept="image/*"
-                                                [class.is-invalid]="onInvalidField('url_background')" (change)="fileEventUrlBackground($event)" required>
-                                            <small *ngIf="onValidator('url_background', 'required')" class="text text-danger">
                                                 Requerido
                                             </small>
                                         </div>
@@ -68,7 +84,8 @@
                                                 formControlName="id_categoria"
                                                 [class.is-invalid]="onInvalidField('id_categoria')">
                                                 <option value="">Seleccione una categoria</option>
-                                                <option [value]="category.id" *ngFor="let category of categories">
+                                                <option [value]="category.id" 
+                                                *ngFor="let category of categories">
                                                     {{category.nombre}}
                                                 </option>
                                             </select>
@@ -78,7 +95,6 @@
                                             </small>
                                         </div>
                                     </div>
-
                                     <div class="form-group row">
                                         <label class="col-md-3 col-form-label">Nombre</label>
                                         <div class="col-md-9">
@@ -96,7 +112,8 @@
                                     <div class="form-group row">
                                         <label class="col-md-3 col-form-label">Descripcion</label>
                                         <div class="col-md-9">
-                                            <textarea rows="9" class="form-control" formControlName="descripcion"
+                                            <textarea rows="9" class="form-control" 
+                                                formControlName="descripcion"
                                                 [class.is-invalid]="onInvalidField('descripcion')"
                                                 placeholder="Ingrese descripcion del producto">
                                             </textarea>
@@ -120,90 +137,24 @@
                                             Requerido
                                         </small>
                                     </div>
-
-                                    <div class="card mb-3">
-                                        <div class="row g-0">
-                                            <div class="col-md-6">
-                                                <img [src]="url_image ? url_image : props.product.url_image" alt="...">
-                                            </div>
-                                            <div class="col-md-6 d-flex align-items-baseline">
-                                                <div class="card-body">
-                                                    <h6 class="card-title">Imagen de producto</h6>
-                                                    <p class="card-text" height="90%">
-
-                                                    </p>
-                                                    <p class="card-text btn-group">
-                                                        <button class="btn btn-sm btn-success mx-2">
-                                                            <i class="fa fa-refresh" aria-hidden="true"></i>
-                                                            Cambiar
-                                                        </button>
-                                                        <button class="btn btn-sm btn-primary  mx-2">
-                                                            <i class="fa fa-floppy-o" aria-hidden="true"></i>
-                                                            Guardar
-                                                        </button>
-                                                        <button class="btn btn-sm btn-secondary  mx-2">
-                                                            <i class="fa fa-ban" aria-hidden="true"></i>                                                            
-                                                            Cancelar
-                                                        </button>
-                                                    </p>                                                
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div *ngIf="currentFileUploadBack" class="progress mt-2">
-                                        <div class="progress-bar progress-bar-info" role="progressbar" attr.aria-valuenow="{{ percentage }}"
-                                            aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ width: percentage + '%' }">
-                                            {{ percentage }}%
-                                        </div>
-                                    </div>
-
-                                    <div class="card mb-3">
-                                        <div class="row g-0">
-                                            <div class="col-md-6">
-                                                <img [src]="url_background ? url_background : props.product.url_background" alt="...">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="card-body">
-                                                    <h6 class="card-title">Imagen de fondo</h6>
-                                                    <p class="card-text">
-
-                                                    </p>
-                                                    <p class="card-text btn-group">
-                                                        <button class="btn btn-sm btn-success ">
-                                                            <i class="fa fa-refresh" aria-hidden="true"></i>
-                                                            Cambiar
-                                                        </button>
-                                                        <button class="btn btn-sm btn-primary">
-                                                            <i class="fa fa-floppy-o" aria-hidden="true"></i>
-                                                            Guardar
-                                                        </button>
-                                                        <button class="btn btn-sm btn-secondary">
-                                                            <i class="fa fa-ban" aria-hidden="true"></i>
-                                                            Cancelar
-                                                        </button>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>                                        
-                                    </div>
-                                    <div *ngIf="currentFileUploadImg" class="progress mt-2">
-                                        <div class="progress-bar progress-bar-info" role="progressbar" attr.aria-valuenow="{{ percentage }}"
-                                            aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ width: percentage + '%' }">
-                                            {{ percentage }}%
-                                        </div>                                    
-                                    </div>
                                 </form>
 
                                 <div class="py-1 my-3 d-flex flex-column justify-content-center" 
-                                    *ngIf="success">
+                                    *ngIf="success && !error">
                                     <img src="assets/img/check.png" style="margin:0px auto!important;">
-                                    <h5 class="text-center">Tipo de producto agregado exitosamente.</h5>
+                                    <h5 class="text-center">Tipo de producto modificado exitosamente.</h5>
+                                </div>
+
+                                <div class="py-1 my-3 d-flex flex-column justify-content-center" 
+                                    *ngIf="success && error">
+                                    <img src="assets/img/error.png" style="margin:0px auto!important;">
+                                    <h5 class="text-center">Error al actualiza producto.</h5>
                                 </div>
                             </div>
                             <div class="card-footer">
                                 <button class="btn btn-sm btn-primary" 
-                                    *ngIf="!isLoading && !success" 
-                                    (click)="save()">
+                                    *ngIf="!isLoading && !success && !changeBtn" 
+                                    (click)="updateType()">
                                     <i class="fa fa-dot-circle-o"></i>
                                     Guardar
                                 </button>
