@@ -32,8 +32,8 @@ export class LoginComponent implements OnInit {
       ]),
       clave: new FormControl("", [
         Validators.required,
-        Validators.maxLength(6),
-        Validators.minLength(6),
+        Validators.maxLength(8),
+        Validators.minLength(5),
       ]),
     });
   }
@@ -58,6 +58,17 @@ export class LoginComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
+    this.loginSrv.login(
+      this.form.get("email").value,
+      this.form.get("clave").value
+    );
+    // .toPromise()
+    // .then((resp: any) => {
+    //   console.log(resp);
+    // })
+    // .catch((err: any) => {
+    //   console.log(err);
+    // });
     console.log(this.form.value);
   }
 }
