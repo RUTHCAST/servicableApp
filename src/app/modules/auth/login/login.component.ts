@@ -62,7 +62,6 @@ export class LoginComponent implements OnInit {
       this.form.get("email").value,
       this.form.get("clave").value
     );
-    // .toPromise()
     // .then((resp: any) => {
     //   console.log(resp);
     // })
