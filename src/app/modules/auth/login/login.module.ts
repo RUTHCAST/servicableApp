@@ -4,9 +4,10 @@ import { CommonModule } from "@angular/common";
 import { LoginRoutingModule } from "./login-routing.module";
 import { LoginComponent } from "./login.component";
 import { CoreModule } from "../../../core/core.module";
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, RegisterComponent],
   imports: [CommonModule, LoginRoutingModule, CoreModule],
 })
 export class LoginModule {}

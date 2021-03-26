@@ -2,9 +2,19 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { LoginComponent } from "./login.component";
 import { IsNotAuthGuard } from "../../../core/guards/is-not-auth.guard";
+import { RegisterComponent } from "./register/register.component";
 
 const routes: Routes = [
-  { path: "", component: LoginComponent, canActivate: [IsNotAuthGuard] },
+  {
+    path: "",
+    component: LoginComponent,
+    canActivate: [IsNotAuthGuard],
+  },
+  {
+    path: "register",
+    component: RegisterComponent,
+    canActivate: [IsNotAuthGuard],
+  },
 ];
 
 @NgModule({
