@@ -1,1 +1,162 @@
-<p>edit works!</p>
+<div class="modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <!--/.row-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>CAMBIAR</strong> imagen canales
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="form" class="form-horizontal" *ngIf="!success">
+                        <div class="form-group row">
+                            <div class="col-md-12 text-center">
+                                <img [src]="url ? url : props.canal.url" alt="..." width="85%" height="350px"
+                                    style="margin:0px auto!important">
+
+                                <p class="alert alert-success m-3" *ngIf="imageChanged">
+                                    Imagen de canales cambiada exitosamente
+                                </p>
+                            </div>
+                            <div class="col-md-12 text-center my-2">
+                                <button class="btn btn-sm btn-success" style="float:right;" *ngIf="!showButton"
+                                    (click)="buttonChange()">
+                                    <i class="fa fa-undo"></i>
+                                    Cambiar
+                                </button>
+                                <button class="btn btn-sm btn-primary m-1" 
+                                    style="float:right;" 
+                                    *ngIf="showButton"
+                                    [disabled]="!url"
+                                    (click)="changeImage()">
+                                    <i class="fa fa-floppy-o"></i>
+                                    Guardar
+                                </button>
+                                <button class="btn btn-sm btn-secondary m-1" 
+                                    style="float:right;" 
+                                    *ngIf="showButton"
+                                    (click)="showButton=false">
+                                    <i class="fa fa-times"></i>
+                                    Cancelar
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group row" *ngIf="showButton">
+                            <label class="col-md-3 col-form-label" for="file-input">Imagen</label>
+                            <div class="col-md-9">
+                                <input type="file" 
+                                    id="file-input" 
+                                    name="file-input" 
+                                    accept="image/*"
+                                    (change)="fileEvent($event)" 
+                                    required>
+                            </div>
+                        </div>
+
+                        <div *ngIf="currentFileUpload" class="progress my-4">
+                            <div class="progress-bar progress-bar-info" role="progressbar"
+                                attr.aria-valuenow="{{ percentage }}" aria-valuemin="0" aria-valuemax="100"
+                                [ngStyle]="{ width: percentage + '%' }">
+                                {{ percentage }}%
+                            </div>
+                        </div>
+
+                        <!-- <div class="form-group row">
+                            <label class="col-md-3 col-form-label" for="file-input">Imagen</label>
+                            <div class="col-md-9">
+                                <input type="file" 
+                                    formControlName="url" 
+                                    id="file-input" 
+                                    name="file-input"
+                                    accept="image/*" 
+                                    [class.is-invalid]="onInvalidField('url')"
+                                    (change)="fileEvent($event)" 
+                                    required>
+                                <small *ngIf="onValidator('url', 'required')" class="text text-danger">
+                                    Requerido
+                                </small>
+                            </div>
+                        </div> -->
+
+                        <div class="form-group row" *ngIf="!showButton">
+                            <label class="col-md-3 col-form-label">Categoria</label>
+                        <div class="col-md-9">
+                            <select class="form-control" 
+                                formControlName="categoria"
+                                [class.is-invalid]="onInvalidField('categoria')">
+                                <option value="">Seleccione una categoria</option>
+                                <option [value]="canal.categoria" *ngFor="let canal of props.canales">
+                                    {{canal.categoria}}
+                                </option>
+                            </select>
+                            <small *ngIf="onValidator('categoria', 'required')"
+                                class="text text-danger">
+                                Requerido
+                            </small>
+                        </div>
+                    </div>
+
+                    <!-- <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Nombre</label>
+                        <div class="col-md-9">
+                            <input type="text" 
+                                class="form-control" 
+                                formControlName="nombre"
+                                [class.is-invalid]="onInvalidField('nombre')"
+                                placeholder="Ingrese nombre">
+                            <small *ngIf="onValidator('nombre', 'required')" 
+                                    class="text text-danger">
+                                Requerido
+                            </small>
+                        </div>
+                    </div> -->
+
+                    </form>
+                    <div class="py-1 my-3 d-flex flex-column justify-content-center" *ngIf="success">
+                        <img src="assets/img/check.png" style="margin:0px auto!important;">
+                        <h5 class="text-center">Categoria modificada exitosamente.</h5>
+                    </div>
+
+                </div>
+                <div class="card-footer" *ngIf="!showButton">
+                    <button 
+                        type="submit" 
+                        class="btn btn-sm btn-primary" 
+                        [disabled]="!form.valid" 
+                        *ngIf="!isLoading && !success"
+                        (click)="edit()">
+                        <i class="fa fa-dot-circle-o"></i>
+                        Agregar
+                    </button>
+                    <button 
+                        class="btn btn-sm btn-primary" 
+                        *ngIf="isLoading  && !success" 
+                        [disabled]="true">
+                        <i class="fa fa-circle-o-notch fa-spin"></i> Espere...
+                    </button>
+
+                    <button type="reset" class="btn btn-sm" [ngClass]="{'btn-danger': !success,
+                                    'btn-secondary': success}" (click)="closeModal()">
+                        <span *ngIf="!success">
+                            <i class="fa fa-ban"></i>
+                            Cancelar
+                        </span>
+                        <span *ngIf="success">
+                            <i class="fa fa-times"></i>
+                            Cerrar
+                        </span>
+
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <ngx-spinner>
+    </ngx-spinner>
+
+

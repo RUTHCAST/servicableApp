@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { NgxSpinnerService } from "ngx-spinner";
 import { v4 as uuid } from "uuid";
@@ -8,19 +8,16 @@ import {
   NgbModalRef,
   NgbModal,
 } from "@ng-bootstrap/ng-bootstrap";
-import { FileUpload } from '../../../../core/models/fileUpload';
-import { CanalesService } from '../../servicios/canales.service';
-import { canales } from '../../modelos/canales.model';
-
+import { FileUpload } from "../../../../core/models/fileUpload";
+import { CanalesService } from "../../servicios/canales.service";
+import { canales } from "../../modelos/canales.model";
 
 @Component({
-  selector: 'app-new',
-  templateUrl: './new.component.html',
-  styleUrls: ['./new.component.scss']
+  selector: "app-new",
+  templateUrl: "./new.component.html",
+  styleUrls: ["./new.component.scss"],
 })
 export class NewComponent implements OnInit {
-
-
   form: FormGroup;
   isSubmit = false;
   isLoading = false;
@@ -35,18 +32,15 @@ export class NewComponent implements OnInit {
   @Input() props: any;
 
   constructor(
-
     public modal: NgbActiveModal,
     private canalesSrv: CanalesService,
     private spinner: NgxSpinnerService
-
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.createForm();
     console.log(this.props.canales.length);
   }
-
 
   closeModal() {
     this.modal.close(false);
@@ -57,8 +51,6 @@ export class NewComponent implements OnInit {
       categoria: new FormControl("", Validators.required),
       nombre: new FormControl("", Validators.required),
       url: new FormControl("", Validators.required),
-      
-      
     });
   }
 
@@ -94,7 +86,6 @@ export class NewComponent implements OnInit {
     reader.readAsDataURL(this.filedata);
   }
 
-
   save() {
     this.isSubmit = true;
     this.isLoading = true;
@@ -106,13 +97,13 @@ export class NewComponent implements OnInit {
     const data: canales = {
       key: uuid(),
       categoria: this.form.get("categoria").value,
-      nombre: this.form.get("nombre").value + '_' + this.props.canales.length,
+      nombre: this.form.get("nombre").value + "_" + this.props.canales.length,
       createdAt: new Date(),
     };
 
     this.currentFileUpload = new FileUpload(this.filedata);
     this.canalesSrv
-    .pushCanalesStorage(this.currentFileUpload, data, action)
+      .pushCanalesStorage(this.currentFileUpload, data, action)
       .subscribe(
         (percentage) => {
           this.percentage = Math.round(percentage);
@@ -132,8 +123,4 @@ export class NewComponent implements OnInit {
         }
       );
   }
-
-
-
-
 }
