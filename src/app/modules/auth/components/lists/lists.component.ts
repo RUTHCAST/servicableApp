@@ -5,7 +5,9 @@ import { users } from '../../models/user.model';
 import { UsersService } from '../../services/users.service';
 import { DetailsComponent } from '../details/details.component';
 import { EditComponent } from '../edit/edit.component';
-import { ModalDeleteComponent } from '../../../../core/components/modal-delete/modal-delete.component';
+import { ModalDeleteComponent } from '../../../products/components/categories/modal-delete/modal-delete.component';
+import { NewComponent } from '../new/new.component';
+//import { ModalDeleteComponent } from '../../../../core/components/modal-delete/modal-delete.component';
 
 
 @Component({
@@ -111,7 +113,7 @@ export class ListsComponent implements OnInit, OnDestroy {
       size: "lg",
     });
     const props = {
-      id: this.categories.length,
+      id: this.users.length,
     };
     modalRef.componentInstance.props = props;
     modalRef.result.then((result) => {

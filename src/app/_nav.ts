@@ -57,8 +57,6 @@ export const navItems: INavData[] = [
     name: "Estadistica de visitas",
     url: "/reportes",
     icon: "cil-graph",
-<<<<<<< HEAD
-=======
   },
   {
     divider: true,
@@ -72,7 +70,6 @@ export const navItems: INavData[] = [
     name: "Administrador Canales",
     url: "/canales",
     icon: "icon-handbag",
->>>>>>> main
   },
   {
     divider: true,
@@ -99,10 +96,7 @@ export const navItems: INavData[] = [
   //     },
   //   ],
   // },
-<<<<<<< HEAD
   
-=======
->>>>>>> main
   {
     title: true,
     name: "Usuarios",

@@ -49,13 +49,13 @@ export class CanalesComponent implements OnInit {
   }
 
 
-  change(canales: canales): void {
+  change(canal: canales): void {
     const modalRef: NgbModalRef = this.modalService.open(EditComponent, {
       size: "lg",
     });
     const props = {
       id: this.canales.length,
-      carrusel: canales,
+      canal,
     };
     modalRef.componentInstance.props = props;
     modalRef.result.then((result) => {

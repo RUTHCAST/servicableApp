@@ -7,13 +7,10 @@ import { DefaultLayoutComponent } from "./containers";
 // import { P404Component } from "./views/error/404.component";
 // import { P500Component } from "./views/error/500.component";
 import { RegisterComponent } from "./modules/auth/components/register/register.component";
-<<<<<<< HEAD
 import { DashboardComponent } from "./modules/dashboard/components/dashboard.component";
 import { AuthComponent } from "./modules/auth/components/auth.component";
 import { AuthModule } from "./modules/auth/auth.module";
 import { ReportsComponent } from "./modules/reports/components/reports/reports.component";
-=======
->>>>>>> main
 
 export const routes: Routes = [
   {
@@ -49,10 +46,7 @@ export const routes: Routes = [
       import("./modules/auth/auth.module").then((m) => m.AuthModule),
   },
   {
-<<<<<<< HEAD
     
-=======
->>>>>>> main
     path: "reportes",
     component: DefaultLayoutComponent,
     loadChildren: () =>
