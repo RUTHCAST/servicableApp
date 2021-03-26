@@ -6,6 +6,7 @@ import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { AppState } from "../../../store/app.reducer";
 import * as actions from "../../../store/actions";
+import { Subscription } from "rxjs";
 @Injectable({
   providedIn: "root",
 })
@@ -17,11 +18,18 @@ export class LoginService {
     user: null,
     error: null,
   };
+  user: Usuario;
+  onSubscription: Subscription;
+
   constructor(
     private db: AngularFireDatabase,
     private route: Router,
     private store: Store<AppState>
   ) {
+    this.onSubscription = this.store.subscribe((state) => {
+      this.user = state.user.user;
+      // console.log(this.user);
+    });
     this.getUserArray();
   }
 
@@ -64,5 +72,10 @@ export class LoginService {
     localStorage.clear();
     this.store.dispatch(actions.unsetUser());
     this.route.navigate(["login"]);
+  }
+
+  validateToken() {
+    const token = localStorage.getItem("token");
+    return token || this.user != null ? true : false;
   }
 }
