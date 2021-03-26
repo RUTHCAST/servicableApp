@@ -64,6 +64,26 @@ export class ListsComponent implements OnInit, OnDestroy {
 
   }
 
+  getUsers(): void {
+    this.usersSrv
+      .getAllUsers()
+      .snapshotChanges()
+      .subscribe((res) => {
+        const size = this.users.length;
+        console.log(size);
+        this.users.splice(0, size);
+
+        res.forEach((t) => {
+          const users = t.payload.toJSON();
+          users["key"] = t.key;
+          this.users.push(users as users);
+        });
+        console.log(this.users);
+      });
+  }
+
+
+
 
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
@@ -119,26 +139,6 @@ export class ListsComponent implements OnInit, OnDestroy {
     modalRef.result.then((result) => {
       console.log(result);
     });
-  }
-
-
-
-  getUsers(): void {
-    this.usersSrv
-      .getAllUsers()
-      .snapshotChanges()
-      .subscribe((res) => {
-        const size = this.users.length;
-        this.users.splice(0, size);
-
-        res.forEach((t) => {
-          const users = t.payload.toJSON();
-          users["key"] = t.key;
-          this.users.push(users as users);
-        });
-        console.log(this.users);
-        this.dtTrigger.next();
-      });
   }
 
 
