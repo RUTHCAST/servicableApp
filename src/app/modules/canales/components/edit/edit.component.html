@@ -9,17 +9,17 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <strong>CAMBIAR</strong> imagen carrusel
+                    <strong>CAMBIAR</strong> imagen canales
                 </div>
                 <div class="card-body">
                     <form [formGroup]="form" class="form-horizontal" *ngIf="!success">
                         <div class="form-group row">
                             <div class="col-md-12 text-center">
-                                <img [src]="url ? url : props.canal.url_image" alt="..." width="85%" height="350px"
+                                <img [src]="url ? url : props.canal.url" alt="..." width="85%" height="350px"
                                     style="margin:0px auto!important">
 
                                 <p class="alert alert-success m-3" *ngIf="imageChanged">
-                                    Imagen de carrusel cambiada exitosamente
+                                    Imagen de canales cambiada exitosamente
                                 </p>
                             </div>
                             <div class="col-md-12 text-center my-2">
@@ -32,7 +32,7 @@
                                     style="float:right;" 
                                     *ngIf="showButton"
                                     [disabled]="!url"
-                                    (click)="edit()">
+                                    (click)="changeImage()">
                                     <i class="fa fa-floppy-o"></i>
                                     Guardar
                                 </button>
@@ -65,7 +65,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <!-- <div class="form-group row">
                             <label class="col-md-3 col-form-label" for="file-input">Imagen</label>
                             <div class="col-md-9">
                                 <input type="file" 
@@ -80,9 +80,9 @@
                                     Requerido
                                 </small>
                             </div>
-                        </div>
+                        </div> -->
 
-                        <div class="form-group row">
+                        <div class="form-group row" *ngIf="!showButton">
                             <label class="col-md-3 col-form-label">Categoria</label>
                         <div class="col-md-9">
                             <select class="form-control" 
@@ -100,7 +100,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
+                    <!-- <div class="form-group row">
                         <label class="col-md-3 col-form-label">Nombre</label>
                         <div class="col-md-9">
                             <input type="text" 
@@ -113,11 +113,7 @@
                                 Requerido
                             </small>
                         </div>
-                    </div>
-
-
-
-
+                    </div> -->
 
                     </form>
                     <div class="py-1 my-3 d-flex flex-column justify-content-center" *ngIf="success">
@@ -127,6 +123,22 @@
 
                 </div>
                 <div class="card-footer" *ngIf="!showButton">
+                    <button 
+                        type="submit" 
+                        class="btn btn-sm btn-primary" 
+                        [disabled]="!form.valid" 
+                        *ngIf="!isLoading && !success"
+                        (click)="edit()">
+                        <i class="fa fa-dot-circle-o"></i>
+                        Agregar
+                    </button>
+                    <button 
+                        class="btn btn-sm btn-primary" 
+                        *ngIf="isLoading  && !success" 
+                        [disabled]="true">
+                        <i class="fa fa-circle-o-notch fa-spin"></i> Espere...
+                    </button>
+
                     <button type="reset" class="btn btn-sm" [ngClass]="{'btn-danger': !success,
                                     'btn-secondary': success}" (click)="closeModal()">
                         <span *ngIf="!success">
@@ -139,16 +151,11 @@
                         </span>
 
                     </button>
+
                 </div>
             </div>
         </div>
-        <!--/.col-->
     </div>
-    <!--/.row-->
-    <!-- <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
-</div> -->
-
     <ngx-spinner>
     </ngx-spinner>
 

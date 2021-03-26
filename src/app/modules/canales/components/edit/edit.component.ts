@@ -8,24 +8,18 @@ import {
 
 import { NgxSpinnerService } from "ngx-spinner";
 import { FileUpload } from "../../../../core/models/fileUpload";
-import { canales } from '../../modelos/canales.model';
-import { CanalesService } from '../../servicios/canales.service';
-import { Carrusel } from '../../../configuration/models/carrusel.model';
+import { canales } from "../../modelos/canales.model";
+import { CanalesService } from "../../servicios/canales.service";
+import { Carrusel } from "../../../configuration/models/carrusel.model";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
-
 @Component({
-  selector: 'app-edit',
-  templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.scss']
+  selector: "app-edit",
+  templateUrl: "./edit.component.html",
+  styleUrls: ["./edit.component.scss"],
 })
 export class EditComponent implements OnInit {
-  
   form: FormGroup;
-
-
-
-
   public isSubmit = false;
   public isLoading = false;
   public url = "";
@@ -41,30 +35,24 @@ export class EditComponent implements OnInit {
 
   @Input() props: any;
 
-
-
-
   constructor(
-
     public modal: NgbActiveModal,
     private spinner: NgxSpinnerService,
     private canalSrv: CanalesService
-
-  )  {}
+  ) {}
 
   ngOnInit(): void {
-
     this.createForm();
-
   }
 
   createForm() {
     this.form = new FormGroup({
-      categoria: new FormControl(this.props.canal.categoria, Validators.required),
-      nombre: new FormControl(this.props.canal.categoria, Validators.required),
-      url: new FormControl(this.props.canal.categoria, Validators.required),
-      
-      
+      categoria: new FormControl(
+        this.props.canal.categoria,
+        Validators.required
+      ),
+      // nombre: new FormControl(this.props.canal.nombre, Validators.required),
+      // url: new FormControl("", Validators.required),
     });
   }
 
@@ -83,8 +71,6 @@ export class EditComponent implements OnInit {
       (this.isSubmit || field.touched)
     );
   }
-
-
 
   closeModal() {
     this.modal.close(false);
@@ -110,21 +96,48 @@ export class EditComponent implements OnInit {
     this.imageChanged = false;
   }
 
-  
   edit() {
+    this.showButton = false;
+    this.isLoading = true;
+    this.spinner.show();
+
+    const data: canales = {
+      categoria: this.form.get("categoria").value,
+      nombre: this.props.canal.nombre,
+      key: this.props.canal.key,
+      createdAt: new Date(),
+    };
+
+    this.canalSrv
+      .updateCanal(data)
+      .then(() => {
+        console.log("Modificada exitosamente");
+        this.success = true;
+        this.isLoading = false;
+        this.spinner.hide();
+      })
+      .catch((err: any) => {
+        console.log(err);
+        this.success = true;
+        this.isLoading = false;
+        this.spinner.hide();
+      });
+  }
+
+  changeImage() {
     this.showButton = false;
     this.isLoading = true;
     this.spinner.show();
     const data: canales = {
       categoria: this.form.get("categoria").value,
-      nombre: this.form.get("categoria").value,
+      nombre: this.props.canal.nombre,
       key: this.props.canal.key,
       createdAt: new Date(),
     };
 
     this.currentFileUpload = new FileUpload(this.filedata);
     this.canalSrv
-      .deleteFileStorage(this.props.carrusel.url_image)
+      .deleteFileStorage(this.props.canal.url)
       .then(() => {
         this.canalSrv
           .pushCanalesStorage(this.currentFileUpload, data, "update")
@@ -151,6 +164,4 @@ export class EditComponent implements OnInit {
         console.log(err);
       });
   }
-
-
 }
