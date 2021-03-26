@@ -16,8 +16,11 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="icon-user"></i></span>
                                         </div>
-                                        <input type="email" formControlName="email" class="form-control"
-                                            placeholder="usuario" [class.is-invalid]="onInvalidField('email')">                                            
+                                        <input type="email" 
+                                        formControlName="email" 
+                                        class="form-control"
+                                        placeholder="usuario" 
+                                        [class.is-invalid]="onInvalidField('email')">                                            
                                     </div>
 
                                     <div class="row my-2 mx-1"
@@ -42,10 +45,15 @@
                                             class="form-control"
                                             placeholder="Contraseña" 
                                             [class.is-invalid]="onInvalidField('clave')">
-                                            <button class="btn btn-sm btn-eye" *ngIf="passVisibility == 'on'" (click)="passVisibility = 'off'">
+                                            <button class="btn btn-sm btn-eye" 
+                                                *ngIf="passVisibility == 'on'" 
+                                                (click)="passVisibility = 'off'">
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
                                             </button>
-                                            <button class="btn btn-sm btn-eye" *ngIf="passVisibility == 'off'" (click)="passVisibility = 'on'">
+                                            <button 
+                                                class="btn btn-sm btn-eye" 
+                                                *ngIf="passVisibility == 'off'" 
+                                                (click)="passVisibility = 'on'">
                                                 <i class="fa fa-eye-slash" aria-hidden="true"></i>
                                             </button>
                                     </div>
@@ -65,6 +73,9 @@
                                             </small>
                                     </div>
 
+                                    <div class="row my-2 mx-1" *ngIf="error.length>0" style="width:100%">
+                                        <div class="alert alert-danger px-2 py-2">Email y contraseña no coinciden</div>
+                                    </div>
 
                                     <div class="row my-2">
                                         <div class="col-6">

@@ -2,7 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { NgxSpinnerService } from "ngx-spinner";
 import { LoginService } from "../services/login.service";
-
+import { Router } from "@angular/router";
+// Store
+import { Store } from "@ngrx/store";
+import { AppState } from "../../../store/app.reducer";
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
@@ -14,10 +17,13 @@ export class LoginComponent implements OnInit {
   isLoading = false;
   success = false;
   passVisibility = "off";
+  error = "";
 
   constructor(
     private spinner: NgxSpinnerService,
-    private loginSrv: LoginService
+    private loginSrv: LoginService,
+    private route: Router,
+    private store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
@@ -55,19 +61,23 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.spinner.show();
     if (!this.form.valid) {
       return;
     }
-    this.loginSrv.login(
+
+    const response = this.loginSrv.login(
       this.form.get("email").value,
       this.form.get("clave").value
     );
-    // .then((resp: any) => {
-    //   console.log(resp);
-    // })
-    // .catch((err: any) => {
-    //   console.log(err);
-    // });
-    console.log(this.form.value);
+
+    if (response.user != null) {
+      console.log(response.user[0]);
+      localStorage.setItem("user", JSON.stringify(response.user[0]));
+
+      this.route.navigate(["dashboard"]);
+    } else {
+      this.error = response.error;
+    }
   }
 }
