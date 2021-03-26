@@ -75,7 +75,6 @@ export class CanalesComponent implements OnInit {
       size: "lg",
     });
     const props = {
-      id: this.canales.length,
       canales,
       key: canales.key,
     };
