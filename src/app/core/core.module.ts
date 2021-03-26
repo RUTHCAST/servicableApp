@@ -6,8 +6,9 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { DataTablesModule } from "angular-datatables";
 
 import { ModalConfirmationComponent } from "./components/modal-confirmation/modal-confirmation.component";
+import { ImageCropperComponent } from "./components/image-cropper/image-cropper.component";
 @NgModule({
-  declarations: [ModalConfirmationComponent],
+  declarations: [ModalConfirmationComponent, ImageCropperComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -20,6 +21,7 @@ import { ModalConfirmationComponent } from "./components/modal-confirmation/moda
     FormsModule,
     NgxSpinnerModule,
     DataTablesModule,
+    ImageCropperComponent,
   ],
 })
 export class CoreModule {}

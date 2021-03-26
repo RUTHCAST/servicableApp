@@ -52,6 +52,7 @@
     "chart.js": "^2.9.4",
     "classlist.js": "^1.1.20150312",
     "core-js": "^3.8.3",
+    "cropperjs": "^1.5.11",
     "datatables.net": "^1.10.20",
     "datatables.net-dt": "^1.10.20",
     "firebase": "^7.0 || ^8.0",
