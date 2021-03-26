@@ -1,7 +1,11 @@
 import { Injectable } from "@angular/core";
 import { AngularFireDatabase, AngularFireList } from "@angular/fire/database";
 import { Usuario } from "../models/usuario.model";
-
+import { Router } from "@angular/router";
+// Store
+import { Store } from "@ngrx/store";
+import { AppState } from "../../../store/app.reducer";
+import * as actions from "../../../store/actions";
 @Injectable({
   providedIn: "root",
 })
@@ -13,7 +17,11 @@ export class LoginService {
     user: null,
     error: null,
   };
-  constructor(private db: AngularFireDatabase) {
+  constructor(
+    private db: AngularFireDatabase,
+    private route: Router,
+    private store: Store<AppState>
+  ) {
     this.getUserArray();
   }
 
@@ -50,5 +58,11 @@ export class LoginService {
       this.response.error = "Usuario no encontrado";
     }
     return this.response;
+  }
+
+  logout() {
+    localStorage.clear();
+    this.store.dispatch(actions.unsetUser());
+    this.route.navigate(["login"]);
   }
 }

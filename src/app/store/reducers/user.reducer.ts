@@ -18,6 +18,12 @@ const _userReducer = createReducer(
       ...state,
       user: { ...user },
     };
+  }),
+  on(actions.unsetUser, (state) => {
+    return {
+      ...state,
+      user: null,
+    };
   })
 );
 
