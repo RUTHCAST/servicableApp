@@ -20,6 +20,14 @@
                                         Foto de perfil
                                     </button>
 
+                                    <div *ngIf="currentFileUpload" class="progress mt-2">
+                                        <div class="progress-bar progress-bar-info" role="progressbar" attr.aria-valuenow="{{ percentage }}"
+                                            aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ width: percentage + '%' }">
+                                            {{ percentage }}%
+                                        </div>
+                                    
+                                    </div>
+
                                     <p class="text-center" style="width:100%;">
                                         <img src="../../../../../assets/img/logo.png" width="200px" style="margin:0px auto" alt="">
                                     </p>

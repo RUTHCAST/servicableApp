@@ -13,10 +13,12 @@ export class ImageCropperComponent implements OnInit {
   imageUrl: string;
   urlDefault = "../../../../../assets/img/avatars/profile.png";
   cropperResult: string;
+  filedata: File;
   acceptBtn = false;
   show = false;
   config = {
     zoomable: true,
+    width: 400, // Default `250`
   };
   constructor(
     public modal: NgbActiveModal,
@@ -31,6 +33,7 @@ export class ImageCropperComponent implements OnInit {
 
   onSelectFile(e) {
     if (e.target.files && e.target.files[0]) {
+      // this.filedata = (e.target as HTMLInputElement).files[0];
       const reader = new FileReader();
       reader.readAsDataURL(e.target.files[0]);
       reader.onload = () => {
@@ -44,13 +47,18 @@ export class ImageCropperComponent implements OnInit {
   }
 
   closeModal() {
-    this.modal.close(this.cropperResult);
+    const images = {
+      cropper: this.cropperResult,
+      fileData: this.base64ToFile(this.cropperResult, "croppedImage.png"),
+    };
+    this.modal.close(images);
   }
 
   cancel() {
     this.imageUrl = "../../../../../assets/img/avatars/profile.png";
     this.show = false;
     this.acceptBtn = false;
+    this.modal.close();
   }
 
   getCropperImage() {
@@ -87,5 +95,25 @@ export class ImageCropperComponent implements OnInit {
 
   zoomIn() {
     this.angularCropper.cropper.zoom(-0.1);
+  }
+
+  public blobToFile = (theBlob: Blob, fileName: string): File => {
+    var b: any = theBlob;
+    b.lastModifiedDate = new Date();
+    b.name = fileName;
+    return <File>theBlob;
+  };
+
+  base64ToFile(dataurl, filename) {
+    let arr = dataurl.split(","),
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
+
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, { type: mime });
   }
 }
