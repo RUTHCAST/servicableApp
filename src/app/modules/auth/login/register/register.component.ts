@@ -5,11 +5,14 @@ import {
   FormGroup,
   Validators,
 } from "@angular/forms";
-import { NgxSpinnerService } from "ngx-spinner";
 import { Router } from "@angular/router";
+
+import { NgxSpinnerService } from "ngx-spinner";
+import { NgbModalRef, NgbModal } from "@ng-bootstrap/ng-bootstrap";
+
 import { LoginService } from "../../services/login.service";
 import { ConfirmedValidator } from "../../../../core/validators/confirm-password.validator";
-
+import { ImageCropperComponent } from "../../../../core/components/image-cropper/image-cropper.component";
 @Component({
   selector: "app-register",
   templateUrl: "./register.component.html",
@@ -22,12 +25,14 @@ export class RegisterComponent implements OnInit {
   success = false;
   passVisibility = "off";
   error = "";
+  url = "../../../../../assets/img/avatars/profile.png";
 
   constructor(
-    private spinner: NgxSpinnerService,
     private loginSrv: LoginService,
     private route: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private modalService: NgbModal,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
@@ -80,6 +85,25 @@ export class RegisterComponent implements OnInit {
 
   get f() {
     return this.form.controls;
+  }
+
+  uploadImage(): void {
+    const modalRef: NgbModalRef = this.modalService.open(
+      ImageCropperComponent,
+      {
+        size: "lg",
+      }
+    );
+    // const props = {
+    //   user,
+    // };
+    // modalRef.componentInstance.props = props;
+    modalRef.result.then((result) => {
+      if (result) {
+        this.url = result;
+      }
+      console.log(result);
+    });
   }
 
   register() {}

@@ -7,17 +7,24 @@
                         <div class="card p-4">
                             <div class="card-body">
                                 <form [formGroup]="form">
-                                    
-                                    <div class="row mb-2">
-                                        <img src="../../../../../assets/img/avatars/profile.png" width="160px" class="rounded mx-auto d-block" alt="...">
-                                        <image-cropper src="../../../../../assets/img/avatars/profile.png"></image-cropper>
+
+                                    <div class="row mb-0">
+                                        <img [src]="url" 
+                                            width="160px" 
+                                            class="rounded mx-auto d-block" 
+                                            alt="...">
                                     </div>
+                                    <button class="btn btn-sm btn-link px-0 mb-3 mx-auto d-block" 
+                                        (click)="uploadImage()">
+                                        <i class="fa fa-plus text-primary"></i>
+                                        Foto de perfil
+                                    </button>
 
                                     <p class="text-center" style="width:100%;">
-                                        <img src="../../../../../assets/img/logo.png" width="200px"
-                                            style="margin:0px auto" alt="">
+                                        <img src="../../../../../assets/img/logo.png" width="200px" style="margin:0px auto" alt="">
                                     </p>
-                                    <h5 class="text-center text-secondary d-block mx-auto mb-3">Registro de administradores</h5>
+                                    <h6 class="text-center text-secondary d-block mx-auto mb-3">Registro de administradores</h6>
+
 
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
