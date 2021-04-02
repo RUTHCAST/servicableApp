@@ -8,7 +8,11 @@ import { AppState } from "../../../store/app.reducer";
 import * as actions from "../../../store/actions";
 import { Subscription, Observable, from, of, pipe } from "rxjs";
 import { delay, map } from "rxjs/operators";
-import { AbstractControl, AsyncValidatorFn, ValidationErrors } from "@angular/forms";
+import {
+  AbstractControl,
+  AsyncValidatorFn,
+  ValidationErrors,
+} from "@angular/forms";
 @Injectable({
   providedIn: "root",
 })
@@ -80,13 +84,6 @@ export class LoginService {
     const token = localStorage.getItem("token");
     return token || this.user != null ? true : false;
   }
-
-  // doesEmailExist(email: string): Observable<boolean> {
-  //   const obs$ = new Observable<boolean>((subs) => {
-  //     const exists = this.users.some((value) => value.correo === email);
-  //   });
-  //   return obs$;
-  // }
 
   checkIfUsernameExists(email: string): Observable<boolean> {
     return of(this.users.some((value) => value.correo === email)).pipe(

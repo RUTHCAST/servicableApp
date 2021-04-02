@@ -17,7 +17,7 @@ const routes: Routes = [
     canActivate: [IsNotAuthGuard],
   },
   {
-    path: "verificacion",
+    path: "verification",
     component: SendMailVerificationComponent,
     canActivate: [IsNotAuthGuard],
   },

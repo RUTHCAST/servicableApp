@@ -121,7 +121,8 @@ export class RegisterComponent implements OnInit {
     this.isSubmit = true;
     this.isLoading = true;
     this.spinner.show();
-    if (!this.form.valid) {
+    console.log(typeof this.filedata);
+    if (!this.form.valid || typeof this.filedata =='undefined') {
       return;
     }
     const action = "new";
@@ -146,6 +147,7 @@ export class RegisterComponent implements OnInit {
             this.currentFileUpload = null;
             this.success = true;
             this.spinner.hide();
+            this.route.navigate(['/login/verification']);
           }
         },
         (error) => {
@@ -158,19 +160,4 @@ export class RegisterComponent implements OnInit {
       );
   }
 
-
-  // private emailExistsValidator(): AsyncValidatorFn {
-  //   return (control: AbstractControl): Observable<ValidationErrors | null> => {
-  //     return of(control.value).pipe(
-  //       delay(500),
-  //       switchMap((email) =>
-  //         this.loginSrv
-  //           .doesEmailExist(email)
-  //           .pipe(
-  //             map((emailExists) => (emailExists ? { emailExists: true } : null))
-  //           )
-  //       )
-  //     );
-  //   };
-  // }
 }

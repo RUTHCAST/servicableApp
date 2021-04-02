@@ -81,9 +81,6 @@
                                         </small>
                                     </div>
 
-                                        <!-- {{form.get('correo').hasError('emailExists')}}
-                                        <small *ngIf="form.get('correo').hasError('emailExists')">Esta email ya ha sido registrado</small> -->
-
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" 
@@ -107,8 +104,8 @@
                                     </div>
                                     <div *ngIf="f.clave.touched && f.clave.invalid" class="row my-3 mx-3 text-danger">
                                         <small *ngIf="f.clave.errors.required">Contraseña es requerido.</small>
-                                        <small *ngIf="f.clave.errors.maxLength">Máximo 8 carácteres.</small>
-                                        <small *ngIf="f.clave.errors.minLength">Miínimo 6 carácteres.</small>
+                                        <small *ngIf="f.clave.errors.maxlength">Máximo 8 carácteres.</small>
+                                        <small *ngIf="f.clave.errors.minlength">Miínimo 6 carácteres.</small>
                                     </div> 
                             
 
@@ -142,7 +139,7 @@
                                         <div class="col-6">
                                             <button type="button" 
                                             class="btn btn-primary px-4" 
-                                            [disabled]="!form.valid"
+                                            [disabled]="!form.valid || !filedata"
                                             (click)="register()">
                                                 Registrarse
                                             </button>
