@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-
 import {
   AngularFireDatabase,
   AngularFireList,
@@ -19,7 +18,7 @@ import { Usuario } from "../models/usuario.model";
 export class UsersService {
   private userRef = "/usuario";
   public basePath = "USERS_PICTURES/";
-  users: AngularFireList<Usuario>;
+  usuarios: AngularFireList<Usuario>;
 
   constructor(
     private db: AngularFireDatabase,
@@ -27,15 +26,13 @@ export class UsersService {
   ) {}
 
   getAllUsers(): AngularFireList<Usuario> {
-    this.users = this.db.list(this.userRef) as AngularFireList<Usuario>;
-    return this.users;
+    this.usuarios = this.db.list(this.userRef) as AngularFireList<Usuario>;
+    return this.usuarios;
   }
 
   newUser(user: Usuario) {
-    console.log(this.users);
-    console.log(user);
+    this.usuarios = this.db.list(this.userRef) as AngularFireList<Usuario>;
     const usuarioObj: Usuario = {
-      // id: user.key,
       key: user.key,
       nombre: user.nombre,
       apellido: user.apellido,
@@ -45,7 +42,7 @@ export class UsersService {
       createdAt: user.createdAt,
       url_imagen: user.url_imagen,
     };
-    this.users.push(usuarioObj);
+    this.usuarios.push(usuarioObj);
   }
 
   //   updateCategory(category: Category) {
@@ -88,21 +85,23 @@ export class UsersService {
       .snapshotChanges()
       .pipe(
         finalize(() => {
-          storageRef.getDownloadURL().subscribe((downloadURL) => {
-            fileUpload.url = downloadURL;
-            fileUpload.name = fileUpload.file.name;
-            const data: Usuario = {
-              key: user.key,
-              nombre: user.nombre,
-              apellido: user.apellido,
-              correo: user.correo,
-              clave: user.clave,
-              confirm_password: user.clave,
-              createdAt: new Date(),
-              url_imagen: fileUpload.url,
-            };
-            this.executeAction(typeAccion, data);
-          });
+          storageRef
+            .getDownloadURL()
+            .subscribe((downloadURL) => {
+              fileUpload.url = downloadURL;
+              fileUpload.name = fileUpload.file.name;
+              const data: Usuario = {
+                key: user.key,
+                nombre: user.nombre,
+                apellido: user.apellido,
+                correo: user.correo,
+                clave: user.clave,
+                confirm_password: user.clave,
+                createdAt: new Date(),
+                url_imagen: fileUpload.url,
+              };
+              this.executeAction(typeAccion, data);
+            });
         })
       )
       .subscribe();
@@ -111,8 +110,10 @@ export class UsersService {
     // }
   }
 
-  //   deleteFileStorage(downloadUrl) {
-  //     console.log("entro a borrar la imagen con esta url", downloadUrl);
-  //     return this.storage.storage.refFromURL(downloadUrl).delete();
-  //   }
+  // deleteFileStorage(downloadUrl) {
+  //   console.log("entro a borrar la imagen con esta url", downloadUrl);
+  //   return this.storage.storage.refFromURL(downloadUrl).delete();
+  // }
+
+  sendEmailVerication() {}
 }

@@ -1,8 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import {
+  AbstractControl,
+  AsyncValidatorFn,
   FormBuilder,
   FormControl,
   FormGroup,
+  ValidationErrors,
   Validators,
 } from "@angular/forms";
 import { Router } from "@angular/router";
@@ -11,12 +14,14 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { NgbModalRef, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { v4 as uuid } from "uuid";
 
-import { LoginService } from "../../services/login.service";
+import { LoginService } from '../../services/login.service';
 import { ConfirmedValidator } from "../../../../core/validators/confirm-password.validator";
 import { ImageCropperComponent } from "../../../../core/components/image-cropper/image-cropper.component";
 import { FileUpload } from "../../../../core/models/fileUpload";
 import { Usuario } from "../../models/usuario.model";
 import { UsersService } from "../../services/users.service";
+import { Observable, of, Subscription } from 'rxjs';
+import { delay, map, switchMap } from "rxjs/operators";
 @Component({
   selector: "app-register",
   templateUrl: "./register.component.html",
@@ -34,9 +39,9 @@ export class RegisterComponent implements OnInit {
   currentFileUpload: FileUpload;
   filedata: File;
   percentage: number;
-
   constructor(
     private userSrv: UsersService,
+    private loginSrv: LoginService,
     private route: Router,
     private fb: FormBuilder,
     private modalService: NgbModal,
@@ -58,6 +63,7 @@ export class RegisterComponent implements OnInit {
             Validators.required,
             Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"),
           ],
+          [this.loginSrv.usernameValidator()],
         ],
         clave: [
           "",
@@ -151,4 +157,20 @@ export class RegisterComponent implements OnInit {
         }
       );
   }
+
+
+  // private emailExistsValidator(): AsyncValidatorFn {
+  //   return (control: AbstractControl): Observable<ValidationErrors | null> => {
+  //     return of(control.value).pipe(
+  //       delay(500),
+  //       switchMap((email) =>
+  //         this.loginSrv
+  //           .doesEmailExist(email)
+  //           .pipe(
+  //             map((emailExists) => (emailExists ? { emailExists: true } : null))
+  //           )
+  //       )
+  //     );
+  //   };
+  // }
 }

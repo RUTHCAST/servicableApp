@@ -73,11 +73,17 @@
                                             placeholder="correo" 
                                             [class.is-invalid]="onInvalidField('correo')">
                                     </div>
-                                    <div class="row my-3 mx-3 text-danger" *ngIf="f.apellido.touched && f.apellido.invalid">
+                                    <div class="row my-3 mx-3 text-danger" *ngIf="f.correo.touched && f.correo.invalid">
                                         <small *ngIf="f.correo.errors.required">Email es requerido.</small>
                                         <small *ngIf="f.correo.errors.pattern">Email invalido.</small>
+                                        <small *ngIf="form.controls['correo'].errors?.usernameExists">
+                                            Esta email ya ha sido registrado!
+                                        </small>
                                     </div>
- 
+
+                                        <!-- {{form.get('correo').hasError('emailExists')}}
+                                        <small *ngIf="form.get('correo').hasError('emailExists')">Esta email ya ha sido registrado</small> -->
+
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" 

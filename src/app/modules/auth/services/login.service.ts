@@ -6,7 +6,9 @@ import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { AppState } from "../../../store/app.reducer";
 import * as actions from "../../../store/actions";
-import { Subscription } from "rxjs";
+import { Subscription, Observable, from, of, pipe } from "rxjs";
+import { delay, map } from "rxjs/operators";
+import { AbstractControl, AsyncValidatorFn, ValidationErrors } from "@angular/forms";
 @Injectable({
   providedIn: "root",
 })
@@ -77,5 +79,30 @@ export class LoginService {
   validateToken() {
     const token = localStorage.getItem("token");
     return token || this.user != null ? true : false;
+  }
+
+  // doesEmailExist(email: string): Observable<boolean> {
+  //   const obs$ = new Observable<boolean>((subs) => {
+  //     const exists = this.users.some((value) => value.correo === email);
+  //   });
+  //   return obs$;
+  // }
+
+  checkIfUsernameExists(email: string): Observable<boolean> {
+    return of(this.users.some((value) => value.correo === email)).pipe(
+      delay(1000)
+    );
+  }
+
+  usernameValidator(): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      return this.checkIfUsernameExists(control.value).pipe(
+        map((res) => {
+          // if res is true, username exists, return true
+          return res ? { usernameExists: true } : null;
+          // NB: Return null if there is no error
+        })
+      );
+    };
   }
 }

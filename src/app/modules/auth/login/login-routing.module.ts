@@ -3,6 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { LoginComponent } from "./login.component";
 import { IsNotAuthGuard } from "../../../core/guards/is-not-auth.guard";
 import { RegisterComponent } from "./register/register.component";
+import { SendMailVerificationComponent } from "./send-mail-verification/send-mail-verification.component";
 
 const routes: Routes = [
   {
@@ -13,6 +14,11 @@ const routes: Routes = [
   {
     path: "register",
     component: RegisterComponent,
+    canActivate: [IsNotAuthGuard],
+  },
+  {
+    path: "verificacion",
+    component: SendMailVerificationComponent,
     canActivate: [IsNotAuthGuard],
   },
 ];
