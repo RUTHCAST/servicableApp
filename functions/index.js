@@ -1,36 +1,47 @@
-const functions = require('firebase-functions')
-const admin=require('firebase-admin');
-const nodemailer =require('nodemailer');
-admin.initializeApp()
-require('dotenv').config()
+// Firebase Config
+const functions = require("firebase-functions");
+const { rejects } = require("node:assert");
+const sendgrid = require("sendgrid");
+const client = sendgrid(
+  "j0wtislHTD6nvg67UvOLDw.sjpoBJm8km0LjMSdlLgyw1-i6zQ1Dp_CyShLx-cgngU"
+);
 
-const {SENDER_EMAIL,SENDER_PASSWORD}= process.env;
+function parseBody(body) {
+  let helper = sendgrid.mail;
+  let fromEmail = new helper.Email(body.from);
+  let toEmail = new helper.Email(body.to);
+  let subject = body.subject;
+  let content = new helper.Mail(fromEmail, subject, toEmail, content);
+  let mail = new helper.Mail(fromEmail, subject, toEmail, content);
+  return mail.toJSON();
+}
 
-exports.sendEmailNotification=functions.firestore.document('submissions/{docId}')
-.onCreate((snap,ctx)=>{
-    const data=snap.data();
-    let authData=nodemailer.createTransport({
-        host:'smtp.gmail.com',
-        port:465,
-        secure:true,
-        auth:{
-            user:SENDER_EMAIL,
-            pass:SENDER_PASSWORD
-        }
+exports.httpEmail = functions.https.onRequest((req, res) => {
+  return Promise.resolve()
+    .then(() => {
+      if (req.method !== "POST") {
+        const error = new Error("Only POST request are acepted");
+        error.code = 405;
+        throw error;
+      }
+
+      const request = client.emptyRequest({
+        method: "POST",
+        path: "/v3/mail/send",
+        body: parseBody(req.body),
+      });
+
+      return client.API(request);
+    })
+    .then((response) => {
+      if (response.body) {
+        res.send(response.body);
+      } else {
+        res.end();
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      return Promise.reject(err);
     });
-authData.sendMail({
-from :'registrosservicable@gmail.com',
-to:`${data.email}`,
-subject:'Your submission Info',
-text:`${data.email}`,
-html:`${data.email}`,
-}).then(res=>console.log('successfully sent that mail')).catch(err=>console.log(err));
-
 });
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });

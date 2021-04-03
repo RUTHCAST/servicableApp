@@ -12,6 +12,7 @@ import { NewComponent } from "../new/new.component";
 import { PlansService } from "../../../services/plans.service";
 import { PlanProduct } from "../../../models/plans.model";
 import { DeletePlanComponent } from "../delete-plan/delete-plan.component";
+import { ImageDetailComponent } from "../../../../../core/components/image-detail/image-detail.component";
 
 @Component({
   selector: "app-list",
@@ -127,6 +128,16 @@ export class ListComponent implements OnInit {
     modalRef.result.then((result) => {
       console.log(result);
     });
+  }
+
+  showImage(image:string) {
+    const modalRef: NgbModalRef = this.modalService.open(ImageDetailComponent, {
+      size: "lg",
+    });
+    const props = {
+      image
+    };
+    modalRef.componentInstance.props = props;
   }
 
   getTypes(): void {
