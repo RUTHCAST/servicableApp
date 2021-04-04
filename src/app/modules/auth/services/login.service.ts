@@ -56,7 +56,7 @@ export class LoginService {
           user["key"] = t.key;
           this.users.push(user as Usuario);
         });
-        console.log(this.users);
+        // console.log(this.users);
       });
   }
 

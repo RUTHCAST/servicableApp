@@ -20,8 +20,6 @@ import { ImageCropperComponent } from "../../../../core/components/image-cropper
 import { FileUpload } from "../../../../core/models/fileUpload";
 import { Usuario } from "../../models/usuario.model";
 import { UsersService } from "../../services/users.service";
-import { Observable, of, Subscription } from 'rxjs';
-import { delay, map, switchMap } from "rxjs/operators";
 @Component({
   selector: "app-register",
   templateUrl: "./register.component.html",

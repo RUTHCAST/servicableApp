@@ -8,21 +8,20 @@
   <div class="row">
     <div class="col-md-12">
       <div class="card">
-        <div class="card-header"><strong>CAMBIAR</strong> imagen carrusel</div>
+        <div class="card-header"><strong>CAMBIAR</strong> imagen de fondo</div>
         <div class="card-body">
           <form class="form-horizontal" *ngIf="!success">
             <div class="form-group row">
               <div class="col-md-12 text-center">
                 <img
-                  [src]="url ? url : props.carrusel.url_image"
+                  [src]="url ? url : props.product.url_background"
                   alt="..."
                   width="85%"
                   height="350px"
                   style="margin: 0px auto !important;"
                 />
-
                 <p class="alert alert-success m-3" *ngIf="imageChanged">
-                  Imagen de carrusel cambiada exitosamente
+                  Imagen de fondo cambiada exitosamente
                 </p>
               </div>
               <div class="col-md-12 text-center my-2">

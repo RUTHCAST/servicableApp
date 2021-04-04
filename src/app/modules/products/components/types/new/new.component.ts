@@ -4,6 +4,7 @@ import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { NgxSpinnerService } from "ngx-spinner";
 import { FileUpload } from "../../../../../core/models/fileUpload";
 import { Category } from "../../../models/categoy.model";
+import { v4 as uuid } from "uuid";
 
 import { TypesProductsService } from "../../../services/types-products.service";
 import { TypeProduct } from "../../../models/types.model";
@@ -111,6 +112,7 @@ export class NewComponent implements OnInit {
     console.log(this.props.id);
     const type: TypeProduct = {
       id: this.props.id,
+      key: uuid(),
       id_categoria: parseInt(this.form.get("id_categoria").value),
       nombre: this.form.get("nombre").value,
       descripcion: this.form.get("descripcion").value,

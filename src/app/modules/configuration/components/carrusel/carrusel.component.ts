@@ -31,7 +31,6 @@ export class CarruselComponent implements OnInit {
       .snapshotChanges()
       .subscribe((res) => {
         const size = this.carruselImages.length;
-        console.log(size);
         this.carruselImages.splice(0, size);
 
         res.forEach((t) => {
@@ -39,7 +38,6 @@ export class CarruselComponent implements OnInit {
           carruselImages["key"] = t.key;
           this.carruselImages.push(carruselImages as Carrusel);
         });
-        console.log(this.carruselImages);
       });
   }
 
@@ -52,9 +50,6 @@ export class CarruselComponent implements OnInit {
       carrusel: carrusel,
     };
     modalRef.componentInstance.props = props;
-    modalRef.result.then((result) => {
-      console.log(result);
-    });
   }
 
   new(): void {
@@ -66,9 +61,6 @@ export class CarruselComponent implements OnInit {
       carrusel: this.carruselImages,
     };
     modalRef.componentInstance.props = props;
-    modalRef.result.then((result) => {
-      console.log(result);
-    });
   }
 
   delete(carrusel: Carrusel) {
@@ -81,8 +73,6 @@ export class CarruselComponent implements OnInit {
       key: carrusel.key,
     };
     modalRef.componentInstance.props = props;
-    modalRef.result.then((result) => {
-      console.log(result);
-    });
+
   }
 }

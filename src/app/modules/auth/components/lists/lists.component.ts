@@ -7,33 +7,23 @@ import { DetailsComponent } from '../details/details.component';
 import { EditComponent } from '../edit/edit.component';
 import { ModalDeleteComponent } from '../../../products/components/categories/modal-delete/modal-delete.component';
 import { NewComponent } from '../new/new.component';
+import { ImageDetailComponent } from '../../../../core/components/image-detail/image-detail.component';
 //import { ModalDeleteComponent } from '../../../../core/components/modal-delete/modal-delete.component';
 
 
 @Component({
-  selector: 'app-lists',
-  templateUrl: './lists.component.html',
-  styleUrls: ['./lists.component.scss']
+  selector: "app-lists",
+  templateUrl: "./lists.component.html",
+  styleUrls: ["./lists.component.scss"],
 })
 export class ListsComponent implements OnInit, OnDestroy {
-
-
   users: users[] = [];
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
 
-  constructor(
-
-    private modalService: NgbModal,
-    private usersSrv: UsersService
-
-
-  ) { }
+  constructor(private modalService: NgbModal, private usersSrv: UsersService) {}
 
   ngOnInit(): void {
-
-
-
     this.dtOptions = {
       pagingType: "full_numbers",
       pageLength: 7,
@@ -58,12 +48,8 @@ export class ListsComponent implements OnInit, OnDestroy {
       },
     };
 
-    this.getUsers(); 
-
-
-
+    this.getUsers();
   }
-
 
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
@@ -74,7 +60,7 @@ export class ListsComponent implements OnInit, OnDestroy {
       size: "lg",
     });
     const props = {
-     user,
+      user,
     };
     modalRef.componentInstance.props = props;
     modalRef.result.then((result) => {
@@ -82,7 +68,7 @@ export class ListsComponent implements OnInit, OnDestroy {
     });
   }
 
-  onEdit(user:users): void {
+  onEdit(user: users): void {
     const modalRef: NgbModalRef = this.modalService.open(EditComponent, {
       size: "lg",
     });
@@ -121,8 +107,6 @@ export class ListsComponent implements OnInit, OnDestroy {
     });
   }
 
-
-
   getUsers(): void {
     this.usersSrv
       .getAllUsers()
@@ -141,6 +125,14 @@ export class ListsComponent implements OnInit, OnDestroy {
       });
   }
 
-
-
+  showImage(image: string) {
+    console.log(image)
+    const modalRef: NgbModalRef = this.modalService.open(ImageDetailComponent, {
+      size: "lg",
+    });
+    const props = {
+      image,
+    };
+    modalRef.componentInstance.props = props;
+  }
 }
