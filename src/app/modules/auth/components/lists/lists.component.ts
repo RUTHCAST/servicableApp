@@ -8,17 +8,18 @@ import { EditComponent } from '../edit/edit.component';
 import { ModalDeleteComponent } from '../../../products/components/categories/modal-delete/modal-delete.component';
 import { NewComponent } from '../new/new.component';
 //import { ModalDeleteComponent } from '../../../../core/components/modal-delete/modal-delete.component';
+import { Usuario } from '../../models/usuario.model';
 
 
 @Component({
   selector: 'app-lists',
   templateUrl: './lists.component.html',
-  styleUrls: ['./lists.component.scss']
+  styleUrls: []
 })
 export class ListsComponent implements OnInit, OnDestroy {
 
 
-  users: users[] = [];
+  users: Usuario[] = [];
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
 
@@ -76,7 +77,7 @@ export class ListsComponent implements OnInit, OnDestroy {
         res.forEach((t) => {
           const users = t.payload.toJSON();
           users["key"] = t.key;
-          this.users.push(users as users);
+          this.users.push(users as Usuario);
         });
         console.log(this.users);
       });
@@ -89,7 +90,7 @@ export class ListsComponent implements OnInit, OnDestroy {
     this.dtTrigger.unsubscribe();
   }
 
-  onDetail(user: users): void {
+  onDetail(user: Usuario): void {
     const modalRef: NgbModalRef = this.modalService.open(DetailsComponent, {
       size: "lg",
     });
@@ -102,7 +103,7 @@ export class ListsComponent implements OnInit, OnDestroy {
     });
   }
 
-  onEdit(user:users): void {
+  onEdit(user:Usuario): void {
     const modalRef: NgbModalRef = this.modalService.open(EditComponent, {
       size: "lg",
     });
@@ -115,7 +116,7 @@ export class ListsComponent implements OnInit, OnDestroy {
     });
   }
 
-  onDelete(user: users): void {
+  onDelete(user: Usuario): void {
     const modalRef: NgbModalRef = this.modalService.open(ModalDeleteComponent, {
       size: "lg",
     });

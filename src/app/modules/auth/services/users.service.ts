@@ -12,6 +12,7 @@ import { finalize } from "rxjs/operators";
 
 import { users } from '../models/user.model';
 import { FileUpload } from "../../../core/models/fileUpload";
+import { Usuario } from '../models/usuario.model';
 
 @Injectable({
   providedIn: "root",
@@ -20,9 +21,9 @@ import { FileUpload } from "../../../core/models/fileUpload";
 
 export class UsersService {
 
-  private userRef = "/users";
+  private userRef = "/usuario";
   //public basePath = "USERS/";
-  users: AngularFireList<users>;
+  users: AngularFireList<Usuario>;
  
 
   constructor(
@@ -30,10 +31,10 @@ export class UsersService {
     private storage: AngularFireStorage
   ) {}
 
-  getAllUsers(): AngularFireList<users> {
+  getAllUsers(): AngularFireList<Usuario> {
     this.users = this.db.list(
       this.userRef
-    ) as AngularFireList<users>;
+    ) as AngularFireList<Usuario>;
     return this.users;
   }
 
