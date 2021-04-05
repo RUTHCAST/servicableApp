@@ -86,7 +86,7 @@ export class ListsComponent implements OnInit {
   }
 
   verify(product: any) {
-    console.log("ingreso a verify function");
+    // console.log("ingreso a verify function");
     const verify = this.planes.some(
       (arrVal) => arrVal.producto_id === product.id
     );
@@ -108,7 +108,7 @@ export class ListsComponent implements OnInit {
       .snapshotChanges()
       .subscribe((res) => {
         const size = this.productos.length;
-        console.log(size);
+        // console.log(size);
         this.productos.splice(0, size);
 
         res.forEach((t) => {
@@ -116,7 +116,7 @@ export class ListsComponent implements OnInit {
           producto["key"] = t.key;
           this.productos.push(producto as ProductoAumentoMegas);
         });
-        console.log(this.productos);
+        // console.log(this.productos);
         this.dtTrigger.next();
       });
   }
@@ -127,7 +127,7 @@ export class ListsComponent implements OnInit {
       .snapshotChanges()
       .subscribe((res) => {
         const size = this.planes.length;
-        console.log(size);
+        // console.log(size);
         this.planes.splice(0, size);
         res.forEach((t) => {
           const plan = t.payload.toJSON();

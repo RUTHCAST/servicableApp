@@ -7,34 +7,23 @@ import { DetailsComponent } from '../details/details.component';
 import { EditComponent } from '../edit/edit.component';
 import { ModalDeleteComponent } from '../../../products/components/categories/modal-delete/modal-delete.component';
 import { NewComponent } from '../new/new.component';
+import { ImageDetailComponent } from '../../../../core/components/image-detail/image-detail.component';
 //import { ModalDeleteComponent } from '../../../../core/components/modal-delete/modal-delete.component';
-import { Usuario } from '../../models/usuario.model';
 
 
 @Component({
-  selector: 'app-lists',
-  templateUrl: './lists.component.html',
-  styleUrls: []
+  selector: "app-lists",
+  templateUrl: "./lists.component.html",
+  styleUrls: [],
 })
 export class ListsComponent implements OnInit, OnDestroy {
-
-
-  users: Usuario[] = [];
+  users: users[] = [];
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
 
-  constructor(
-
-    private modalService: NgbModal,
-    private usersSrv: UsersService
-
-
-  ) { }
+  constructor(private modalService: NgbModal, private usersSrv: UsersService) {}
 
   ngOnInit(): void {
-
-
-
     this.dtOptions = {
       pagingType: "full_numbers",
       pageLength: 7,
@@ -59,43 +48,19 @@ export class ListsComponent implements OnInit, OnDestroy {
       },
     };
 
-    this.getUsers(); 
-
-
-
+    this.getUsers();
   }
-
-  getUsers(): void {
-    this.usersSrv
-      .getAllUsers()
-      .snapshotChanges()
-      .subscribe((res) => {
-        const size = this.users.length;
-        console.log(size);
-        this.users.splice(0, size);
-
-        res.forEach((t) => {
-          const users = t.payload.toJSON();
-          users["key"] = t.key;
-          this.users.push(users as Usuario);
-        });
-        console.log(this.users);
-      });
-  }
-
-
-
 
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }
 
-  onDetail(user: Usuario): void {
+  onDetail(user: users): void {
     const modalRef: NgbModalRef = this.modalService.open(DetailsComponent, {
       size: "lg",
     });
     const props = {
-     user,
+      user,
     };
     modalRef.componentInstance.props = props;
     modalRef.result.then((result) => {
@@ -103,7 +68,7 @@ export class ListsComponent implements OnInit, OnDestroy {
     });
   }
 
-  onEdit(user:Usuario): void {
+  onEdit(user: users): void {
     const modalRef: NgbModalRef = this.modalService.open(EditComponent, {
       size: "lg",
     });
@@ -116,7 +81,7 @@ export class ListsComponent implements OnInit, OnDestroy {
     });
   }
 
-  onDelete(user: Usuario): void {
+  onDelete(user: users): void {
     const modalRef: NgbModalRef = this.modalService.open(ModalDeleteComponent, {
       size: "lg",
     });
@@ -142,6 +107,32 @@ export class ListsComponent implements OnInit, OnDestroy {
     });
   }
 
+  getUsers(): void {
+    this.usersSrv
+      .getAllUsers()
+      .snapshotChanges()
+      .subscribe((res) => {
+        const size = this.users.length;
+        this.users.splice(0, size);
 
+        res.forEach((t) => {
+          const users = t.payload.toJSON();
+          users["key"] = t.key;
+          this.users.push(users as users);
+        });
+        console.log(this.users);
+        this.dtTrigger.next();
+      });
+  }
 
+  showImage(image: string) {
+    console.log(image)
+    const modalRef: NgbModalRef = this.modalService.open(ImageDetailComponent, {
+      size: "lg",
+    });
+    const props = {
+      image,
+    };
+    modalRef.componentInstance.props = props;
+  }
 }

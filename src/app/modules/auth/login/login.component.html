@@ -19,7 +19,7 @@
                                         <input type="email" 
                                         formControlName="email" 
                                         class="form-control"
-                                        placeholder="usuario" 
+                                        placeholder="email" 
                                         [class.is-invalid]="onInvalidField('email')">                                            
                                     </div>
 
@@ -88,7 +88,7 @@
                                             </button>
                                         </div>
                                         <div class="col-6 text-right">
-                                            <button type="button" class="btn btn-link px-0">
+                                            <button type="button" class="btn btn-link px-0"  routerLink="/login/register">
                                                 Registrar usuario
                                             </button>
                                         </div>
@@ -102,3 +102,5 @@
         </div>
     </main>
 </div>
+<ngx-spinner>
+</ngx-spinner>

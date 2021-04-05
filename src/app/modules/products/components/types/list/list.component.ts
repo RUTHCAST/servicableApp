@@ -16,6 +16,8 @@ import { TypesProductsService } from "../../../services/types-products.service";
 import { PlanProduct } from "../../../models/plans.model";
 import { PlansService } from "../../../services/plans.service";
 import { DeleteTypeComponent } from "../delete-type/delete-type.component";
+import { ImageDetailComponent } from "../../../../../core/components/image-detail/image-detail.component";
+import { EditBackgroundComponent } from "../edit-background/edit-background.component";
 
 @Component({
   selector: "app-list",
@@ -69,7 +71,6 @@ export class ListComponent implements OnInit, OnDestroy {
       }
     });
 
-    console.log(typeof this.productoId);
     this.getTypes();
     this.getCategorys();
     this.getPlans();
@@ -112,6 +113,19 @@ export class ListComponent implements OnInit, OnDestroy {
     const props = {
       product: type,
       categories: this.categories,
+    };
+    modalRef.componentInstance.props = props;
+  }
+
+  editBackground(type: TypeProduct) {
+    const modalRef: NgbModalRef = this.modalService.open(
+      EditBackgroundComponent,
+      {
+        size: "lg",
+      }
+    );
+    const props = {
+      product: type,
     };
     modalRef.componentInstance.props = props;
   }
@@ -169,17 +183,17 @@ export class ListComponent implements OnInit, OnDestroy {
 
         res.forEach((t) => {
           const typesProduct = t.payload.toJSON();
-          typesProduct["key"] = t.key;
+          const k = t.key;
+          typesProduct["key"] = typeof t.key === "number" ? k.toString() : k;
           this.typesProduct.push(typesProduct as TypeProduct);
         });
 
-        console.log("id capturado", this.productoId);
         if (this.productoId != null) {
           this.typesProduct = this.typesProduct.filter(
             (value) => value.id_categoria === this.productoId
           );
         }
-
+        // console.log(this.typesProduct);
         this.dtTrigger.next();
       });
   }
@@ -206,5 +220,15 @@ export class ListComponent implements OnInit, OnDestroy {
           a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0
         );
       });
+  }
+
+  showImage(image: string) {
+    const modalRef: NgbModalRef = this.modalService.open(ImageDetailComponent, {
+      size: "lg",
+    });
+    const props = {
+      image,
+    };
+    modalRef.componentInstance.props = props;
   }
 }

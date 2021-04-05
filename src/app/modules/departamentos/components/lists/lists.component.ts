@@ -113,11 +113,9 @@ export class ListsComponent implements OnInit {
   }
 
   verify(product: any) {
-    console.log("ingreso a verify function");
     const verify = this.distritos.some(
       (arrVal) => arrVal.departamento_id === product.id
     );
-    console.log(verify);
     if (verify) {
       const message =
         "El departamento seleccionada tiene distritos asociados, por lo que será redireccionado a la pagina de distritos para que elimine cada uno de ellos.";
@@ -135,7 +133,6 @@ export class ListsComponent implements OnInit {
       .snapshotChanges()
       .subscribe((res) => {
         const size = this.departamentos.length;
-        console.log(size);
         this.departamentos.splice(0, size);
 
         res.forEach((t) => {
@@ -143,7 +140,6 @@ export class ListsComponent implements OnInit {
           departamento["key"] = t.key;
           this.departamentos.push(departamento as Departamento);
         });
-        console.log(this.departamentos);
         this.dtTrigger.next();
       });
   }
@@ -154,7 +150,6 @@ export class ListsComponent implements OnInit {
       .snapshotChanges()
       .subscribe((res) => {
         const size = this.distritos.length;
-        console.log(size);
         this.distritos.splice(0, size);
 
         res.forEach((t) => {
@@ -163,7 +158,6 @@ export class ListsComponent implements OnInit {
           this.distritos.push(distrito as Distrito);
         });
         // this.distritos = this.departamentos[0].distritos;
-        console.log(this.distritos);
       });
   }
 }

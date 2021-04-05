@@ -1,0 +1,44 @@
+<!-- <div class="img-container">
+    <img #image [src]="imageSource" crossorigin>
+</div>
+<img [src]="imageDestination" class="img-preview"> -->
+<div class="m-5 d-flex justify-content-center">
+    <div class="card" style="width: 40rem;">
+        <div class="card-body">
+
+            <section>
+                <angular-cropper 
+                    [cropperOptions]="config" 
+                    [imageUrl]="imageUrl || urlDefault" 
+                    #angularCropper>
+                </angular-cropper>
+                <div class="mt-2">
+                
+                    <input class="btn btn-primary" 
+                        type="file" 
+                        accept="image/*" 
+                        *ngIf="show" 
+                        (change)="onSelectFile($event)">
+                </div>
+                <div class="mt-2">
+                    <button 
+                        class="btn btn-primary"
+                        *ngIf="!show && !acceptBtn" 
+                        (click)="showLoader()">
+                        <i class="fa fa-plus mr-1" aria-hidden="true"></i> 
+                        Cargar Imagen
+                    </button>
+                    <button class="btn btn-success" *ngIf="acceptBtn"  (click)="getCropperImage()">Recortar</button>                    
+                    <button class="btn btn-primary" (click)="rotateLeft()"><i class="fa fa-undo" aria-hidden="true"></i></button>
+                    <button class="btn btn-primary" (click)="rotateRight()"><i class="fa fa-repeat" aria-hidden="true"></i></button>                    
+                    <button class="btn btn-primary" (click)="zoomOut()"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
+                    <button class="btn btn-primary" (click)="zoomIn()"><i class="fa fa-search-minus" aria-hidden="true"></i></button>
+                    <button class="btn btn-secondary" (click)="cancel()">Cancelar</button>
+                </div>
+            </section>
+            <!-- <section *ngIf="cropperResult">
+                <img [src]="cropperResult" alt="..." width="200px">
+            </section> -->
+        </div>
+    </div>
+</div>

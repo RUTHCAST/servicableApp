@@ -21,7 +21,7 @@ export class DetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.props);
+    // console.log(this.props);
   }
 
   closeModal() {

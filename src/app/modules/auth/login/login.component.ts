@@ -6,6 +6,9 @@ import { Router } from "@angular/router";
 // Store
 import { Store } from "@ngrx/store";
 import { AppState } from "../../../store/app.reducer";
+import * as actions from "../../../store/actions";
+import { Usuario } from "../models/usuario.model";
+
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
@@ -72,12 +75,13 @@ export class LoginComponent implements OnInit {
     );
 
     if (response.user != null) {
-      console.log(response.user[0]);
       localStorage.setItem("user", JSON.stringify(response.user[0]));
-
+      const user: Usuario = response.user[0];
+      this.store.dispatch(actions.setUser({ user }));
       this.route.navigate(["dashboard"]);
     } else {
       this.error = response.error;
     }
+    this.spinner.hide();
   }
 }

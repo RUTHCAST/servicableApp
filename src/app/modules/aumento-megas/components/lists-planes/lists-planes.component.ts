@@ -65,7 +65,7 @@ export class ListsPlanesComponent implements OnInit {
       .snapshotChanges()
       .subscribe((res) => {
         const size = this.planes.length;
-        console.log(size);
+        // console.log(size);
         this.planes.splice(0, size);
 
         res.forEach((t) => {
@@ -77,7 +77,7 @@ export class ListsPlanesComponent implements OnInit {
         this.planes = this.planes.filter(
           (dept) => dept.producto_id == this.productoId
         );
-        console.log(this.planes);
+        // console.log(this.planes);
         this.dtTrigger.next();
       });
   }
@@ -88,7 +88,7 @@ export class ListsPlanesComponent implements OnInit {
       .snapshotChanges()
       .subscribe((res) => {
         const size = this.productos.length;
-        console.log(size);
+        // console.log(size);
         this.productos.splice(0, size);
 
         res.forEach((t) => {

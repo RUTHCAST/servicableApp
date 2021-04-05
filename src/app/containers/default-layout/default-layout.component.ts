@@ -7,6 +7,7 @@ import { Subscription } from "rxjs";
 import * as actions from "../../store/actions";
 import { Usuario } from "../../modules/auth/models/usuario.model";
 import { AppState } from "../../store/app.reducer";
+import { LoginService } from "../../modules/auth/services/login.service";
 
 @Component({
   selector: "app-dashboard",
@@ -18,16 +19,20 @@ export class DefaultLayoutComponent implements OnInit {
   user: Usuario;
   onSubscription: Subscription;
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>, private loginSrv: LoginService) {}
 
   ngOnInit(): void {
     this.onSubscription = this.store.subscribe((state) => {
       this.user = state.user.user;
-      console.log(this.user);
+      // console.log(this.user);
     });
   }
 
   toggleMinimize(e) {
     this.sidebarMinimized = e;
+  }
+
+  logout() {
+    this.loginSrv.logout();
   }
 }

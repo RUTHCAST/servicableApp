@@ -67,7 +67,7 @@ export class ListsServiciosComponent implements OnInit {
       .snapshotChanges()
       .subscribe((res) => {
         const size = this.servicios.length;
-        console.log(size);
+        // console.log(size);
         this.servicios.splice(0, size);
 
         res.forEach((t) => {
@@ -78,7 +78,7 @@ export class ListsServiciosComponent implements OnInit {
         this.servicios = this.servicios.filter(
           (dept) => dept.producto_id === this.productoId
         );
-        console.log(this.servicios);
+        // console.log(this.servicios);
         this.dtTrigger.next();
       });
   }
@@ -89,7 +89,7 @@ export class ListsServiciosComponent implements OnInit {
       .snapshotChanges()
       .subscribe((res) => {
         const size = this.productos.length;
-        console.log(size);
+        // console.log(size);
         this.productos.splice(0, size);
 
         res.forEach((t) => {

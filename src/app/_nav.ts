@@ -2,32 +2,28 @@ import { INavData } from "@coreui/angular";
 
 export const navItems: INavData[] = [
   {
-    name: "Inicio",
+    name: "Dashboard",
     url: "/dashboard",
     icon: "icon-speedometer",
-    badge: {
-      variant: "info",
-      text: "NEW",
-    },
   },
   {
     title: true,
-    name: "Formularios de la app",
+    name: "Formularios",
   },
   {
     name: "Departamentos",
     url: "/departamentos",
-    icon: "icon-handbag",
+    icon: "cil-map",
   },
   {
     name: "Aumento megas",
     url: "/aumento-megas",
-    icon: "icon-handbag",
+    icon: "cil-sort-ascending",
   },
   {
     name: "Cambio plan",
     url: "/solicitud-servicios",
-    icon: "icon-handbag",
+    icon: "cil-sync",
   },
   {
     title: true,
@@ -74,29 +70,6 @@ export const navItems: INavData[] = [
   {
     divider: true,
   },
-
-  // {
-  //   title: true,
-  //   name: "configuraciones",
-  // },
-  // {
-  //   name: "Imagenes",
-  //   url: "/configuracion",
-  //   icon: "cil-satelite",
-  //   children: [
-  //     {
-  //       name: "Fondos de pantalla",
-  //       url: "fondos-pantalla",
-  //       icon: "cil-paint-bucket",
-  //     },
-  //     {
-  //       name: "Carrusel",
-  //       url: "carrusel",
-  //       icon: "cil-stream",
-  //     },
-  //   ],
-  // },
-  
   {
     title: true,
     name: "Usuarios",
@@ -104,7 +77,7 @@ export const navItems: INavData[] = [
   {
     name: "Lista de Usuarios",
     url: "/usuarios",
-    icon: "icon-handbag",
+    icon: "cil-face",
   },
   {
     divider: true,

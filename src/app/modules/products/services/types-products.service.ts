@@ -1,3 +1,4 @@
+import { templateJitUrl } from "@angular/compiler";
 import { Injectable } from "@angular/core";
 import { AngularFireDatabase, AngularFireList } from "@angular/fire/database";
 import { AngularFireStorage } from "@angular/fire/storage";
@@ -31,7 +32,7 @@ export class TypesProductsService {
 
   pushBackgroundImage(
     fileUploadBack: FileUpload,
-    fileUploadImg: FileUpload,
+    fileUploadImg: FileUpload = null,
     type: TypeProduct,
     action = null
   ): Observable<number> {
@@ -50,6 +51,7 @@ export class TypesProductsService {
             fileUploadBack.name = fileUploadBack.file.name;
             const data: TypeProduct = {
               id: type.id,
+              key: type.key,
               id_categoria: type.id_categoria,
               nombre: type.nombre,
               descripcion: type.descripcion,
@@ -58,6 +60,7 @@ export class TypesProductsService {
               url_background: fileUploadBack.url,
             };
             if (action === null) {
+              console.log("entra a crear una imagen nueva", action);
               this.pushImageAndSave(fileUploadImg, data);
             } else {
               this.executeActionType(action, data);
@@ -106,7 +109,6 @@ export class TypesProductsService {
         })
       )
       .subscribe();
-
     return uploadTask.percentageChanges();
   }
 
@@ -124,15 +126,11 @@ export class TypesProductsService {
   }
 
   updateType(type: TypeProduct) {
-    console.log("Entro a actualizar");
-    console.log(type.key);
-    console.log(type);
-
     return this.typesProducts.update(type.key, type);
   }
 
   deleteFileStorage(downloadUrl) {
-    console.log("entro a borrar la imagen con esta url", downloadUrl);
+    // console.log("entro a borrar la imagen con esta url", downloadUrl);
     return this.storage.storage.refFromURL(downloadUrl).delete();
   }
 

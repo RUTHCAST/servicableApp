@@ -1,7 +1,7 @@
 export interface Usuario {
-  id: number;
+  // id: number;
   key?: string;
-  id_user_authorized: number;
+  id_user_authorized?: number;
   nombre: string;
   apellido: string;
   correo: string;

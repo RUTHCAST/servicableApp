@@ -12,6 +12,7 @@ import { NewComponent } from "../new/new.component";
 import { PlansService } from "../../../services/plans.service";
 import { PlanProduct } from "../../../models/plans.model";
 import { DeletePlanComponent } from "../delete-plan/delete-plan.component";
+import { ImageDetailComponent } from "../../../../../core/components/image-detail/image-detail.component";
 
 @Component({
   selector: "app-list",
@@ -61,7 +62,7 @@ export class ListComponent implements OnInit {
 
     this._route.params.subscribe((params: Params) => {
       if (params.id) {
-        console.log("existe el id");
+        // console.log("existe el id");
         this.productoId = parseInt(params.id);
       }
     });
@@ -84,7 +85,7 @@ export class ListComponent implements OnInit {
     };
     modalRef.componentInstance.props = props;
     modalRef.result.then((result) => {
-      console.log(result);
+      // console.log(result);
     });
   }
 
@@ -98,7 +99,7 @@ export class ListComponent implements OnInit {
     };
     modalRef.componentInstance.props = props;
     modalRef.result.then((result) => {
-      console.log(result);
+      // console.log(result);
     });
   }
 
@@ -111,7 +112,7 @@ export class ListComponent implements OnInit {
     };
     modalRef.componentInstance.props = props;
     modalRef.result.then((result) => {
-      console.log(result);
+      // console.log(result);
     });
   }
 
@@ -125,8 +126,18 @@ export class ListComponent implements OnInit {
     };
     modalRef.componentInstance.props = props;
     modalRef.result.then((result) => {
-      console.log(result);
+      // console.log(result);
     });
+  }
+
+  showImage(image:string) {
+    const modalRef: NgbModalRef = this.modalService.open(ImageDetailComponent, {
+      size: "lg",
+    });
+    const props = {
+      image
+    };
+    modalRef.componentInstance.props = props;
   }
 
   getTypes(): void {
@@ -135,7 +146,7 @@ export class ListComponent implements OnInit {
       .snapshotChanges()
       .subscribe((res) => {
         const size = this.typesProduct.length;
-        console.log(size);
+        // console.log(size);
         this.typesProduct.splice(0, size);
         res.forEach((t) => {
           const typesProduct = t.payload.toJSON();
@@ -152,7 +163,7 @@ export class ListComponent implements OnInit {
       .snapshotChanges()
       .subscribe((res) => {
         const size = this.plansProduct.length;
-        console.log(size);
+        // console.log(size);
         this.plansProduct.splice(0, size);
         res.forEach((t) => {
           const plansProduct = t.payload.toJSON();
@@ -164,11 +175,11 @@ export class ListComponent implements OnInit {
           this.plansProduct = this.plansProduct.filter(
             (value) => value.id_tipo === this.productoId
           );
-          console.log(this.plansProduct);
+          // console.log(this.plansProduct);
         }
 
         // this.categories = data;
-        console.log(this.plansProduct);
+        // console.log(this.plansProduct);
         this.dtTrigger.next();
       });
   }

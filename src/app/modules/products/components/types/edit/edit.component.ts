@@ -45,7 +45,7 @@ export class EditComponent implements OnInit {
   ngOnInit(): void {
     this.categories = this.props.categories;
     this.createForm();
-    console.log(this.props.product);
+    // console.log(this.props.product);
   }
 
   createForm() {
@@ -158,6 +158,7 @@ export class EditComponent implements OnInit {
     this.isLoading = true;
     this.spinner.show();
     const action = "update";
+    
     const data: TypeProduct = {
       id: this.props.product.id,
       key: this.props.product.key,
@@ -168,6 +169,7 @@ export class EditComponent implements OnInit {
       url_background: this.props.product.url_background,
     };
     console.log("data", data);
+
     this.currentFileUploadImg = new FileUpload(this.filedataImage);
     this.typeSrv
       .deleteFileStorage(this.props.product.url_image)
