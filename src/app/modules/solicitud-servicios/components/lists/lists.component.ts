@@ -88,7 +88,7 @@ export class ListsComponent implements OnInit {
   }
 
   verify(product: any) {
-    console.log("ingreso a verify function");
+    // console.log("ingreso a verify function");
     const verify = this.servicios.some(
       (arrVal) => arrVal.producto_id === product.id
     );
@@ -109,7 +109,7 @@ export class ListsComponent implements OnInit {
       .snapshotChanges()
       .subscribe((res) => {
         const size = this.productos.length;
-        console.log(size);
+        // console.log(size);
         this.productos.splice(0, size);
 
         res.forEach((t) => {
@@ -128,7 +128,7 @@ export class ListsComponent implements OnInit {
       .snapshotChanges()
       .subscribe((res) => {
         const size = this.servicios.length;
-        console.log(size);
+        // console.log(size);
         this.servicios.splice(0, size);
 
         res.forEach((t) => {

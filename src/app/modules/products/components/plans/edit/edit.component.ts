@@ -42,12 +42,12 @@ export class EditComponent implements OnInit {
 
   ngOnInit(): void {
     this.typesProducts = this.props.types;
-    console.log(this.typesProducts);
+    // console.log(this.typesProducts);
     this.createForm();
   }
 
   createForm() {
-    console.log(this.props.product.id_tipo);
+    // console.log(this.props.product.id_tipo);
     this.form = new FormGroup({
       id_tipo: new FormControl(this.props.product.id_tipo, Validators.required),
       nombre: new FormControl(this.props.product.nombre, Validators.required),
@@ -157,7 +157,7 @@ export class EditComponent implements OnInit {
       precio: this.form.get("precio").value,
       url_image: this.props.product.url_image,
     };
-    console.log("data", data);
+    // console.log("data", data);
     this.planSrv
       .updatePlan(data)
       .then(() => {

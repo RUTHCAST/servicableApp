@@ -18,7 +18,7 @@ export class DetailsComponent implements OnInit {
   constructor(public modal: NgbActiveModal, private planSrv: PlansService) {}
 
   ngOnInit(): void {
-    console.log(this.props);
+    // console.log(this.props);
     this.typesProducts = this.props.types;
     this.createForm();
   }

@@ -80,7 +80,7 @@ export class NewComponent implements OnInit {
     let reader = new FileReader();
     reader.onload = (event: any) => {
       this.url = event.target.result;
-      console.log(this.url);
+      // console.log(this.url);
     };
     reader.readAsDataURL(this.filedata);
   }
@@ -133,7 +133,7 @@ export class NewComponent implements OnInit {
     };
     modalRef.componentInstance.props = props;
     modalRef.result.then((result) => {
-      console.log(result);
+      // console.log(result);
     });
   }
 }

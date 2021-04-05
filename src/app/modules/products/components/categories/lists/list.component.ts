@@ -76,7 +76,7 @@ export class ListComponent implements OnInit, OnDestroy {
     };
     modalRef.componentInstance.props = props;
     modalRef.result.then((result) => {
-      console.log(result);
+      // console.log(result);
     });
   }
 
@@ -89,7 +89,7 @@ export class ListComponent implements OnInit, OnDestroy {
     };
     modalRef.componentInstance.props = props;
     modalRef.result.then((result) => {
-      console.log(result);
+      // console.log(result);
     });
   }
 
@@ -104,7 +104,7 @@ export class ListComponent implements OnInit, OnDestroy {
     };
     modalRef.componentInstance.props = props;
     modalRef.result.then((result) => {
-      console.log(result);
+      // console.log(result);
     });
   }
 
@@ -117,7 +117,7 @@ export class ListComponent implements OnInit, OnDestroy {
     };
     modalRef.componentInstance.props = props;
     modalRef.result.then((result) => {
-      console.log(result);
+      // console.log(result);
     });
   }
 
@@ -127,7 +127,7 @@ export class ListComponent implements OnInit, OnDestroy {
       .snapshotChanges()
       .subscribe((res) => {
         const size = this.categories.length;
-        console.log(size);
+        // console.log(size);
         this.categories.splice(0, size);
 
         res.forEach((t) => {
@@ -139,7 +139,7 @@ export class ListComponent implements OnInit, OnDestroy {
           this.categories.filter((value) => value.id === this.productoId);
         }
 
-        console.log(this.categories);
+        // console.log(this.categories);
         this.dtTrigger.next();
       });
   }
@@ -150,7 +150,7 @@ export class ListComponent implements OnInit, OnDestroy {
       .snapshotChanges()
       .subscribe((res) => {
         const size = this.typesProduct.length;
-        console.log(size);
+        // console.log(size);
         this.typesProduct.splice(0, size);
         res.forEach((t) => {
           const typesProduct = t.payload.toJSON();

@@ -64,7 +64,7 @@ export class ReportsComponent implements OnInit {
       .snapshotChanges()
       .subscribe((res) => {
         const size = this.stadictics.length;
-        console.log(size);
+        // console.log(size);
         this.stadictics.splice(0, size);
 
         res.forEach((t) => {

@@ -70,7 +70,6 @@ export class ListsDistritosComponent implements OnInit, OnDestroy {
       .snapshotChanges()
       .subscribe((res) => {
         const size = this.distritos.length;
-        console.log(size);
         this.distritos.splice(0, size);
 
         res.forEach((t) => {
@@ -94,7 +93,6 @@ export class ListsDistritosComponent implements OnInit, OnDestroy {
       .snapshotChanges()
       .subscribe((res) => {
         const size = this.departamentos.length;
-        console.log(size);
         this.departamentos.splice(0, size);
 
         res.forEach((t) => {
@@ -116,7 +114,7 @@ export class ListsDistritosComponent implements OnInit, OnDestroy {
     };
     modalRef.componentInstance.props = props;
     modalRef.result.then((result) => {
-      console.log(result);
+      // console.log(result);
     });
   }
 
@@ -133,7 +131,7 @@ export class ListsDistritosComponent implements OnInit, OnDestroy {
     };
     modalRef.componentInstance.props = props;
     modalRef.result.then((result) => {
-      console.log(result);
+      // console.log(result);
     });
   }
 
@@ -149,7 +147,7 @@ export class ListsDistritosComponent implements OnInit, OnDestroy {
     };
     modalRef.componentInstance.props = props;
     modalRef.result.then((result) => {
-      console.log(result);
+      // console.log(result);
     });
   }
 }

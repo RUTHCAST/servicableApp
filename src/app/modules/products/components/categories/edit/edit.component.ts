@@ -47,7 +47,7 @@ export class EditComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.props.product.id;
-    console.log(this.props.product.key);
+    // console.log(this.props.product.key);
     this.createForm();
   }
 
@@ -155,7 +155,7 @@ export class EditComponent implements OnInit {
     this.categoriesSrv
       .updateCategory(data)
       .then(() => {
-        console.log("Modificada exitosamente");
+        // console.log("Modificada exitosamente");
         this.success = true;
         this.isLoading = false;
         this.spinner.hide();
@@ -185,7 +185,7 @@ export class EditComponent implements OnInit {
     };
     modalRef.componentInstance.props = props;
     modalRef.result.then((result) => {
-      console.log(result);
+      // console.log(result);
     });
   }
 }
