@@ -1,11 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { NgxSpinnerService } from "ngx-spinner";
-import { NgbActiveModal, NgbModalRef,NgbModal,} from "@ng-bootstrap/ng-bootstrap";
-import { FileUpload } from '../../../../core/models/fileUpload';
-import { Input } from '@angular/core';
-import { UsersService } from '../../services/users.service';
+import { Component, OnInit } from "@angular/core";
+import {
+  AbstractControl,
+  AsyncValidatorFn,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from "@angular/forms";
+import { Router } from "@angular/router";
 
+import { NgxSpinnerService } from "ngx-spinner";
+import { NgbModalRef, NgbModal, NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
+import { v4 as uuid } from "uuid";
+
+import { LoginService } from '../../services/login.service';
+import { ConfirmedValidator } from "../../../../core/validators/confirm-password.validator";
+import { ImageCropperComponent } from "../../../../core/components/image-cropper/image-cropper.component";
+import { FileUpload } from "../../../../core/models/fileUpload";
+import { Usuario } from "../../models/usuario.model";
+import { UsersService } from "../../services/users.service";
 
 @Component({
   selector: 'app-new',
@@ -13,31 +27,32 @@ import { UsersService } from '../../services/users.service';
   styleUrls: ['./new.component.scss']
 })
 export class NewComponent implements OnInit {
-
+ 
   form: FormGroup;
   isSubmit = false;
   isLoading = false;
-  url: any = "";
+  success = false;
+  passVisibility = "off";
+  error = "";
+  url = "../../../../../assets/img/avatars/profile.png";
 
-  // selectedFiles: FileList;
   currentFileUpload: FileUpload;
   filedata: File;
   percentage: number;
-  success = false;
-
-
-  @Input() props: any;
-
 
   constructor(
     public modal: NgbActiveModal,
-    private canalesSrv: UsersService,
+    private userSrv: UsersService,
+    private loginSrv: LoginService,
+    private route: Router,
+    private fb: FormBuilder,
+    private modalService: NgbModal,
     private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
     this.createForm();
-    console.log(this.props.canales.length);
+   
  }
 
  closeModal() {
@@ -45,20 +60,32 @@ export class NewComponent implements OnInit {
 }
 
 createForm() {
-  this.form = new FormGroup({
-
-  id: new FormControl("", Validators.required),
-  key:new FormControl("", Validators.required),
-  id_user_authorized: new FormControl("", Validators.required),
-  nombre: new FormControl("", Validators.required),
-  apellido: new FormControl("", Validators.required),
-  correo: new FormControl("", Validators.required),
-  clave: new FormControl("", Validators.required),
-  confirm_password: new FormControl("", Validators.required),
-  createdAt: new FormControl("", Validators.required),
-  url_imagen:new FormControl("", Validators.required),
-  
-  });
+  this.form = this.fb.group(
+    {
+      nombre: ["", Validators.required],
+      apellido: ["", Validators.required],
+      correo: [
+        "",
+        [
+          Validators.required,
+          Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"),
+        ],
+        [this.loginSrv.usernameValidator()],
+      ],
+      clave: [
+        "",
+        [
+          Validators.required,
+          Validators.maxLength(8),
+          Validators.minLength(5),
+        ],
+      ],
+      confirm_password: ["", Validators.required],
+    },
+    {
+      validator: ConfirmedValidator("clave", "confirm_password"),
+    }
+  );
 }
 
 onInvalidField(fieldTag) {
@@ -76,21 +103,67 @@ onValidator(fieldTag: string, validatorTag: string) {
     (this.isSubmit || field.touched)
   );
 }
-
-cancel() {
-  this.url = "";
-  this.modal.close();
+get f() {
+  return this.form.controls;
 }
 
-fileEvent(e) {
-  // this.selectedFiles = e.target.files;
-  this.filedata = (e.target as HTMLInputElement).files[0];
-  let reader = new FileReader();
-  reader.onload = (event: any) => {
-    this.url = event.target.result;
-    console.log(this.url);
+uploadImage(): void {
+  const modalRef: NgbModalRef = this.modalService.open(
+    ImageCropperComponent,
+    {
+      size: "lg",
+    }
+  );
+  modalRef.result.then((result) => {
+    if (result) {
+      this.url = result.cropper;
+      this.filedata = result.fileData;
+    }
+    console.log(result);
+  });
+}
+
+register() {
+  this.isSubmit = true;
+  this.isLoading = true;
+  this.spinner.show();
+  console.log(typeof this.filedata);
+  if (!this.form.valid || typeof this.filedata =='undefined') {
+    return;
+  }
+  const action = "new";
+  const data: Usuario = {
+    // id: this.props.id,
+    key: uuid(),
+    nombre: this.form.get("nombre").value,
+    apellido: this.form.get("apellido").value,
+    correo: this.form.get("correo").value,
+    clave: this.form.get("clave").value,
+    confirm_password: this.form.get("confirm_password").value,
   };
-  reader.readAsDataURL(this.filedata);
+
+  this.currentFileUpload = new FileUpload(this.filedata);
+  this.userSrv
+    .pushUserStorage(this.currentFileUpload, data, action)
+    .subscribe(
+      (percentage) => {
+        this.percentage = Math.round(percentage);
+        if (this.percentage === 100) {
+          this.isLoading = false;
+          this.currentFileUpload = null;
+          this.success = true;
+          this.spinner.hide();
+          this.route.navigate(['/login/verification']);
+        }
+      },
+      (error) => {
+        console.log(error);
+        this.isLoading = false;
+        this.currentFileUpload = null;
+        this.spinner.hide();
+        this.success = true;
+      }
+    );
 }
 
 }
