@@ -8,6 +8,8 @@ import { NewComponent } from "./components/new/new.component";
 import { AuthComponent } from "./components/auth.component";
 import { CoreModule } from "../../core/core.module";
 import { AuthRoutingModuleModule } from "./auth-routing-module.module";
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule} from '@angular/forms'
 
 @NgModule({
   declarations: [
@@ -18,6 +20,6 @@ import { AuthRoutingModuleModule } from "./auth-routing-module.module";
     NewComponent,
     AuthComponent,
   ],
-  imports: [CommonModule, CoreModule, AuthRoutingModuleModule],
+  imports: [CommonModule, CoreModule, AuthRoutingModuleModule, FormsModule, ReactiveFormsModule],
 })
 export class AuthModule {}
