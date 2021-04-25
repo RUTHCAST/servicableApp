@@ -1,17 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  AbstractControl,
-  AsyncValidatorFn,
   FormBuilder,
-  FormControl,
   FormGroup,
-  ValidationErrors,
   Validators,
 } from "@angular/forms";
 import { Router } from "@angular/router";
 
 import { NgxSpinnerService } from "ngx-spinner";
-import { NgbModalRef, NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { NgbModalRef, NgbModal, NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { v4 as uuid } from "uuid";
 import { FileUpload } from '../../../../core/models/fileUpload';
 import { UsersService } from '../../services/users.service';
@@ -21,12 +17,11 @@ import { ImageCropperComponent } from '../../../../core/components/image-cropper
 import { Usuario } from '../../models/usuario.model';
 
 @Component({
-  selector: 'app-new',
-  templateUrl: './new.component.html',
-  styleUrls: ['./new.component.scss']
+  selector: "app-new",
+  templateUrl: "./new.component.html",
+  styleUrls: ["./new.component.scss"],
 })
 export class NewComponent implements OnInit {
-
   form: FormGroup;
   isSubmit = false;
   isLoading = false;
@@ -45,8 +40,9 @@ export class NewComponent implements OnInit {
     private route: Router,
     private fb: FormBuilder,
     private modalService: NgbModal,
-    private spinner: NgxSpinnerService
-  ) { }
+    private spinner: NgxSpinnerService,
+    public modal: NgbActiveModal
+  ) {}
 
   ngOnInit(): void {
     this.createForm();
@@ -122,7 +118,7 @@ export class NewComponent implements OnInit {
     this.isLoading = true;
     this.spinner.show();
     console.log(typeof this.filedata);
-    if (!this.form.valid || typeof this.filedata =='undefined') {
+    if (!this.form.valid || typeof this.filedata == "undefined") {
       return;
     }
     const action = "new";
@@ -147,7 +143,7 @@ export class NewComponent implements OnInit {
             this.currentFileUpload = null;
             this.success = true;
             this.spinner.hide();
-            this.route.navigate(['/login/verification']);
+            this.route.navigate(["/login/verification"]);
           }
         },
         (error) => {
@@ -160,4 +156,7 @@ export class NewComponent implements OnInit {
       );
   }
 
+  closeModal() {
+    this.modal.close(false);
+  }
 }
