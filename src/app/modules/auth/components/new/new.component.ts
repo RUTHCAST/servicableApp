@@ -30,6 +30,7 @@ export class NewComponent implements OnInit {
   error = "";
   url = "../../../../../assets/img/avatars/profile.png";
 
+
   currentFileUpload: FileUpload;
   filedata: File;
   percentage: number;
@@ -46,6 +47,7 @@ export class NewComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
+    console.log(this.filedata);
   }
 
   createForm() {
@@ -98,6 +100,7 @@ export class NewComponent implements OnInit {
   }
 
   uploadImage(): void {
+   
     const modalRef: NgbModalRef = this.modalService.open(
       ImageCropperComponent,
       {
@@ -110,7 +113,9 @@ export class NewComponent implements OnInit {
         this.filedata = result.fileData;
       }
       console.log(result);
+      console.log(this.filedata);
     });
+    
   }
 
   register() {
@@ -143,7 +148,7 @@ export class NewComponent implements OnInit {
             this.currentFileUpload = null;
             this.success = true;
             this.spinner.hide();
-            this.route.navigate(["/login/verification"]);
+            
           }
         },
         (error) => {

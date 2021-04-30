@@ -9,7 +9,7 @@
       <div class="card">
         <div class="card-header"><strong>NUEVO</strong> Usuario</div>
         <div class="card-body">
-          <form [formGroup]="form">
+          <form [formGroup]="form" *ngIf='!success'>
             <div class="row mb-0">
               <img
                 [src]="url"
@@ -212,6 +212,15 @@
               </div>
             </div>
           </form>
+          <div class="alert alert-success px-5 my-3 py-3 text-center" *ngIf='success'>
+            Usuario Registrado Exitosamente
+          </div>
+
+        </div> 
+        <div class="card-footer" *ngIf='success'>
+            <button class="btn btn-secondary" (click)='closeModal()'>
+              Cerrar
+            </button>  
         </div>
       </div>
     </div>
@@ -219,3 +228,5 @@
   <ngx-spinner> </ngx-spinner>
 </div>
 <ngx-spinner> </ngx-spinner>
+
+
