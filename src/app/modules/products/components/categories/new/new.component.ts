@@ -40,6 +40,7 @@ export class NewComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
+    console.log(this.filedata);
   }
 
   closeModal() {

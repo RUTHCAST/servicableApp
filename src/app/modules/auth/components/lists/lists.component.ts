@@ -96,7 +96,7 @@ export class ListsComponent implements OnInit, OnDestroy {
 
   onNew(): void {
     const modalRef: NgbModalRef = this.modalService.open(NewComponent, {
-      size: "lg",
+      size: "md",
     });
     const props = {
       id: this.users.length,
