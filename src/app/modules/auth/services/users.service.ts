@@ -45,9 +45,9 @@ export class UsersService {
     this.usuarios.push(usuarioObj);
   }
 
-  //   updateCategory(category: Category) {
-  //     return this.categories.update(category.key, category);
-  //   }
+     updateUser(user: Usuario) {
+       return this.usuarios.update(user.key, user);
+    }
 
   //   deleteCategory(category: Category) {
   //     return this.deleteCategoryDatabase(category.key)
@@ -67,8 +67,8 @@ export class UsersService {
     if (action === "new") {
       this.newUser(category);
     } else if (action === "update") {
-      console.log("Arreglar usuarios");
-      // this.updateCategory(category);
+     
+      this.updateUser(category);
     }
   }
 
