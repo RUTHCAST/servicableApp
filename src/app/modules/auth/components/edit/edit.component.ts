@@ -1,37 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 
 import { NgxSpinnerService } from "ngx-spinner";
-import { NgbModalRef, NgbModal, NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
+import {
+  NgbModalRef,
+  NgbModal,
+  NgbActiveModal,
+} from "@ng-bootstrap/ng-bootstrap";
 import { v4 as uuid } from "uuid";
-import { UsersService } from '../../services/users.service';
-import { LoginService } from '../../services/login.service';
-import { FormControl } from '@angular/forms';
-import { Input } from '@angular/core';
-import { users } from '../../models/user.model';
-import { FileUpload } from '../../../../core/models/fileUpload';
-import { ImageCropperComponent } from '../../../../core/components/image-cropper/image-cropper.component';
-import { Usuario } from '../../models/usuario.model';
+import { UsersService } from "../../services/users.service";
+import { LoginService } from "../../services/login.service";
+import { FormControl } from "@angular/forms";
+import { Input } from "@angular/core";
+import { users } from "../../models/user.model";
+import { FileUpload } from "../../../../core/models/fileUpload";
+import { ImageCropperComponent } from "../../../../core/components/image-cropper/image-cropper.component";
+import { Usuario } from "../../models/usuario.model";
 
 @Component({
-  selector: 'app-edit',
-  templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.scss']
+  selector: "app-edit",
+  templateUrl: "./edit.component.html",
+  styleUrls: ["./edit.component.scss"],
 })
 export class EditComponent implements OnInit {
-
   form: FormGroup;
   isSubmit = false;
   isLoading = false;
   success = false;
   url: string;
-
 
   currentFileUpload: FileUpload;
   filedata: File;
@@ -39,7 +37,6 @@ export class EditComponent implements OnInit {
   @Input() props: any;
 
   constructor(
-
     private userSrv: UsersService,
     private loginSrv: LoginService,
     private route: Router,
@@ -47,12 +44,12 @@ export class EditComponent implements OnInit {
     private modalService: NgbModal,
     private spinner: NgxSpinnerService,
     public modal: NgbActiveModal
-
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
-    this.url = this.props.user.url_imagen || "../../../../../assets/img/avatars/profile.png";
+    this.url =
+      this.props.user.url_imagen ||
+      "../../../../../assets/img/avatars/profile.png";
     this.createForm();
   }
 
@@ -66,12 +63,12 @@ export class EditComponent implements OnInit {
       apellido: new FormControl(this.props.user.apellido, Validators.required),
       correo: new FormControl(this.props.user.correo, Validators.required),
       clave: new FormControl(this.props.user.clave, Validators.required),
-      confirm_password: new FormControl(this.props.user.confirm_password, Validators.required),
+      confirm_password: new FormControl(
+        this.props.user.confirm_password,
+        Validators.required
+      ),
     });
-
-
   }
-
 
   onInvalidField(fieldTag) {
     return (
@@ -116,22 +113,64 @@ export class EditComponent implements OnInit {
         this.url = result.cropper;
         this.filedata = result.fileData;
       }
-      console.log(this.filedata);
     });
   }
-  
+
   edit() {
+    if (typeof this.filedata === "undefined") {
+      this.editWitOutPicture();
+    } else {
+      this.editWithPicture();
+    }
+  }
+
+  editWitOutPicture() {
+    this.isSubmit = true;
+    this.isLoading = true;
+    this.spinner.show();
+    if (!this.form.valid) {
+      return;
+    }
+    const data: Usuario = {
+      key: this.props.user.key,
+      nombre: this.form.get("nombre").value,
+      apellido: this.form.get("apellido").value,
+      correo: this.form.get("correo").value,
+      clave: this.form.get("clave").value,
+      confirm_password: this.form.get("confirm_password").value,
+      url_imagen: this.props.user.url_imagen,
+    };
+console.log('data', data)
+    this.userSrv
+      .updateUser(data)
+      .then(
+        (result) => {
+          this.isLoading = false;
+          this.success = true;
+          this.spinner.hide();
+        },
+        (error) => {
+          console.log(error);
+          this.isLoading = false;
+          this.spinner.hide();
+          this.success = true;
+        }
+      ).catch((err) => {
+        console.log(err);
+      });
+  }
+
+  editWithPicture() {
     this.isSubmit = true;
     this.isLoading = true;
     console.log(this.filedata);
     this.spinner.show();
     console.log(typeof this.filedata);
-    if (!this.form.valid || typeof this.filedata =='undefined') {
+    if (!this.form.valid) {
       return;
     }
     const action = "update";
     const data: Usuario = {
-       
       key: this.props.user.key,
       nombre: this.form.get("nombre").value,
       apellido: this.form.get("apellido").value,
@@ -151,7 +190,6 @@ export class EditComponent implements OnInit {
             this.currentFileUpload = null;
             this.success = true;
             this.spinner.hide();
-            this.route.navigate(['/login/verification']);
           }
         },
         (error) => {
@@ -163,7 +201,4 @@ export class EditComponent implements OnInit {
         }
       );
   }
-
-
-
 }

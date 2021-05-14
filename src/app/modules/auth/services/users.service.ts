@@ -67,7 +67,6 @@ export class UsersService {
     if (action === "new") {
       this.newUser(category);
     } else if (action === "update") {
-     
       this.updateUser(category);
     }
   }

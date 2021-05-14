@@ -103,7 +103,7 @@ export class RegisterComponent implements OnInit {
     const modalRef: NgbModalRef = this.modalService.open(
       ImageCropperComponent,
       {
-        size: "lg",
+        size: "md",
       }
     );
     modalRef.result.then((result) => {
@@ -119,6 +119,7 @@ export class RegisterComponent implements OnInit {
     this.isSubmit = true;
     this.isLoading = true;
     this.spinner.show();
+    console.log(this.filedata);
     console.log(typeof this.filedata);
     if (!this.form.valid || typeof this.filedata =='undefined') {
       return;

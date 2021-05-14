@@ -70,7 +70,7 @@ export class ListsComponent implements OnInit, OnDestroy {
 
   onEdit(user: users): void {
     const modalRef: NgbModalRef = this.modalService.open(EditComponent, {
-      size: "lg",
+      size: "md",
     });
     const props = {
       user,
@@ -120,7 +120,6 @@ export class ListsComponent implements OnInit, OnDestroy {
           users["key"] = t.key;
           this.users.push(users as users);
         });
-        console.log(this.users);
         this.dtTrigger.next();
       });
   }
