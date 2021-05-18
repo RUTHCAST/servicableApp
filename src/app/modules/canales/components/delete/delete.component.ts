@@ -28,7 +28,6 @@ export class DeleteComponent implements OnInit {
   delete() {
     this.isLoading = true;
     this.spinner.show();
-    alert(this.props.key);
     this.canalesSrv
       .deleteCanal(this.props.canales)
       .then(() => {

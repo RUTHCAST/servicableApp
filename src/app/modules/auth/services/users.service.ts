@@ -49,25 +49,30 @@ export class UsersService {
        return this.usuarios.update(user.key, user);
     }
 
-  //   deleteCategory(category: Category) {
-  //     return this.deleteCategoryDatabase(category.key)
-  //       .then(() => {
-  //         this.deleteFileStorage(category.url_image);
-  //       })
-  //       .catch((err: any) => {
-  //         console.log(err);
-  //       });
-  //   }
+    deleteUser(user: Usuario) {
+      return this.deleteUserDatabase(user.key)
+      .then(() => {
+           this.deleteFileStorage(user.url_imagen);
+         })
+         .catch((err: any) => {
+           console.log(err);
+         });
+     }
 
-  //   deleteCategoryDatabase(key: any) {
-  //     return this.categories.remove(key);
-  //   }
+     deleteFileStorage(downloadUrl) {
+      
+      return this.storage.storage.refFromURL(downloadUrl).delete();
+    }
 
-  executeAction(action: string, category) {
+    deleteUserDatabase(key: any) {
+      return this.usuarios.remove(key);
+    }
+
+  executeAction(action: string, user) {
     if (action === "new") {
-      this.newUser(category);
+      this.newUser(user);
     } else if (action === "update") {
-      this.updateUser(category);
+      this.updateUser(user);
     }
   }
 

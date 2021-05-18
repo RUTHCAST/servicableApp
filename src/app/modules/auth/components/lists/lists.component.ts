@@ -8,6 +8,7 @@ import { EditComponent } from '../edit/edit.component';
 import { ModalDeleteComponent } from '../../../products/components/categories/modal-delete/modal-delete.component';
 import { NewComponent } from '../new/new.component';
 import { ImageDetailComponent } from '../../../../core/components/image-detail/image-detail.component';
+import { DeleteUserComponent } from '../delete-user/delete-user.component';
 //import { ModalDeleteComponent } from '../../../../core/components/modal-delete/modal-delete.component';
 
 
@@ -82,7 +83,7 @@ export class ListsComponent implements OnInit, OnDestroy {
   }
 
   onDelete(user: users): void {
-    const modalRef: NgbModalRef = this.modalService.open(ModalDeleteComponent, {
+    const modalRef: NgbModalRef = this.modalService.open( DeleteUserComponent, {
       size: "lg",
     });
     const props = {

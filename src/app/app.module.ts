@@ -54,6 +54,7 @@ import { AngularFireModule } from "@angular/fire";
 import { AngularFireDatabaseModule } from "@angular/fire/database";
 import { AngularFireStorageModule, BUCKET } from "@angular/fire/storage";
 import { environment } from "../environments/environment";
+
 @NgModule({
   imports: [
     BrowserModule,

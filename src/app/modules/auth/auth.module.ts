@@ -10,6 +10,7 @@ import { NewComponent } from "./components/new/new.component";
 import { AuthComponent } from "./components/auth.component";
 
 import { AuthRoutingModuleModule } from "./auth-routing-module.module";
+import { DeleteUserComponent } from "./components/delete-user/delete-user.component";
 @NgModule({
   declarations: [
     RegisterComponent,
@@ -18,6 +19,7 @@ import { AuthRoutingModuleModule } from "./auth-routing-module.module";
     ListsComponent,
     NewComponent,
     AuthComponent,
+    DeleteUserComponent,
   ],
   imports: [CommonModule, CoreModule, AuthRoutingModuleModule],
 })
